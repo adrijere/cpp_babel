@@ -11,13 +11,14 @@
 #include <cstdlib>
 #include "ImplementationFactory.hpp"
 #include "UnixMutex.hpp"
+#include "UnixThread.hpp"
 
 IThread * ImplementationFactory::createThread()
 {
 	#ifdef WIN32
 		return NULL;
 	#else
-		return NULL;
+		return new UnixThread();
 	#endif
 }
 
