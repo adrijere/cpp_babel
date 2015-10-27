@@ -1,0 +1,23 @@
+//
+// IClient.hpp for babel in /home/nlequain/projets/tek3/cpp_avance/cpp_babel/implementations/network
+//
+// Made by Nicolas Lequain
+// Login   <nlequain@epitech.eu>
+//
+// Started on  Tue Oct 27 16:33:40 2015 Nicolas Lequain
+// Last update Tue Oct 27 16:33:40 2015 Nicolas Lequain
+//
+
+#ifndef ICLIENT_H_
+# define ICLIENT_H_
+
+# include "INetwork.hpp"
+
+class IClient : public INetwork
+{
+public:
+	~IClient() {}
+	virtual void connect(const std::string & addr, const short port) = 0;
+};
+
+#endif /* ICLIENT_H_ */
