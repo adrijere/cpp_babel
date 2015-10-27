@@ -6,9 +6,11 @@ RM		=	rm -rf
 
 SRC		=	
 
+
 OBJ		=	$(SRC:.cpp=.o)
 
 CPPFLAGS	=	-W -Wall -Wextra -Werror
+CPPFLAGS	+=	-I inc
 
 all		:	$(NAME)
 
