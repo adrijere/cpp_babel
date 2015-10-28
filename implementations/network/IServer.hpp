@@ -13,7 +13,7 @@
 
 # include "INetwork.hpp"
 
-class IServer : virtual public INetwork
+class IServer
 {
 public:
 	~IServer() {}
@@ -23,8 +23,9 @@ public:
 	virtual void listen(const short port) = 0;
 	/*
 	** Waits for a client to connect to the server.
+	** Returns an instance of INetwork used to communicate with the new client.
 	*/
-	virtual void waitConnection() = 0;
+	virtual INetwork * waitConnection() = 0;
 };
 
 #endif /* ISERVER_H_ */

@@ -11,10 +11,10 @@
 #ifndef BOOSTTCPCLIENT_H_
 # define BOOSTTCPCLIENT_H_
 
-# include "ABoostTCPNetwork.hpp"
+# include "BoostTCPNetwork.hpp"
 # include "IClient.hpp"
 
-class BoostTCPClient : virtual public ABoostTCPNetwork, virtual public IClient
+class BoostTCPClient : virtual public BoostTCPNetwork, virtual public IClient
 {
 public:
 	BoostTCPClient();

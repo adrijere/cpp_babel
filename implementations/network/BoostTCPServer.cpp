@@ -8,6 +8,7 @@
 // Last update Tue Oct 27 20:21:03 2015 Nicolas Lequain
 //
 
+#include "BoostTCPNetwork.hpp"
 #include "BoostTCPServer.hpp"
 
 BoostTCPServer::BoostTCPServer() : _acceptor(NULL)
@@ -28,9 +29,12 @@ void BoostTCPServer::listen(const short port)
 	this->_acceptor = new boost::asio::ip::tcp::acceptor(this->_io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port));
 }
 
-void BoostTCPServer::waitConnection()
+INetwork * BoostTCPServer::waitConnection()
 {
+	BoostTCPNetwork * newConnection = new BoostTCPNetwork();
+
 	if (this->_acceptor == NULL)
-		return ;
-	this->_acceptor->accept(this->_socket);
+		return NULL;
+	this->_acceptor->accept(newConnection->getSocket());
+	return newConnection;
 }

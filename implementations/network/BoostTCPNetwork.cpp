@@ -1,5 +1,5 @@
 //
-// ABoostTCPNetwork.cpp for babel in /home/nlequain/projets/tek3/cpp_avance/cpp_babel/implementations/network
+// BoostTCPNetwork.cpp for babel in /home/nlequain/projets/tek3/cpp_avance/cpp_babel/implementations/network
 //
 // Made by Nicolas Lequain
 // Login   <nlequain@epitech.eu>
@@ -9,19 +9,19 @@
 //
 
 #include <boost/array.hpp>
-#include "ABoostTCPNetwork.hpp"
+#include "BoostTCPNetwork.hpp"
 
-ABoostTCPNetwork::ABoostTCPNetwork() : _socket(this->_io_service)
+BoostTCPNetwork::BoostTCPNetwork() : _socket(this->_io_service)
 {
 
 }
 
-ABoostTCPNetwork::~ABoostTCPNetwork()
+BoostTCPNetwork::~BoostTCPNetwork()
 {
 
 }
 
-void ABoostTCPNetwork::read(std::string & buffer)
+void BoostTCPNetwork::read(std::string & buffer)
 {
 	boost::array<char, 4096> readBuffer;
 	size_t readLength;
@@ -38,9 +38,14 @@ void ABoostTCPNetwork::read(std::string & buffer)
 	buffer.insert(0, readBuffer.data(), readLength);
 }
 
-void ABoostTCPNetwork::write(const std::string & data)
+void BoostTCPNetwork::write(const std::string & data)
 {
 	boost::system::error_code ignored_error; /* Permet d'ignorer les erreurs */
 
 	boost::asio::write(this->_socket, boost::asio::buffer(data), ignored_error);
+}
+
+boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()
+{
+	return this->_socket;
 }

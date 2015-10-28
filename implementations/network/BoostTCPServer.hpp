@@ -12,19 +12,19 @@
 # define BOOSTTCPSERVER_H_
 
 # include <boost/asio.hpp>
-# include "ABoostTCPNetwork.hpp"
 # include "IServer.hpp"
 
-class BoostTCPServer : public ABoostTCPNetwork, public IServer
+class BoostTCPServer : public IServer
 {
 private:
+	boost::asio::io_service _io_service;
 	boost::asio::ip::tcp::acceptor * _acceptor;
 
 public:
 	BoostTCPServer();
 	~BoostTCPServer();
 	virtual void listen(const short port);
-	virtual void waitConnection();
+	virtual INetwork * waitConnection();
 };
 
 #endif /* BOOSTTCPSERVER_H_ */
