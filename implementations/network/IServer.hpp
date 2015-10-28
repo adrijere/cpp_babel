@@ -17,7 +17,13 @@ class IServer : virtual public INetwork
 {
 public:
 	~IServer() {}
+	/*
+	** Asks the server to listen on the port sent as an argument.
+	*/
 	virtual void listen(const short port) = 0;
+	/*
+	** Waits for a client to connect to the server.
+	*/
 	virtual void waitConnection() = 0;
 };
 

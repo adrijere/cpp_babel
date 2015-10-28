@@ -12,6 +12,8 @@
 #include "ImplementationFactory.hpp"
 #include "UnixMutex.hpp"
 #include "UnixThread.hpp"
+#include "BoostTCPClient.hpp"
+#include "BoostTCPServer.hpp"
 
 IThread * ImplementationFactory::createThread()
 {
@@ -28,5 +30,23 @@ IMutex * ImplementationFactory::createMutex()
 		return NULL;
 	#else
 		return new UnixMutex();
+	#endif
+}
+
+IClient * ImplementationFactory::createTCPClient()
+{
+	#ifdef WIN32
+		return NULL;
+	#else
+		return new BoostTCPClient();
+	#endif
+}
+
+IServer * ImplementationFactory::createTCPServer()
+{
+	#ifdef WIN32
+		return NULL;
+	#else
+		return new BoostTCPServer();
 	#endif
 }

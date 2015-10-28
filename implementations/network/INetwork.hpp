@@ -15,7 +15,13 @@ class INetwork
 {
 public:
 	~INetwork() {}
+	/*
+	** Reads on the socket and stores the message into the buffer passed as an argument.
+	*/
 	virtual void read(std::string & buffer) = 0;
+	/*
+	** Writes the data sent as an argument into the socket.
+	*/
 	virtual void write(const std::string & data) = 0;
 };
 

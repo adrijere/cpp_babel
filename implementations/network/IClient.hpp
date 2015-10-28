@@ -17,6 +17,9 @@ class IClient : virtual public INetwork
 {
 public:
 	~IClient() {}
+	/*
+	** Connects the socket to the address and port sent as an argument.
+	*/
 	virtual void connect(const std::string & addr, const short port) = 0;
 };
 

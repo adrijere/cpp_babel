@@ -13,12 +13,16 @@
 
 # include "IThread.hpp"
 # include "IMutex.hpp"
+# include "IClient.hpp"
+# include "IServer.hpp"
 
 class ImplementationFactory
 {
 public:
 	static IThread * createThread();
 	static IMutex * createMutex();
+	static IClient * createTCPClient();
+	static IServer * createTCPServer();
 };
 
 #endif /* IMPLEMENTATIONFACTORY_H_ */
