@@ -13,7 +13,7 @@
 
 # include "INetwork.hpp"
 
-class IServer
+class IServer : virtual public INetwork
 {
 public:
 	~IServer() {}

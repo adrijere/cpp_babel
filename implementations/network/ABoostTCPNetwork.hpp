@@ -14,7 +14,7 @@
 # include <boost/asio.hpp>
 # include "INetwork.hpp"
 
-class ABoostTCPNetwork : public INetwork
+class ABoostTCPNetwork : virtual public INetwork
 {
 protected:
 	boost::asio::io_service _io_service;

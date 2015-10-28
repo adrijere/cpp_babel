@@ -13,7 +13,7 @@
 
 # include "INetwork.hpp"
 
-class IClient : public INetwork
+class IClient : virtual public INetwork
 {
 public:
 	~IClient() {}

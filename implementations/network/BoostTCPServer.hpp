@@ -15,7 +15,7 @@
 # include "ABoostTCPNetwork.hpp"
 # include "IServer.hpp"
 
-class BoostTCPServer : virtual public ABoostTCPNetwork, virtual public IServer
+class BoostTCPServer : public ABoostTCPNetwork, public IServer
 {
 private:
 	boost::asio::ip::tcp::acceptor * _acceptor;

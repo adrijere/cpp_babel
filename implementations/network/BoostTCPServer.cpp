@@ -34,12 +34,3 @@ void BoostTCPServer::waitConnection()
 		return ;
 	this->_acceptor->accept(this->_socket);
 }
-
-int main()
-{
-	BoostTCPServer server;
-
-	server.listen(4242);
-	server.waitConnection();
-	server.write("ok ta mer");
-}
