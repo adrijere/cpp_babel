@@ -11,6 +11,8 @@
 #ifndef BOOSTTCPNETWORK_H_
 # define BOOSTTCPNETWORK_H_
 
+# include <string>
+# include <boost/array.hpp>
 # include <boost/asio.hpp>
 # include "INetwork.hpp"
 

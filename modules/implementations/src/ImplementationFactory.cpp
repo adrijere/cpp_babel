@@ -8,45 +8,16 @@
 // Last update Thu Oct 15 11:43:01 2015 Nicolas Lequain
 //
 
-#include <cstdlib>
 #include "ImplementationFactory.hpp"
-#include "UnixMutex.hpp"
-#include "UnixThread.hpp"
 #include "BoostTCPClient.hpp"
 #include "BoostTCPServer.hpp"
 
-IThread * ImplementationFactory::createThread()
-{
-	#ifdef WIN32
-		return NULL;
-	#else
-		return new UnixThread();
-	#endif
-}
-
-IMutex * ImplementationFactory::createMutex()
-{
-	#ifdef WIN32
-		return NULL;
-	#else
-		return new UnixMutex();
-	#endif
-}
-
 IClient * ImplementationFactory::createTCPClient()
 {
-	#ifdef WIN32
-		return NULL;
-	#else
-		return new BoostTCPClient();
-	#endif
+	return new BoostTCPClient();
 }
 
 IServer * ImplementationFactory::createTCPServer()
 {
-	#ifdef WIN32
-		return NULL;
-	#else
-		return new BoostTCPServer();
-	#endif
+	return new BoostTCPServer();
 }

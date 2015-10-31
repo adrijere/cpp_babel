@@ -8,9 +8,14 @@
 ** Last update Mon Oct  26 00:15:45 2015 Julien Loir
 */
 
+#ifndef _CORE_HPP_
+# define _CORE_HPP_
+
 class Core {
- public:
-  Core();
-  ~Core();
-  void run();
+public:
+    Core();
+    ~Core();
+    void run();
 };
+
+#endif

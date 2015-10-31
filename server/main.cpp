@@ -11,6 +11,6 @@
 #include "Core.hpp"
 
 int main(int ac, char **av) {
-  Core mainCore;
-  mainCore.run();
+    Core mainCore;
+    mainCore.run();
 }

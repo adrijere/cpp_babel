@@ -11,6 +11,7 @@
 #ifndef ICLIENT_H_
 # define ICLIENT_H_
 
+# include <string>
 # include "INetwork.hpp"
 
 class IClient : virtual public INetwork

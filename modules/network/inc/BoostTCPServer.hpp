@@ -11,8 +11,10 @@
 #ifndef BOOSTTCPSERVER_H_
 # define BOOSTTCPSERVER_H_
 
+# include <string>
 # include <boost/asio.hpp>
 # include "IServer.hpp"
+# include "BoostTCPNetwork.hpp"
 
 class BoostTCPServer : public IServer
 {

@@ -11,6 +11,8 @@
 #ifndef INETWORK_H_
 # define INETWORK_H_
 
+# include <string>
+
 class INetwork
 {
 public:

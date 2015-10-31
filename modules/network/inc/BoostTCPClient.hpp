@@ -11,6 +11,7 @@
 #ifndef BOOSTTCPCLIENT_H_
 # define BOOSTTCPCLIENT_H_
 
+# include <string>
 # include "BoostTCPNetwork.hpp"
 # include "IClient.hpp"
 

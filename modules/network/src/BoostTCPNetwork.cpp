@@ -8,7 +8,6 @@
 // Last update Tue Oct 27 16:53:36 2015 Nicolas Lequain
 //
 
-#include <boost/array.hpp>
 #include "BoostTCPNetwork.hpp"
 
 BoostTCPNetwork::BoostTCPNetwork() : _socket(this->_io_service)

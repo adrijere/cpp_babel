@@ -8,7 +8,6 @@
 // Last update Tue Oct 27 20:21:03 2015 Nicolas Lequain
 //
 
-#include "BoostTCPNetwork.hpp"
 #include "BoostTCPServer.hpp"
 
 BoostTCPServer::BoostTCPServer() : _acceptor(NULL)
