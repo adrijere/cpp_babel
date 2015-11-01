@@ -1,5 +1,13 @@
 #include "PluginAudio"
 
+void PluginAudio::recordCallback() {
+
+}
+
+void PluginAudio::playCallback() {
+
+}
+
 void PluginAudio::startStream(paStream *stream) {
   if (err = Pa_StartStream(stream) != paNoError) {
     std::cerr << "Portaudio error: " << std::endl;
@@ -13,30 +21,31 @@ void PluginAudio::stopStream(paStream *stream) {
 }
 
 void PluginAudio::openInputStream() {
-  if (Pa_OpenStream(&outputStream, NULL, &output, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, recordCallback, &data) != paNoError) {
+  if (Pa_OpenStream(&outputStream, NULL, &output, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, recordCallback, &inputData) != paNoError) {
     std::cerr << "PortAudio error:" << std::endl;
   }
 }
 
 void PluginAudio::openInputStream() {
-  if (Pa_OpenStream(&inputStream, &input, NULL, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, recordCallback, &data) != paNoError) {
+  if (Pa_OpenStream(&inputStream, &input, NULL, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, recordCallback, &outputData) != paNoError) {
     std::cerr << "PortAudio error:" << std::endl;
   }
 }
 
-void PluginAudio::initRecord() {
+void PluginAudio::initData(paData &data) {
   for(i=0; i<numSamples; i++)
     data.recordedSamples[i] = 0;
 }
 
 PluginAudio::PluginAudio() {
-  data.maxFrameIndex = totalFrames = NUM_SECONDS * SAMPLE_RATE;
-  data.frameIndex = 0;
+  outputData.maxFrameIndex = inputData.maxFrameIndex = totalFrames = NUM_SECONDS * SAMPLE_RATE;
+  outputData.frameIndex = inputData.frameIndex = 0;
   numSamples = totalFrames * NUM_CHANNELS;
   numBytes = numSamples * sizeof(SAMPLE);
 
   // initialisation du buffer, a refaire en mode c++
-  data.recordedSamples = (SAMPLE *) malloc( numBytes );
+  inputData.recordedSamples = (SAMPLE *) malloc( numBytes );
+  outputData.recordedSamples = (SAMPLE *) malloc( numBytes );
   initRecord();
 
   // init portAudio

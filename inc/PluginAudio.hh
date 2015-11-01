@@ -16,7 +16,9 @@ SAMPLE *recordedSamples;
 
 class PluginAudio {
   private:
-    paData data;
+    paData inputData;
+    paData outputData;
+
     paStream *inputStream;
     paStream *outputStream;
     paError err;
@@ -35,7 +37,7 @@ class PluginAudio {
     void startStream(paStream *);
     void stopStream(paStream *);
 
-    void initRecord();
+    void initData(paData &);
     void recordCallback();
     void playCallback();
 
