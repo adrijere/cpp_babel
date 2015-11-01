@@ -24,7 +24,7 @@ void Command::ComError::write() {
 
 void Command::ComListRequest::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(this->_id_name);
+  this->readShort(&this->_id_name);
 }
 void Command::ComListRequest::write() {
   unsigned int size = 2;
@@ -40,7 +40,7 @@ void Command::ComListResponse::parse(INetwork *peer) {
   while (currSize < this->_size) {
     unsigned short idName;
     std::string stringData;
-    this->readShort(idName);
+    this->readShort(&idName);
     this->readString(stringData);
     currSize += 2 + stringData.size();
     this->_contactList[idName] = stringData;
@@ -74,7 +74,7 @@ void Command::ComCoRequest::write() {
 
 void Command::ComCoResponse::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(this->_id_name);
+  this->readShort(&this->_id_name);
 }
 void Command::ComCoResponse::write() {
   unsigned int size = 2;
@@ -86,7 +86,7 @@ void Command::ComCoResponse::write() {
 
 void Command::Ping::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(this->_id_name);
+  this->readShort(&this->_id_name);
 }
 void Command::Ping::write() {
   unsigned int size = 2;
@@ -98,8 +98,8 @@ void Command::Ping::write() {
 
 void Command::ComCoChange::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(this->_id_name);
-  this->readChar(this->_status);
+  this->readShort(&this->_id_name);
+  this->readChar(&this->_status);
 }
 void Command::ComCoChange::write() {
   unsigned int size = 3;
@@ -112,7 +112,7 @@ void Command::ComCoChange::write() {
 
 void Command::ComFriendRequest::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(this->_id_friend);
+  this->readShort(&this->_id_friend);
 }
 void Command::ComFriendRequest::write() {
   unsigned int size = 2;
@@ -124,9 +124,9 @@ void Command::ComFriendRequest::write() {
 
 void Command::ComFriendResponse::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(this->_id_friend);
+  this->readShort(&this->_id_friend);
   this->readString(this->_addr);
-  this->readShort(this->_port);
+  this->readShort(&this->_port);
 }
 void Command::ComFriendResponse::write() {
   unsigned int size = 6 + (unsigned int)this->_addr.size();

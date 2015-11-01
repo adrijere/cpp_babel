@@ -25,7 +25,7 @@ protected:
 public:
 	BoostTCPNetwork();
 	~BoostTCPNetwork();
-	virtual void read(void *buffer, size_t size);
+	virtual void read(void *buffer, size_t size, bool littleEndian = false);
 	virtual void write(const void *data, size_t size);
 	boost::asio::ip::tcp::socket & getSocket();
 };

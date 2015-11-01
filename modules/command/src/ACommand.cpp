@@ -28,23 +28,23 @@ void ACommand::writeChar(unsigned char elem) {
 }
 
 void ACommand::readString(std::string &elem) {
-    unsigned short stringSize;
-    this->readShort(stringSize);
+    unsigned short stringSize = 0;
+    this->readShort(&stringSize);
     char *tmp = new char[stringSize + 1];
     tmp[stringSize] = 0;
-    this->_peer->read(tmp, stringSize);
+    this->_peer->read(tmp, stringSize, true);
     elem = tmp;
 }
 
-void ACommand::readInt(unsigned int &elem) {
-    this->_peer->read(&elem, 4);
+void ACommand::readInt(unsigned int *elem) {
+    this->_peer->read(elem, 4);
 }
 
-void ACommand::readShort(unsigned short &elem) {
-    this->_peer->read(&elem, 2);
+void ACommand::readShort(unsigned short *elem) {
+    this->_peer->read(elem, 2);
 }
 
-void ACommand::readChar(unsigned char &elem) {
-    this->_peer->read(&elem, 1);
+void ACommand::readChar(unsigned char *elem) {
+    this->_peer->read(elem, 1);
 }
 

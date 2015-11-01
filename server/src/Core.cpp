@@ -20,18 +20,18 @@ void Core::run() {
     this->_connectionsListener->listen(4243);
     INetwork *peer = this->_connectionsListener->waitConnection();
     while(peer != NULL) {
-        std::thread *newThread = new std::thread(Core::connection, peer, &this->_contactList, &this->_mainMutex);
+        this->_networkList.push_back(peer);
+        std::thread *newThread = new std::thread(&Core::connection, this, this->_networkList.size() - 1);
         this->_threadList.push_back(newThread);
         peer = this->_connectionsListener->waitConnection();
     }
 }
 
-void Core::connection(INetwork *peer, std::map<unsigned short, std::string> *contactList, std::mutex *mainMutex) {
+void Core::connection(unsigned short net) {
     std::cout << "New Connection !" << std::endl;
-    ACommand *newCommand = Command::parseCommand(peer);
+    ACommand *newCommand = Command::parseCommand(this->_networkList[net]);
     while (newCommand != NULL) {
-        std::cout << newCommand->_id << std::endl;
-        newCommand = Command::parseCommand(peer);
+        newCommand = Command::parseCommand(this->_networkList[net]);
     }
     std::cout << "Fin de Connection !" << std::endl;
 }

@@ -27,7 +27,7 @@ public:
             this->_id = 0;
             this->_size = size;
         }
-        ComError(INetwork *peer, const std::string &error) {
+        ComError(INetwork *peer, const std::string &error) : ACommand() {
             this->_id = 0;
             this->_peer = peer;
             this->_error = error;
@@ -47,7 +47,7 @@ public:
             this->_id = 1;
             this->_size = size;
         }
-        ComListRequest(INetwork *peer) {
+        ComListRequest(INetwork *peer) : ACommand() {
             this->_id = 1;
             this->_peer = peer;
         }
@@ -65,8 +65,8 @@ public:
             this->_id = 2;
             this->_size = size;
         };
-        ComListResponse(INetwork *peer, std::map<unsigned short, std::string> &contactList) {
-            this->_id = 1;
+        ComListResponse(INetwork *peer, std::map<unsigned short, std::string> &contactList) : ACommand() {
+            this->_id = 2;
             this->_peer = peer;
             this->_contactList = contactList;
         }
@@ -85,8 +85,8 @@ public:
             this->_id = 3;
             this->_size = size;
         }
-        ComCoRequest(INetwork *peer, const std::string &name) {
-            this->_id = 1;
+        ComCoRequest(INetwork *peer, const std::string &name) : ACommand() {
+            this->_id = 3;
             this->_peer = peer;
             this->_name = name;
         }
@@ -105,8 +105,8 @@ public:
             this->_id = 4;
             this->_size = size;
         }
-        ComCoResponse(INetwork *peer, unsigned short id_name) {
-            this->_id = 1;
+        ComCoResponse(INetwork *peer, unsigned short id_name) : ACommand() {
+            this->_id = 4;
             this->_peer = peer;
             this->_id_name = id_name;
         }
@@ -125,8 +125,8 @@ public:
             this->_id = 5;
             this->_size = size;
         }
-        Ping(INetwork *peer, unsigned short id_name) {
-            this->_id = 1;
+        Ping(INetwork *peer, unsigned short id_name) : ACommand() {
+            this->_id = 5;
             this->_peer = peer;
             this->_id_name = id_name;
         }
@@ -146,8 +146,8 @@ public:
             this->_id = 6;
             this->_size = size;
         }
-        ComCoChange(INetwork *peer, unsigned short id_name, unsigned char status) {
-            this->_id = 1;
+        ComCoChange(INetwork *peer, unsigned short id_name, unsigned char status) : ACommand() {
+            this->_id = 6;
             this->_peer = peer;
             this->_id_name = id_name;
             this->_status = status;
@@ -167,8 +167,8 @@ public:
             this->_id = 7;
             this->_size = size;
         }
-        ComFriendRequest(INetwork *peer, unsigned short id_friend) {
-            this->_id = 1;
+        ComFriendRequest(INetwork *peer, unsigned short id_friend) : ACommand() {
+            this->_id = 7;
             this->_peer = peer;
             this->_id_friend = id_friend;
         }
@@ -189,8 +189,8 @@ public:
             this->_id = 8;
             this->_size = size;
         }
-        ComFriendResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) {
-            this->_id = 1;
+        ComFriendResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) : ACommand() {
+            this->_id = 8;
             this->_peer = peer;
             this->_id_friend = id_friend;
             this->_addr = addr;

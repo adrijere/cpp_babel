@@ -20,7 +20,7 @@ public:
 	/*
 	** Reads on the socket and stores the message into the buffer passed as an argument.
 	*/
-	virtual void read(void *buffer, size_t size) = 0;
+	virtual void read(void *buffer, size_t size, bool littleEndian = false) = 0;
 	/*
 	** Writes the data sent as an argument into the socket.
 	*/

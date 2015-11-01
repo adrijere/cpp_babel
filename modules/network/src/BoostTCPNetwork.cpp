@@ -20,7 +20,7 @@ BoostTCPNetwork::~BoostTCPNetwork()
 
 }
 
-void BoostTCPNetwork::read(void *buffer, size_t size)
+void BoostTCPNetwork::read(void *buffer, size_t size, bool littleEndian)
 {
 	boost::array<char, 1> readBuffer;
 	size_t readLength = 0;
@@ -33,7 +33,10 @@ void BoostTCPNetwork::read(void *buffer, size_t size)
 			return ; // Connection closed cleanly by peer.
 		else if (error)
 			throw boost::system::system_error(error); // Some other error.
-		((char *)buffer)[readLength - 1] = readBuffer[0];
+		if (littleEndian)
+			std::memcpy((char *)(buffer) + readLength - 1, &readBuffer[0], 1);
+		else
+			std::memcpy((char *)(buffer) + size - readLength, &readBuffer[0], 1);
 	}
 }
 

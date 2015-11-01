@@ -12,24 +12,26 @@
 # define _CORE_HPP_
 
 # include <map>
-# include <list>
+# include <vector>
 # include <thread>
 # include <mutex>
 # include <iostream>
 # include "ImplementationFactory.hpp"
+# include "BoostTCPNetwork.hpp"
 # include "Command.hpp"
 
 class Core {
 private:
     IServer *_connectionsListener;
     std::map<unsigned short, std::string> _contactList;
-    std::list<std::thread *> _threadList;
+    std::vector<std::thread *> _threadList;
+    std::vector<INetwork *> _networkList;
     std::mutex _mainMutex;
 public:
     Core();
     ~Core();
     void run();
-    static void connection(INetwork *, std::map<unsigned short, std::string> *, std::mutex *);
+    void connection(unsigned short);
 };
 
 #endif
