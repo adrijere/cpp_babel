@@ -1,28 +1,18 @@
-/*
-** Command.cpp for Command in /home/mathon_j/rendu/babel
-**
-** Made by Jérémy MATHON
-** Login   <mathon_j@mathonj>
-**
-** Started on  Wed Oct 14 19:57:32 2015 Jérémy MATHON
-** Last update Sat Oct 24 14:10:41 2015 Jérémy MATHON
-*/
+//
+// Command.cpp for Command in /home/mathon_j/rendu/babel
+//
+// Made by Jérémy MATHON
+// Login   <mathon_j@mathonj>
+//
+// Started on  Wed Oct 14 19:57:32 2015 Jérémy MATHON
+// Last update Sat Oct 24 14:10:41 2015 Jérémy MATHON
+//
 
 #include "Command.hpp"
 
-void Command::ComError::parse() {
-  CommandManager os;
-  unsigned short _nb;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&_nb);
-  for (unsigned int index = 0; index < _nb; ++index) {
-    char letter;
-    os.read(&letter);
-    this->_error += letter;
-  }
+void Command::ComError::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readString(this->_error);
 }
 void Command::ComError::write() {
   unsigned int size = 2 + (unsigned int)this->_error.size();
@@ -32,13 +22,9 @@ void Command::ComError::write() {
   this->writeString(this->_error);
 }
 
-void Command::ComListRequest::parse() {
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&this->_id_name);
+void Command::ComListRequest::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(this->_id_name);
 }
 void Command::ComListRequest::write() {
   unsigned int size = 2;
@@ -48,24 +34,16 @@ void Command::ComListRequest::write() {
   this->writeShort(this->_id_name);
 }
 
-void Command::ComListResponse::parse() {
-  unsigned short _id_contact;
-  unsigned short _size;
-  CommandManager os;
-  std::string tmp;
-  std::string tmp2;
-
-  tmp = this->_cmd;
-  os << tmp;
-  while (os.read(&_id_contact)) {
-    os.read(&_size);
-    for (unsigned int index = 0; index < _size; ++index) {
-      char letter;
-      os.read(&letter);
-      tmp2 += letter;
-    }
-    this->_contactList[_id_contact] = tmp2;
-    tmp2 = "";
+void Command::ComListResponse::parse(INetwork *peer) {
+  this->_peer = peer;
+  unsigned int currSize = 0;
+  while (currSize < this->_size) {
+    unsigned short idName;
+    std::string stringData;
+    this->readShort(idName);
+    this->readString(stringData);
+    currSize += 2 + stringData.size();
+    this->_contactList[idName] = stringData;
   }
 }
 void Command::ComListResponse::write() {
@@ -82,19 +60,9 @@ void Command::ComListResponse::write() {
   }
 }
 
-void Command::ComCoRequest::parse() {
-  unsigned short _nb;
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&_nb);
-  for (unsigned int index = 0; index < _nb; ++index) {
-    char letter;
-    os.read(&letter);
-    this->_name += letter;
-  }
+void Command::ComCoRequest::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readString(this->_name);
 }
 void Command::ComCoRequest::write() {
   unsigned int size = 2 + (unsigned int)this->_name.size();
@@ -104,13 +72,9 @@ void Command::ComCoRequest::write() {
   this->writeString(this->_name);
 }
 
-void Command::ComCoResponse::parse() {
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&this->_id_name);
+void Command::ComCoResponse::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(this->_id_name);
 }
 void Command::ComCoResponse::write() {
   unsigned int size = 2;
@@ -120,13 +84,9 @@ void Command::ComCoResponse::write() {
   this->writeShort(this->_id_name);
 }
 
-void Command::Ping::parse() {
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&this->_id_name);
+void Command::Ping::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(this->_id_name);
 }
 void Command::Ping::write() {
   unsigned int size = 2;
@@ -136,14 +96,10 @@ void Command::Ping::write() {
   this->writeShort(this->_id_name);
 }
 
-void Command::ComCoChange::parse() {
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&this->_id_name);
-  os.read(&this->_status);
+void Command::ComCoChange::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(this->_id_name);
+  this->readChar(this->_status);
 }
 void Command::ComCoChange::write() {
   unsigned int size = 3;
@@ -154,13 +110,9 @@ void Command::ComCoChange::write() {
   this->writeChar(this->_status);
 }
 
-void Command::ComFriendRequest::parse() {
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&this->_id_friend);
+void Command::ComFriendRequest::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(this->_id_friend);
 }
 void Command::ComFriendRequest::write() {
   unsigned int size = 2;
@@ -170,21 +122,11 @@ void Command::ComFriendRequest::write() {
   this->writeShort(this->_id_friend);
 }
 
-void Command::ComFriendResponse::parse() {
-  unsigned short _nb;
-  CommandManager os;
-  std::string tmp;
-
-  tmp = this->_cmd;
-  os << tmp;
-  os.read(&this->_id_friend);
-  os.read(&_nb);
-  for (unsigned int index = 0; index < _nb; ++index) {
-    char letter;
-    os.read(&letter);
-    this->_addr += letter;
-  }
-  os.read(&this->_port);
+void Command::ComFriendResponse::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(this->_id_friend);
+  this->readString(this->_addr);
+  this->readShort(this->_port);
 }
 void Command::ComFriendResponse::write() {
   unsigned int size = 6 + (unsigned int)this->_addr.size();
@@ -203,51 +145,48 @@ ACommand *Command::parseCommand(INetwork *peer) {
 
   peer->read(&id, 1);
   peer->read(&size, 4);
-  char *tmp = new char[size + 1];
-  tmp[size] = 0;
-  peer->read(tmp, size);
   switch (id)
   {
     case 0: {
-      cmd = new Command::ComError(tmp);
+      cmd = new Command::ComError(size);
       break;
     }
     case 1: {
-      cmd = new Command::ComListRequest(tmp);
+      cmd = new Command::ComListRequest(size);
       break;
     }
     case 2: {
-      cmd = new Command::ComListResponse(tmp);
+      cmd = new Command::ComListResponse(size);
       break;
     }
     case 3: {
-      cmd = new Command::ComCoRequest(tmp);
+      cmd = new Command::ComCoRequest(size);
       break;
     }
     case 4: {
-      cmd = new Command::ComCoResponse(tmp);
+      cmd = new Command::ComCoResponse(size);
       break;
     }
     case 5: {
-      cmd = new Command::Ping(tmp);
+      cmd = new Command::Ping(size);
       break;
     }
     case 6: {
-      cmd = new Command::ComCoChange(tmp);
+      cmd = new Command::ComCoChange(size);
       break;
     }
     case 7: {
-      cmd = new Command::ComFriendRequest(tmp);
+      cmd = new Command::ComFriendRequest(size);
       break;
     }
     case 8: {
-      cmd = new Command::ComFriendResponse(tmp);
+      cmd = new Command::ComFriendResponse(size);
       break;
     }
     default: {
       return (NULL);
     }
   }
-  cmd->parse();
+  cmd->parse(peer);
   return (cmd);
 }

@@ -22,24 +22,29 @@
 class ACommand : public std::stringstream {
 public:
     unsigned char	_id;
-    std::string     _cmd;
+    unsigned int    _size;
     INetwork        *_peer;
 
 public:
     ACommand(){
         this->_id = 255;
-        this->_cmd = "";
+        this->_size = 0;
         this->_peer = NULL;
     };
     virtual ~ACommand(){};
 
-    virtual void parse() = 0;
+    virtual void parse(INetwork *) = 0;
     virtual void write() = 0;
 
     void writeString(std::string);
     void writeInt(unsigned int);
     void writeShort(unsigned short);
     void writeChar(unsigned char);
+
+    void readString(std::string &);
+    void readInt(unsigned int &);
+    void readShort(unsigned short &);
+    void readChar(unsigned char &);
 };
 
 #endif /* !ACOMMAND_HPP_ */
