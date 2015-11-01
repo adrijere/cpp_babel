@@ -4,7 +4,7 @@ CXX		=	g++
 
 RM		=	rm -rf
 
-SRC		=	
+SRC		=	PluginAudio.cpp
 
 
 OBJ		=	$(SRC:.cpp=.o)
