@@ -203,7 +203,7 @@ public:
     };
 
 public:
-    static ACommand *parseCommand(const std::string &);
+    static ACommand *parseCommand(INetwork *);
 };
 
 #endif /* !COMMAND_HPP_ */

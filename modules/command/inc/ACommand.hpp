@@ -20,7 +20,7 @@
 # include   "INetwork.hpp"
 
 class ACommand : public std::stringstream {
-protected:
+public:
     unsigned char	_id;
     std::string     _cmd;
     INetwork        *_peer;

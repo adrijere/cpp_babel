@@ -196,14 +196,15 @@ void Command::ComFriendResponse::write() {
   this->writeShort(this->_port);
 }
 
-static ACommand *parseCommand(INetwork *peer) {
-  char id;
+ACommand *Command::parseCommand(INetwork *peer) {
+  unsigned char id;
   unsigned int size;
   ACommand *cmd;
 
   peer->read(&id, 1);
   peer->read(&size, 4);
-  char tmp[size];
+  char *tmp = new char[size + 1];
+  tmp[size] = 0;
   peer->read(tmp, size);
   switch (id)
   {
@@ -244,8 +245,7 @@ static ACommand *parseCommand(INetwork *peer) {
       break;
     }
     default: {
-      cmd = new Command::ComError("");
-      break;
+      return (NULL);
     }
   }
   cmd->parse();

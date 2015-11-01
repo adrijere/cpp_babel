@@ -11,11 +11,25 @@
 #ifndef _CORE_HPP_
 # define _CORE_HPP_
 
+# include <map>
+# include <list>
+# include <thread>
+# include <mutex>
+# include <iostream>
+# include "ImplementationFactory.hpp"
+# include "Command.hpp"
+
 class Core {
+private:
+    IServer *_connectionsListener;
+    std::map<unsigned short, std::string> _contactList;
+    std::list<std::thread *> _threadList;
+    std::mutex _mainMutex;
 public:
     Core();
     ~Core();
     void run();
+    static void connection(INetwork *, std::map<unsigned short, std::string> *, std::mutex *);
 };
 
 #endif

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.3)
 project(cpp_babel)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Wextra -g")
 
 set(INC_PATH inc)
 set(SRC_PATH src)

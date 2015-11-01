@@ -10,8 +10,28 @@
 
 #include "Core.hpp"
 
-Core::Core() { }
+Core::Core() {
+    this->_connectionsListener = ImplementationFactory::createTCPServer();
+}
 
 Core::~Core() { }
 
-void Core::run() { }
+void Core::run() {
+    this->_connectionsListener->listen(4243);
+    INetwork *peer = this->_connectionsListener->waitConnection();
+    while(peer != NULL) {
+        std::thread *newThread = new std::thread(Core::connection, peer, &this->_contactList, &this->_mainMutex);
+        this->_threadList.push_back(newThread);
+        peer = this->_connectionsListener->waitConnection();
+    }
+}
+
+void Core::connection(INetwork *peer, std::map<unsigned short, std::string> *contactList, std::mutex *mainMutex) {
+    std::cout << "New Connection !" << std::endl;
+    ACommand *newCommand = Command::parseCommand(peer);
+    while (newCommand != NULL) {
+        std::cout << newCommand->_id << std::endl;
+        newCommand = Command::parseCommand(peer);
+    }
+    std::cout << "Fin de Connection !" << std::endl;
+}
