@@ -12,6 +12,16 @@
 
 Core::Core() {
     this->_connectionsListener = ImplementationFactory::createTCPServer();
+
+    this->_interpreter[0] = CommandInterpreter::interpretComError;
+    this->_interpreter[1] = CommandInterpreter::interpretComListRequest;
+    this->_interpreter[2] = CommandInterpreter::interpretComListResponse;
+    this->_interpreter[3] = CommandInterpreter::interpretComCoRequest;
+    this->_interpreter[4] = CommandInterpreter::interpretComCoResponse;
+    this->_interpreter[5] = CommandInterpreter::interpretPing;
+    this->_interpreter[6] = CommandInterpreter::interpretComCoChange;
+    this->_interpreter[7] = CommandInterpreter::interpretComFriendRequest;
+    this->_interpreter[8] = CommandInterpreter::interpretComFriendResponse;
 }
 
 Core::~Core() { }
@@ -31,6 +41,8 @@ void Core::connection(unsigned short net) {
     std::cout << "New Connection !" << std::endl;
     ACommand *newCommand = Command::parseCommand(this->_networkList[net]);
     while (newCommand != NULL) {
+        ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
+//        responseCommand->write();
         newCommand = Command::parseCommand(this->_networkList[net]);
     }
     std::cout << "Fin de Connection !" << std::endl;

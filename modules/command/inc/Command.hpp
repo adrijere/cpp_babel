@@ -34,6 +34,8 @@ public:
         }
         ~ComError(){}
 
+        const std::string &getError() const { return this->_error; }
+
         void parse(INetwork *);
         void write();
     };
@@ -53,6 +55,8 @@ public:
         }
         ~ComListRequest(){}
 
+        unsigned short getIdName() { return this->_id_name; }
+
         void parse(INetwork *);
         void write();
     };
@@ -71,6 +75,8 @@ public:
             this->_contactList = contactList;
         }
         ~ComListResponse(){}
+
+        const std::map<unsigned short, std::string> getContactList() const { return this->_contactList; }
 
         void parse(INetwork *);
         void write();
@@ -92,6 +98,8 @@ public:
         }
         ~ComCoRequest(){}
 
+        const std::string &getName() const { return this->_name; }
+
         void parse(INetwork *);
         void write();
     };
@@ -112,6 +120,8 @@ public:
         }
         ~ComCoResponse(){}
 
+        unsigned short getIdName() { return this->_id_name; }
+
         void parse(INetwork *);
         void write();
     };
@@ -131,6 +141,8 @@ public:
             this->_id_name = id_name;
         }
         ~Ping(){}
+
+        unsigned short getIdName() { return this->_id_name; }
 
         void parse(INetwork *);
         void write();
@@ -154,6 +166,9 @@ public:
         }
         ~ComCoChange(){};
 
+        unsigned short getIdName() { return this->_id_name; }
+        unsigned char getStatus() { return this->_status; }
+
         void parse(INetwork *);
         void write();
     };
@@ -173,6 +188,8 @@ public:
             this->_id_friend = id_friend;
         }
         ~ComFriendRequest(){}
+
+        unsigned short getIdFriend() { return this->_id_friend; }
 
         void parse(INetwork *);
         void write();
@@ -197,6 +214,10 @@ public:
             this->_port = port;
         }
         ~ComFriendResponse(){}
+
+        unsigned short getIdFriend() { return this->_id_friend; }
+        const std::string &getAddr() const { return this->_addr; }
+        unsigned short getPort() { return this->_port; }
 
         void parse(INetwork *);
         void write();

@@ -33,6 +33,10 @@ public:
     };
     virtual ~ACommand(){};
 
+    unsigned char getId() { return this->_id; }
+    unsigned int getSize() { return this->_size; }
+    INetwork *getPeer() { return this->_peer; }
+
     virtual void parse(INetwork *) = 0;
     virtual void write() = 0;
 

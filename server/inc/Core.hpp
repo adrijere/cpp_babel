@@ -19,11 +19,15 @@
 # include "ImplementationFactory.hpp"
 # include "BoostTCPNetwork.hpp"
 # include "Command.hpp"
+# include "CommandInterpreter.hpp"
 
 class Core {
 private:
+    typedef ACommand *(*fct)(Core *, ACommand *);
+
     IServer *_connectionsListener;
     std::map<unsigned short, std::string> _contactList;
+    std::map<unsigned short, fct> _interpreter;
     std::vector<std::thread *> _threadList;
     std::vector<INetwork *> _networkList;
     std::mutex _mainMutex;
