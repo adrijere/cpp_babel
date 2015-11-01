@@ -24,7 +24,7 @@ set(NETWORK_FILES
 
 set(COMMAND_FILES
         ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/Command.cpp
-)
+        ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/ACommand.cpp)
 
 include_directories(
         ${SERVER_PATH}/${INC_PATH}

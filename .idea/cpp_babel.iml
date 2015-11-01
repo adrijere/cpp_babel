@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/command/src/ACommand.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/command/src/Command.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/implementations/src/ImplementationFactory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPClient.cpp" isTestSource="false" />

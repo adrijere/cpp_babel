@@ -17,17 +17,29 @@
 # include	<sstream>
 # include	<map>
 # include	<list>
+# include   "INetwork.hpp"
 
 class ACommand : public std::stringstream {
 protected:
-  char		 id;
-  std::string	 cmd;
+    unsigned char	_id;
+    std::string     _cmd;
+    INetwork        *_peer;
 
 public:
-  ACommand(){};
-  virtual ~ACommand(){};
-  virtual void	parse() = 0;
-  virtual void	execute() = 0;
+    ACommand(){
+        this->_id = 255;
+        this->_cmd = "";
+        this->_peer = NULL;
+    };
+    virtual ~ACommand(){};
+
+    virtual void parse() = 0;
+    virtual void write() = 0;
+
+    void writeString(std::string);
+    void writeInt(unsigned int);
+    void writeShort(unsigned short);
+    void writeChar(unsigned char);
 };
 
 #endif /* !ACOMMAND_HPP_ */

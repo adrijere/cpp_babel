@@ -20,28 +20,38 @@ BoostTCPNetwork::~BoostTCPNetwork()
 
 }
 
-void BoostTCPNetwork::read(std::string & buffer)
+void BoostTCPNetwork::read(void *buffer, size_t size)
 {
-	boost::array<char, 4096> readBuffer;
-	size_t readLength;
+	boost::array<char, 1> readBuffer;
+	size_t readLength = 0;
 	boost::system::error_code error;
 
-	readLength = this->_socket.read_some(boost::asio::buffer(readBuffer), error);
-
-	if (error == boost::asio::error::eof)
-		return ; // Connection closed cleanly by peer.
-	else if (error)
-		throw boost::system::system_error(error); // Some other error.
-
-	buffer.erase();
-	buffer.insert(0, readBuffer.data(), readLength);
+	while (readLength < size)
+	{
+		readLength += this->_socket.read_some(boost::asio::buffer(readBuffer), error);
+		if (error == boost::asio::error::eof)
+			return ; // Connection closed cleanly by peer.
+		else if (error)
+			throw boost::system::system_error(error); // Some other error.
+		((char *)buffer)[readLength - 1] = readBuffer[0];
+	}
 }
 
-void BoostTCPNetwork::write(const std::string & data)
+void BoostTCPNetwork::write(const void *data, size_t size)
 {
-	boost::system::error_code ignored_error; /* Permet d'ignorer les erreurs */
+	boost::array<char, 1> writeBuffer;
+	size_t writeLength = 0;
+	boost::system::error_code error;
 
-	boost::asio::write(this->_socket, boost::asio::buffer(data), ignored_error);
+	while (writeLength < size)
+	{
+		writeBuffer[0] = ((char *)data)[writeLength];
+		writeLength += boost::asio::write(this->_socket, boost::asio::buffer(writeBuffer), error);
+		if (error == boost::asio::error::eof)
+			return ; // Connection closed cleanly by peer.
+		else if (error)
+			throw boost::system::system_error(error); // Some other error.
+	}
 }
 
 boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()

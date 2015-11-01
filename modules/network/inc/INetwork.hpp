@@ -20,11 +20,11 @@ public:
 	/*
 	** Reads on the socket and stores the message into the buffer passed as an argument.
 	*/
-	virtual void read(std::string & buffer) = 0;
+	virtual void read(void *buffer, size_t size) = 0;
 	/*
 	** Writes the data sent as an argument into the socket.
 	*/
-	virtual void write(const std::string & data) = 0;
+	virtual void write(const void *data, size_t size) = 0;
 };
 
 #endif /* INETWORK_H_ */
