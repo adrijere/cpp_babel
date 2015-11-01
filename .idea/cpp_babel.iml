@@ -11,7 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPServer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src/CommandInterpreter.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/server/src/Core.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/server/src/ServerCore.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -12,20 +12,21 @@
 #define CPP_BABEL_COMMANDINTERPRETER_H
 
 # include "Command.hpp"
+# include "ServerCore.hpp"
 
-class Core;
+class ServerCore;
 
 class CommandInterpreter {
 public:
-    static ACommand *interpretComError(Core *, ACommand *);
-    static ACommand *interpretComListRequest(Core *, ACommand *);
-    static ACommand *interpretComListResponse(Core *, ACommand *);
-    static ACommand *interpretComCoRequest(Core *, ACommand *);
-    static ACommand *interpretComCoResponse(Core *, ACommand *);
-    static ACommand *interpretPing(Core *, ACommand *);
-    static ACommand *interpretComCoChange(Core *, ACommand *);
-    static ACommand *interpretComFriendRequest(Core *, ACommand *);
-    static ACommand *interpretComFriendResponse(Core *, ACommand *);
+    static ACommand *interpretComError(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComListRequest(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComListResponse(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCoRequest(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCoResponse(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretPing(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCoChange(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComFriendRequest(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComFriendResponse(ServerCore *, ACommand *, unsigned short);
 };
 
 

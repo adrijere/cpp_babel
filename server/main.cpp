@@ -8,9 +8,9 @@
 // Last update Mon Oct  26 00:11:52 2015 Julien Loir
 //
 
-#include "Core.hpp"
+#include "ServerCore.hpp"
 
 int main(int ac, char **av) {
-    Core mainCore;
+    ServerCore mainCore;
     mainCore.run();
 }

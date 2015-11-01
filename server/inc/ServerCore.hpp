@@ -1,5 +1,5 @@
 //
-// Core.hpp for babel in /home/loir_j/rendu/cpp_babel/server/inc
+// ServerCore.hpp for babel in /home/loir_j/rendu/cpp_babel/server/inc
 //
 // Made by Julien Loir
 // Login   <loir_j@epitech.eu>
@@ -21,9 +21,9 @@
 # include "Command.hpp"
 # include "CommandInterpreter.hpp"
 
-class Core {
+class ServerCore {
 private:
-    typedef ACommand *(*fct)(Core *, ACommand *);
+    typedef ACommand *(*fct)(ServerCore *, ACommand *, unsigned short);
 
     IServer *_connectionsListener;
     std::map<unsigned short, std::string> _contactList;
@@ -32,8 +32,16 @@ private:
     std::vector<INetwork *> _networkList;
     std::mutex _mainMutex;
 public:
-    Core();
-    ~Core();
+    ServerCore();
+    ~ServerCore();
+
+    IServer *getConnectionsListener() { return this->_connectionsListener; }
+    std::map<unsigned short, std::string> &getContactList() { return this->_contactList; }
+    std::map<unsigned short, fct> &getInterpreter() { return this->_interpreter; };
+    std::vector<std::thread *> &getThreadList() { return this->_threadList; }
+    std::vector<INetwork *> &getNetworkList() { return this->_networkList; }
+    std::mutex &getMainMutex() { return this->_mainMutex; }
+
     void run();
     void connection(unsigned short);
 };

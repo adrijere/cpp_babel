@@ -35,7 +35,7 @@ include_directories(
 
 set(SERVER_FILES
         ${SERVER_PATH}/main.cpp
-        ${SERVER_PATH}/${SRC_PATH}/Core.cpp
+        ${SERVER_PATH}/${SRC_PATH}/ServerCore.cpp
         ${SERVER_PATH}/${SRC_PATH}/CommandInterpreter.cpp
         ${IMPLEMENTATIONS_FILES}
         ${NETWORK_FILES}
