@@ -9,15 +9,19 @@
 //
 
 #include "ImplementationFactory.hpp"
-#include "BoostTCPClient.hpp"
-#include "BoostTCPServer.hpp"
+
+#ifdef _SERVER_
+
+IServer * ImplementationFactory::createTCPServer()
+{
+	return new BoostTCPServer();
+}
+
+#else
 
 IClient * ImplementationFactory::createTCPClient()
 {
 	return new BoostTCPClient();
 }
 
-IServer * ImplementationFactory::createTCPServer()
-{
-	return new BoostTCPServer();
-}
+#endif

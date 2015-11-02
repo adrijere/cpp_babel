@@ -8,6 +8,8 @@
 // Last update Wed Oct 28 14:23:06 2015 Nicolas Lequain
 //
 
+#ifndef _SERVER_
+
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
 #include "BoostTCPClient.hpp"
@@ -30,3 +32,5 @@ void BoostTCPClient::connect(const std::string & addr, const short port)
 
 	boost::asio::connect(this->_socket, endpoint_iterator);
 }
+
+#endif

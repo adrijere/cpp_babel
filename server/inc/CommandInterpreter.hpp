@@ -8,8 +8,8 @@
 // Last update Mon Oct  26 00:15:51 2015 Julien Loir
 //
 
-#ifndef CPP_BABEL_COMMANDINTERPRETER_H
-#define CPP_BABEL_COMMANDINTERPRETER_H
+#ifndef _COMMANDINTERPRETER_HPP_
+# define _COMMANDINTERPRETER_HPP_
 
 # include "Command.hpp"
 # include "ServerCore.hpp"
@@ -30,4 +30,4 @@ public:
 };
 
 
-#endif //CPP_BABEL_COMMANDINTERPRETER_H
+#endif

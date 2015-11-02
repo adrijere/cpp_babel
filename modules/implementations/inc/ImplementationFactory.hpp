@@ -11,14 +11,28 @@
 #ifndef IMPLEMENTATIONFACTORY_H_
 # define IMPLEMENTATIONFACTORY_H_
 
-# include "IClient.hpp"
-# include "IServer.hpp"
+# ifdef _SERVER_
+
+#  include "IServer.hpp"
+#  include "BoostTCPServer.hpp"
+
+class ImplementationFactory
+{
+public:
+	static IServer * createTCPServer();
+};
+
+# else
+
+#  include "IClient.hpp"
+#  include "BoostTCPClient.hpp"
 
 class ImplementationFactory
 {
 public:
 	static IClient * createTCPClient();
-	static IServer * createTCPServer();
 };
+
+# endif
 
 #endif /* IMPLEMENTATIONFACTORY_H_ */

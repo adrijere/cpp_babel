@@ -8,8 +8,10 @@
 // Last update Tue Oct 27 20:21:03 2015 Nicolas Lequain
 //
 
-#include "BoostTCPNetwork.hpp"
-#include "BoostTCPServer.hpp"
+#ifdef _SERVER_
+
+# include "BoostTCPNetwork.hpp"
+# include "BoostTCPServer.hpp"
 
 BoostTCPServer::BoostTCPServer() : _acceptor(NULL)
 {
@@ -38,3 +40,5 @@ INetwork * BoostTCPServer::waitConnection()
 	this->_acceptor->accept(newConnection->getSocket());
 	return newConnection;
 }
+
+#endif
