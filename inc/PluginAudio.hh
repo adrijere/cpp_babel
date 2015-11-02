@@ -1,4 +1,4 @@
-#include "stdio.h"
+#include "portaudio.h"
 
 typedef struct {
 int frameIndex;
@@ -38,9 +38,8 @@ class PluginAudio {
     void stopStream(paStream *);
 
     void initData(paData &);
-    void recordCallback();
-    void playCallback();
-
+    int recordCallback();
+    int playCallback(const void *, void *, unsigned long, const PaStreamCallbackTimeInfo*, PaStreamCallbackFlags, void *);
     ~PluginAudio();
     PluginAudio();
 };

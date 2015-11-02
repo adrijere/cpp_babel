@@ -1,11 +1,86 @@
 #include "PluginAudio"
 
-void PluginAudio::recordCallback() {
+int PluginAudio::recordCallback(const void *inputBuffer, void *outputBuffer,
+                           unsigned long framesPerBuffer,
+                           const PaStreamCallbackTimeInfo* timeInfo,
+                           PaStreamCallbackFlags statusFlags,
+                           void *userData) {
+   paTestData *data = const_cast<paTestData*>userData;
+   const SAMPLE *rptr = const_cast<const SAMPLE*>inputBuffer;
+   SAMPLE *wptr = &data->recordedSamples[data->frameIndex * NUM_CHANNELS];
+   long framesToCalc;
+   long i;
+   int finished;
+   unsigned long framesLeft = data->maxFrameIndex - data->frameIndex;
 
+   (void) outputBuffer;
+   (void) timeInfo;
+   (void) statusFlags;
+   (void) userData;
+
+   if (framesLeft < framesPerBuffer) {
+     framesToCalc = framesLeft;
+     finished = paComplete;
+   }
+   else {
+     framesToCalc = framesPerBuffer;
+     finished = paContinue;
+   }
+   if (inputBuffer == NULL) {
+     for(i=0; i<framesToCalc; i++) {
+       *wptr++ = SAMPLE_SILENCE;  /* left */
+       if( NUM_CHANNELS == 2 ) *wptr++ = SAMPLE_SILENCE;  /* right */
+      }
+   }
+   else {
+     for( i=0; i<framesToCalc; i++ ) {
+       *wptr++ = *rptr++;  /* left */
+       if( NUM_CHANNELS == 2 ) *wptr++ = *rptr++;  /* right */
+      }
+  }
+   data->frameIndex += framesToCalc;
+   return finished;
 }
 
-void PluginAudio::playCallback() {
+int PluginAudio::playCallback(const void *inputBuffer, void *outputBuffer,
+                         unsigned long framesPerBuffer,
+                         const PaStreamCallbackTimeInfo* timeInfo,
+                         PaStreamCallbackFlags statusFlags,
+                         void *userData) {
+  paData *data = static_cast<paData *>(userData);
+  SAMPLE *rptr = &data->recordedSamples[data->framIndex * NUM_CHANNELS];
+  SAMPLE *wptr = static_cast<SAMPLE *>outputBuffer;
+  int finish;
+  unsigned int i;
+  unsigned int framesLeft = data->maxFrameIndex - data->frameIndex;
 
+  (void) inputBuffer;
+  (void) timeInfo;
+  (void) statusFLags;
+  (void) userDara;
+
+  if (framesLeft < framesPerBuffer) {
+    for (i = 0; i<framesLeft; i++) {
+      *wptr++ = *rptr++;
+      if (NUM_CHANNELS == 2) *wptr++ = *rptr++;
+    }
+    for (; i<framesPerBuffer; i++) {
+      *wptr++ = 0;
+      if (NUM_CHANNELS == 2) *wptr++ = 0;
+    }
+  data->frameIndex += framesLeft;
+  finished = paComplete;
+  }
+  else {
+    for( i=0; i<framesPerBuffer; i++ )
+    {
+        *wptr++ = *rptr++;  /* left */
+        if( NUM_CHANNELS == 2 ) *wptr++ = *rptr++;  /* right */
+    }
+    data->frameIndex += framesPerBuffer;
+    finished = paContinue;
+  }
+  return finished;
 }
 
 void PluginAudio::startStream(paStream *stream) {
@@ -20,14 +95,14 @@ void PluginAudio::stopStream(paStream *stream) {
   }
 }
 
-void PluginAudio::openInputStream() {
-  if (Pa_OpenStream(&outputStream, NULL, &output, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, recordCallback, &inputData) != paNoError) {
+void PluginAudio::openOutputStream() {
+  if (Pa_OpenStream(&outputStream, NULL, &output, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, &PluginAudio::playCallback, this) != paNoError) {
     std::cerr << "PortAudio error:" << std::endl;
   }
 }
 
 void PluginAudio::openInputStream() {
-  if (Pa_OpenStream(&inputStream, &input, NULL, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, recordCallback, &outputData) != paNoError) {
+  if (Pa_OpenStream(&inputStream, &input, NULL, SAMPLE_RATE, FRAMES_PER_BUFFER, paCLipOff, &PluginAudio::recordCallback, this) != paNoError) {
     std::cerr << "PortAudio error:" << std::endl;
   }
 }
@@ -43,9 +118,9 @@ PluginAudio::PluginAudio() {
   numSamples = totalFrames * NUM_CHANNELS;
   numBytes = numSamples * sizeof(SAMPLE);
 
-  // initialisation du buffer, a refaire en mode c++
-  inputData.recordedSamples = (SAMPLE *) malloc( numBytes );
-  outputData.recordedSamples = (SAMPLE *) malloc( numBytes );
+  // initialisation du buffer
+  inputData.recordedSamples = static_cast<SAMPLE *>(new char[numBytes]);
+  outputData.recordedSamples = static_cast<SAMPLE *>(new char[numBytes]);
   initRecord();
 
   // init portAudio
@@ -74,4 +149,6 @@ PluginAudio::~PluginAudio() {
   if (((self.err = Pa_Terminate)) != paNoError) {
     std::cerr << "PortAudio error:" + Pa_GetErrorText(self.err) << std::endl;
   }
+  delete[] inputData.recordedSamples;
+  delete[] outputData.recordedSamples;
 }
