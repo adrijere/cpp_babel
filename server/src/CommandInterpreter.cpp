@@ -44,24 +44,6 @@ ACommand *CommandInterpreter::interpretComCoRequest(ServerCore *mainCore, AComma
     std::cout << " is setting/changing his name : " << command->getName();
     std::cout << "." << std::endl;
     mainCore->getContactList()[idClient] = command->getName();
-    return new Command::ComCoResponse(mainCore->getNetworkList()[idClient], idClient);
-}
-
-/* not used server-side */
-ACommand *CommandInterpreter::interpretComCoResponse(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
-    Command::ComCoResponse *command = reinterpret_cast<Command::ComCoResponse *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
-    (void)idClient;
-    return NULL;
-}
-
-/* not used server-side */
-ACommand *CommandInterpreter::interpretPing(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
-    Command::Ping *command = reinterpret_cast<Command::Ping *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
-    (void)idClient;
     return NULL;
 }
 
@@ -89,6 +71,27 @@ ACommand *CommandInterpreter::interpretComFriendRequest(ServerCore *mainCore, AC
 /* not used server-side */
 ACommand *CommandInterpreter::interpretComFriendResponse(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComFriendResponse *command = reinterpret_cast<Command::ComFriendResponse *>(abstractCommand);
+    (void)mainCore;
+    (void)command;
+    (void)idClient;
+    return NULL;
+}
+
+/* not yet implemented */
+ACommand *CommandInterpreter::interpretComMessageSend(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComMessageSend *command = reinterpret_cast<Command::ComMessageSend *>(abstractCommand);
+    std::cout << "Client " << idClient;
+    std::cout << " (" << mainCore->getContactList()[idClient] << ")";
+    std::cout << " is sending the message \"" << command->getMessage() << "\"";
+    std::cout << " to the client " << command->getIdFriend();
+    std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
+    std::cout << "." << std::endl;
+    return NULL;
+}
+
+/* not used server-side */
+ACommand *CommandInterpreter::interpretComMessageReceive(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComMessageReceive *command = reinterpret_cast<Command::ComMessageReceive *>(abstractCommand);
     (void)mainCore;
     (void)command;
     (void)idClient;

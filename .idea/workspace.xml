@@ -14,7 +14,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec52f4cb-6e58-4e15-a835-39565ded2054" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/command/src/Command.cpp" afterPath="$PROJECT_DIR$/modules/command/src/Command.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/command/inc/Command.hpp" afterPath="$PROJECT_DIR$/modules/command/inc/Command.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/CommandInterpreter.cpp" afterPath="$PROJECT_DIR$/server/src/CommandInterpreter.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/inc/CommandInterpreter.hpp" afterPath="$PROJECT_DIR$/server/inc/CommandInterpreter.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/ServerCore.cpp" afterPath="$PROJECT_DIR$/server/src/ServerCore.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cpp_babel.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,32 +40,103 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CommandInterpreter.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/src/CommandInterpreter.cpp">
+      <file leaf-file-name="ServerCore.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/src/ServerCore.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31045753">
-              <caret line="39" column="126" selection-start-line="39" selection-start-column="126" selection-end-line="39" selection-end-column="126" />
+            <state vertical-scroll-proportion="0.5940594">
+              <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ACommand.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/command/inc/ACommand.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Command.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/command/inc/Command.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
-                <element signature="e#287#723#0" expanded="false" />
-                <element signature="e#725#1255#0" expanded="false" />
-                <element signature="e#1257#1595#0" expanded="false" />
-                <element signature="e#1597#2193#0" expanded="false" />
-                <element signature="e#2195#2527#0" expanded="false" />
-                <element signature="e#2529#2834#0" expanded="false" />
-                <element signature="e#2836#3320#0" expanded="false" />
-                <element signature="e#3322#3902#0" expanded="false" />
-                <element signature="e#3904#4248#0" expanded="false" />
+                <element signature="e#653#1213#1" expanded="false" />
+                <element signature="e#1220#1646#1" expanded="false" />
+                <element signature="e#1653#2364#1" expanded="false" />
+                <element signature="e#2371#2951#1" expanded="false" />
+                <element signature="e#2958#3531#1" expanded="false" />
+                <element signature="e#3538#4160#1" expanded="false" />
+                <element signature="e#4167#5086#1" expanded="false" />
+                <element signature="e#5093#5872#1" expanded="false" />
+                <element signature="e#5879#6676#1" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/main.cpp">
+      <file leaf-file-name="Command.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/command/src/Command.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-              <folding />
+              <caret line="181" column="31" selection-start-line="181" selection-start-column="31" selection-end-line="181" selection-end-column="31" />
+              <folding>
+                <element signature="e#257#362#0" expanded="false" />
+                <element signature="e#363#549#0" expanded="false" />
+                <element signature="e#551#628#0" expanded="false" />
+                <element signature="e#629#750#0" expanded="false" />
+                <element signature="e#752#1101#0" expanded="false" />
+                <element signature="e#1102#1597#0" expanded="false" />
+                <element signature="e#1599#1707#0" expanded="false" />
+                <element signature="e#1708#1896#0" expanded="false" />
+                <element signature="e#1898#2006#0" expanded="false" />
+                <element signature="e#2007#2159#0" expanded="false" />
+                <element signature="e#2161#2278#0" expanded="false" />
+                <element signature="e#2279#2440#0" expanded="false" />
+                <element signature="e#2442#2626#0" expanded="false" />
+                <element signature="e#2627#2891#0" expanded="false" />
+                <element signature="e#2893#3044#0" expanded="false" />
+                <element signature="e#3045#3279#0" expanded="false" />
+                <element signature="e#3281#3435#0" expanded="false" />
+                <element signature="e#3436#3673#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommandInterpreter.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/inc/CommandInterpreter.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="90" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
+              <folding>
+                <element signature="e#320#343#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommandInterpreter.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/CommandInterpreter.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding>
+                <element signature="e#287#723#0" expanded="false" />
+                <element signature="e#725#1255#0" expanded="false" />
+                <element signature="e#1257#1595#0" expanded="false" />
+                <element signature="e#1597#2123#0" expanded="false" />
+                <element signature="e#2125#2609#0" expanded="false" />
+                <element signature="e#2611#3191#0" expanded="false" />
+                <element signature="e#3193#3537#0" expanded="false" />
+                <element signature="e#3539#4185#0" expanded="false" />
+                <element signature="e#4187#4531#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -87,21 +163,21 @@
         <option value="$PROJECT_DIR$/modules/network/inc/BoostTCPServer.hpp" />
         <option value="$PROJECT_DIR$/modules/network/inc/IServer.hpp" />
         <option value="$PROJECT_DIR$/modules/network/src/BoostTCPNetwork.cpp" />
-        <option value="$PROJECT_DIR$/modules/command/src/Command.cpp" />
-        <option value="$PROJECT_DIR$/modules/command/inc/ACommand.hpp" />
-        <option value="$PROJECT_DIR$/modules/command/inc/Command.hpp" />
         <option value="$PROJECT_DIR$/server/src/Core.cpp" />
         <option value="$PROJECT_DIR$/server/inc/Core.hpp" />
-        <option value="$PROJECT_DIR$/server/src/ServerCore.cpp" />
         <option value="$PROJECT_DIR$/server/inc/ServerCore.hpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/modules/network/src/BoostTCPServer.cpp" />
         <option value="$PROJECT_DIR$/modules/network/src/BoostTCPClient.cpp" />
         <option value="$PROJECT_DIR$/modules/implementations/src/ImplementationFactory.cpp" />
         <option value="$PROJECT_DIR$/modules/implementations/inc/ImplementationFactory.hpp" />
-        <option value="$PROJECT_DIR$/server/inc/CommandInterpreter.hpp" />
         <option value="$PROJECT_DIR$/server/main.cpp" />
+        <option value="$PROJECT_DIR$/server/inc/CommandInterpreter.hpp" />
         <option value="$PROJECT_DIR$/server/src/CommandInterpreter.cpp" />
+        <option value="$PROJECT_DIR$/modules/command/src/Command.cpp" />
+        <option value="$PROJECT_DIR$/server/src/ServerCore.cpp" />
+        <option value="$PROJECT_DIR$/modules/command/inc/ACommand.hpp" />
+        <option value="$PROJECT_DIR$/modules/command/inc/Command.hpp" />
       </list>
     </option>
   </component>
@@ -277,6 +353,50 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="command" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="command" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -342,7 +462,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -365,7 +485,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="25" />
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -395,23 +515,19 @@
           <folding>
             <element signature="e#257#362#0" expanded="false" />
             <element signature="e#363#549#0" expanded="false" />
-            <element signature="e#551#664#0" expanded="false" />
-            <element signature="e#665#822#0" expanded="false" />
-            <element signature="e#824#1173#0" expanded="false" />
-            <element signature="e#1174#1669#0" expanded="false" />
-            <element signature="e#1671#1779#0" expanded="false" />
-            <element signature="e#1780#1968#0" expanded="false" />
-            <element signature="e#1970#2082#0" expanded="false" />
-            <element signature="e#2083#2239#0" expanded="false" />
-            <element signature="e#2241#2344#0" expanded="false" />
-            <element signature="e#2345#2492#0" expanded="false" />
-            <element signature="e#2494#2638#0" expanded="false" />
-            <element signature="e#2639#2827#0" expanded="false" />
-            <element signature="e#2829#2946#0" expanded="false" />
-            <element signature="e#2947#3108#0" expanded="false" />
-            <element signature="e#3110#3294#0" expanded="false" />
-            <element signature="e#3295#3559#0" expanded="false" />
-            <element signature="e#3561#4521#0" expanded="false" />
+            <element signature="e#551#628#0" expanded="false" />
+            <element signature="e#629#750#0" expanded="false" />
+            <element signature="e#752#1101#0" expanded="false" />
+            <element signature="e#1102#1597#0" expanded="false" />
+            <element signature="e#1599#1707#0" expanded="false" />
+            <element signature="e#1708#1896#0" expanded="false" />
+            <element signature="e#1898#2006#0" expanded="false" />
+            <element signature="e#2007#2159#0" expanded="false" />
+            <element signature="e#2161#2278#0" expanded="false" />
+            <element signature="e#2279#2440#0" expanded="false" />
+            <element signature="e#2442#2626#0" expanded="false" />
+            <element signature="e#2627#2891#0" expanded="false" />
+            <element signature="e#3675#4808#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -421,15 +537,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="224" column="0" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
           <folding>
-            <element signature="e#403#941#1" expanded="false" />
-            <element signature="e#948#1448#1" expanded="false" />
-            <element signature="e#1455#2128#1" expanded="false" />
-            <element signature="e#2135#2683#1" expanded="false" />
-            <element signature="e#2690#3248#1" expanded="false" />
-            <element signature="e#3255#3777#1" expanded="false" />
-            <element signature="e#3784#4484#1" expanded="false" />
-            <element signature="e#4491#5073#1" expanded="false" />
-            <element signature="e#5080#5957#1" expanded="false" />
+            <element signature="e#1653#2364#1" expanded="false" />
+            <element signature="e#2371#2951#1" expanded="false" />
+            <element signature="e#1653#2364#1" expanded="false" />
+            <element signature="e#2371#2951#1" expanded="false" />
+            <element signature="e#2958#3531#1" expanded="false" />
+            <element signature="e#3538#4160#1" expanded="false" />
+            <element signature="e#4167#5086#1" expanded="false" />
+            <element signature="e#5093#5872#1" expanded="false" />
+            <element signature="e#5879#6676#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -548,59 +664,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.66831684">
           <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/command/inc/ACommand.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52970296">
-          <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/command/inc/Command.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="224" column="0" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
-          <folding>
-            <element signature="e#403#941#1" expanded="false" />
-            <element signature="e#948#1448#1" expanded="false" />
-            <element signature="e#1455#2128#1" expanded="false" />
-            <element signature="e#2135#2683#1" expanded="false" />
-            <element signature="e#2690#3248#1" expanded="false" />
-            <element signature="e#3255#3777#1" expanded="false" />
-            <element signature="e#3784#4484#1" expanded="false" />
-            <element signature="e#4491#5073#1" expanded="false" />
-            <element signature="e#5080#5957#1" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/command/src/Command.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-          <folding>
-            <element signature="e#257#362#0" expanded="false" />
-            <element signature="e#363#549#0" expanded="false" />
-            <element signature="e#551#664#0" expanded="false" />
-            <element signature="e#665#822#0" expanded="false" />
-            <element signature="e#824#1173#0" expanded="false" />
-            <element signature="e#1174#1669#0" expanded="false" />
-            <element signature="e#1671#1779#0" expanded="false" />
-            <element signature="e#1780#1968#0" expanded="false" />
-            <element signature="e#1970#2082#0" expanded="false" />
-            <element signature="e#2083#2239#0" expanded="false" />
-            <element signature="e#2241#2344#0" expanded="false" />
-            <element signature="e#2345#2492#0" expanded="false" />
-            <element signature="e#2494#2638#0" expanded="false" />
-            <element signature="e#2639#2827#0" expanded="false" />
-            <element signature="e#2829#2946#0" expanded="false" />
-            <element signature="e#2947#3108#0" expanded="false" />
-            <element signature="e#3110#3294#0" expanded="false" />
-            <element signature="e#3295#3559#0" expanded="false" />
-            <element signature="e#3561#4521#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -726,24 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/inc/CommandInterpreter.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27227724">
-          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-          <folding>
-            <element signature="e#320#343#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/ServerCore.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5792079">
-          <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/network/src/BoostTCPNetwork.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5792079">
@@ -762,27 +807,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.2124183">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/modules/command/src/Command.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="181" column="31" selection-start-line="181" selection-start-column="31" selection-end-line="181" selection-end-column="31" />
+          <folding>
+            <element signature="e#257#362#0" expanded="false" />
+            <element signature="e#363#549#0" expanded="false" />
+            <element signature="e#551#628#0" expanded="false" />
+            <element signature="e#629#750#0" expanded="false" />
+            <element signature="e#752#1101#0" expanded="false" />
+            <element signature="e#1102#1597#0" expanded="false" />
+            <element signature="e#1599#1707#0" expanded="false" />
+            <element signature="e#1708#1896#0" expanded="false" />
+            <element signature="e#1898#2006#0" expanded="false" />
+            <element signature="e#2007#2159#0" expanded="false" />
+            <element signature="e#2161#2278#0" expanded="false" />
+            <element signature="e#2279#2440#0" expanded="false" />
+            <element signature="e#2442#2626#0" expanded="false" />
+            <element signature="e#2627#2891#0" expanded="false" />
+            <element signature="e#2893#3044#0" expanded="false" />
+            <element signature="e#3045#3279#0" expanded="false" />
+            <element signature="e#3281#3435#0" expanded="false" />
+            <element signature="e#3436#3673#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/command/inc/ACommand.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/command/inc/Command.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding>
+            <element signature="e#653#1213#1" expanded="false" />
+            <element signature="e#1220#1646#1" expanded="false" />
+            <element signature="e#1653#2364#1" expanded="false" />
+            <element signature="e#2371#2951#1" expanded="false" />
+            <element signature="e#2958#3531#1" expanded="false" />
+            <element signature="e#3538#4160#1" expanded="false" />
+            <element signature="e#4167#5086#1" expanded="false" />
+            <element signature="e#5093#5872#1" expanded="false" />
+            <element signature="e#5879#6676#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/inc/CommandInterpreter.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="90" selection-start-line="28" selection-start-column="90" selection-end-line="28" selection-end-column="90" />
+          <folding>
+            <element signature="e#320#343#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/CommandInterpreter.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31045753">
-          <caret line="39" column="126" selection-start-line="39" selection-start-column="126" selection-end-line="39" selection-end-column="126" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#287#723#0" expanded="false" />
             <element signature="e#725#1255#0" expanded="false" />
             <element signature="e#1257#1595#0" expanded="false" />
-            <element signature="e#1597#2193#0" expanded="false" />
-            <element signature="e#2195#2527#0" expanded="false" />
-            <element signature="e#2529#2834#0" expanded="false" />
-            <element signature="e#2836#3320#0" expanded="false" />
-            <element signature="e#3322#3902#0" expanded="false" />
-            <element signature="e#3904#4248#0" expanded="false" />
+            <element signature="e#1597#2123#0" expanded="false" />
+            <element signature="e#2125#2609#0" expanded="false" />
+            <element signature="e#2611#3191#0" expanded="false" />
+            <element signature="e#3193#3537#0" expanded="false" />
+            <element signature="e#3539#4185#0" expanded="false" />
+            <element signature="e#4187#4531#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/ServerCore.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5940594">
+          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

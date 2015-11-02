@@ -13,15 +13,15 @@
 ServerCore::ServerCore() {
     this->_connectionsListener = ImplementationFactory::createTCPServer();
 
-    this->_interpreter[0] = CommandInterpreter::interpretComError;
-    this->_interpreter[1] = CommandInterpreter::interpretComListRequest;
-    this->_interpreter[2] = CommandInterpreter::interpretComListResponse;
-    this->_interpreter[3] = CommandInterpreter::interpretComCoRequest;
-    this->_interpreter[4] = CommandInterpreter::interpretComCoResponse;
-    this->_interpreter[5] = CommandInterpreter::interpretPing;
-    this->_interpreter[6] = CommandInterpreter::interpretComCoChange;
-    this->_interpreter[7] = CommandInterpreter::interpretComFriendRequest;
-    this->_interpreter[8] = CommandInterpreter::interpretComFriendResponse;
+    this->_interpreter[COM_ERROR_ID] = CommandInterpreter::interpretComError;
+    this->_interpreter[COM_LIST_REQUEST_ID] = CommandInterpreter::interpretComListRequest;
+    this->_interpreter[COM_LIST_RESPONSE_ID] = CommandInterpreter::interpretComListResponse;
+    this->_interpreter[COM_CO_REQUEST_ID] = CommandInterpreter::interpretComCoRequest;
+    this->_interpreter[COM_CO_CHANGE_ID] = CommandInterpreter::interpretComCoChange;
+    this->_interpreter[COM_FRIEND_REQUEST_ID] = CommandInterpreter::interpretComFriendRequest;
+    this->_interpreter[COM_FRIEND_RESPONSE_ID] = CommandInterpreter::interpretComFriendResponse;
+    this->_interpreter[COM_MESSAGE_SEND_ID] = CommandInterpreter::interpretComMessageSend;
+    this->_interpreter[COM_MESSAGE_RECEIVE_ID] = CommandInterpreter::interpretComMessageReceive;
 }
 
 ServerCore::~ServerCore() { }

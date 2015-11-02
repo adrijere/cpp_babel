@@ -24,14 +24,12 @@ void Command::ComError::write() {
 
 void Command::ComListRequest::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(&this->_id_name);
 }
 void Command::ComListRequest::write() {
-  unsigned int size = 2;
+  unsigned int size = 0;
 
   this->writeChar(this->_id);
   this->writeInt(size);
-  this->writeShort(this->_id_name);
 }
 
 void Command::ComListResponse::parse(INetwork *peer) {
@@ -72,41 +70,15 @@ void Command::ComCoRequest::write() {
   this->writeString(this->_name);
 }
 
-void Command::ComCoResponse::parse(INetwork *peer) {
-  this->_peer = peer;
-  this->readShort(&this->_id_name);
-}
-void Command::ComCoResponse::write() {
-  unsigned int size = 2;
-
-  this->writeChar(this->_id);
-  this->writeInt(size);
-  this->writeShort(this->_id_name);
-}
-
-void Command::Ping::parse(INetwork *peer) {
-  this->_peer = peer;
-  this->readShort(&this->_id_name);
-}
-void Command::Ping::write() {
-  unsigned int size = 2;
-
-  this->writeChar(this->_id);
-  this->writeInt(size);
-  this->writeShort(this->_id_name);
-}
-
 void Command::ComCoChange::parse(INetwork *peer) {
   this->_peer = peer;
-  this->readShort(&this->_id_name);
   this->readChar(&this->_status);
 }
 void Command::ComCoChange::write() {
-  unsigned int size = 3;
+  unsigned int size = 1;
 
   this->writeChar(this->_id);
   this->writeInt(size);
-  this->writeShort(this->_id_name);
   this->writeChar(this->_status);
 }
 
@@ -138,6 +110,34 @@ void Command::ComFriendResponse::write() {
   this->writeShort(this->_port);
 }
 
+void Command::ComMessageSend::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(&this->_id_friend);
+  this->readString(this->_message);
+}
+void Command::ComMessageSend::write() {
+  unsigned int size = 2 + (unsigned int)this->_message.size();
+
+  this->writeChar(this->_id);
+  this->writeInt(size);
+  this->writeShort(this->_id_friend);
+  this->writeString(this->_message);
+}
+
+void Command::ComMessageReceive::parse(INetwork *peer) {
+  this->_peer = peer;
+  this->readShort(&this->_id_friend);
+  this->readString(this->_message);
+}
+void Command::ComMessageReceive::write() {
+  unsigned int size = 2 + (unsigned int)this->_message.size();
+
+  this->writeChar(this->_id);
+  this->writeInt(size);
+  this->writeShort(this->_id_friend);
+  this->writeString(this->_message);
+}
+
 ACommand *Command::parseCommand(INetwork *peer) {
   unsigned char id;
   unsigned int size;
@@ -147,40 +147,40 @@ ACommand *Command::parseCommand(INetwork *peer) {
   peer->read(&size, 4);
   switch (id)
   {
-    case 0: {
+    case COM_ERROR_ID: {
       cmd = new Command::ComError(size);
       break;
     }
-    case 1: {
+    case COM_LIST_REQUEST_ID: {
       cmd = new Command::ComListRequest(size);
       break;
     }
-    case 2: {
+    case COM_LIST_RESPONSE_ID: {
       cmd = new Command::ComListResponse(size);
       break;
     }
-    case 3: {
+    case COM_CO_REQUEST_ID: {
       cmd = new Command::ComCoRequest(size);
       break;
     }
-    case 4: {
-      cmd = new Command::ComCoResponse(size);
-      break;
-    }
-    case 5: {
-      cmd = new Command::Ping(size);
-      break;
-    }
-    case 6: {
+    case COM_CO_CHANGE_ID: {
       cmd = new Command::ComCoChange(size);
       break;
     }
-    case 7: {
+    case COM_FRIEND_REQUEST_ID: {
       cmd = new Command::ComFriendRequest(size);
       break;
     }
-    case 8: {
+    case COM_FRIEND_RESPONSE_ID: {
       cmd = new Command::ComFriendResponse(size);
+      break;
+    }
+    case COM_MESSAGE_SEND_ID: {
+      cmd = new Command::ComMessageSend(size);
+      break;
+    }
+    case COM_MESSAGE_RECEIVE_ID: {
+      cmd = new Command::ComMessageReceive(size);
       break;
     }
     default: {

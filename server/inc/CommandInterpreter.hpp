@@ -22,11 +22,11 @@ public:
     static ACommand *interpretComListRequest(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComListResponse(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComCoRequest(ServerCore *, ACommand *, unsigned short);
-    static ACommand *interpretComCoResponse(ServerCore *, ACommand *, unsigned short);
-    static ACommand *interpretPing(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComCoChange(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComFriendRequest(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComFriendResponse(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComMessageSend(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComMessageReceive(ServerCore *, ACommand *, unsigned short);
 };
 
 
