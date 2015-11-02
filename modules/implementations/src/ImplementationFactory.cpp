@@ -24,4 +24,9 @@ IClient * ImplementationFactory::createTCPClient()
 	return new QtTCPClient();
 }
 
+IClient * ImplementationFactory::createUDPClient()
+{
+	return new QtUDPClient();
+}
+
 #endif

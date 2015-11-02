@@ -26,11 +26,13 @@ public:
 
 #  include "IClient.hpp"
 #  include "QtTCPClient.hpp"
+#  include "QtUDPClient.hpp"
 
 class ImplementationFactory
 {
 public:
 	static IClient * createTCPClient();
+	static IClient * createUDPClient();
 };
 
 # endif
