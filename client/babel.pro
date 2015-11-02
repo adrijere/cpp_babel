@@ -11,8 +11,10 @@ QMAKE_CXXFLAGS	+=	-Wno-unused-result -I headers/
 
 SOURCES			+=	sources/main.cpp
 
-HEADERS			+= 	headers/MainWindow.hpp
+HEADERS			+= 	headers/MainWindow.hpp \
+					headers/Login.hpp \
 
-FORMS			+=	mainwindow.ui
+FORMS			+=	mainwindow.ui \
+					login.ui
 
 RESOURCES		+=	resources.qrc

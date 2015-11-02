@@ -2,7 +2,7 @@
 * @Author: gicque_p
 * @Date:   2015-04-14 10:59:05
 * @Last Modified by:   gicque_p
-* @Last Modified time: 2015-10-20 10:22:14
+* @Last Modified time: 2015-11-02 15:46:42
 */
 
 #include <iostream>
@@ -12,6 +12,7 @@
 #include <QLocale>
 #include <QLibraryInfo>
 
+#include "Login.hpp"
 #include "MainWindow.hpp"
 
 int main(int argc, char **argv) {
@@ -23,8 +24,8 @@ int main(int argc, char **argv) {
     translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&translator);
 
-    MainWindow window(NULL);
-    window.show();
+    Login *window = new Login(NULL);
+	window->show();
 
     return app.exec();
 }
