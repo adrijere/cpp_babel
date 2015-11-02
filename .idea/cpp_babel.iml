@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Debug0/babel_client_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Debug0/babel_client_automoc.cpp" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/clientTest/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/clientTest/src/ClientCore.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/command/src/ACommand.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/command/src/Command.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/implementations/src/ImplementationFactory.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPNetwork.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPServer.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/network/src/QtTCPClient.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/network/src/QtUDPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src/CommandInterpreter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src/ServerCore.cpp" isTestSource="false" />
@@ -18,29 +24,34 @@
     <orderEntry type="module-library">
       <library name="Header Search Paths">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/modules/command/inc" />
-          <root url="file://$MODULE_DIR$/modules/implementations/inc" />
-          <root url="file://$MODULE_DIR$/modules/network/inc" />
-          <root url="file://$MODULE_DIR$/server/inc" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Debug0" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/MinSizeRel0" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/RelWithDebInfo0" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Release0" />
           <root url="file:///usr/include" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include-fixed" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include/cilk" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include/sanitizer" />
+          <root url="file:///usr/lib/qt/mkspecs/linux-g++" />
           <root url="file:///usr/local/include" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/modules/command/inc" />
-          <root url="file://$MODULE_DIR$/modules/implementations/inc" />
-          <root url="file://$MODULE_DIR$/modules/network/inc" />
-          <root url="file://$MODULE_DIR$/server/inc" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Debug0" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/MinSizeRel0" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/RelWithDebInfo0" />
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Release0" />
           <root url="file:///usr/include" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include-fixed" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include/cilk" />
           <root url="file:///usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include/sanitizer" />
+          <root url="file:///usr/lib/qt/mkspecs/linux-g++" />
           <root url="file:///usr/local/include" />
         </SOURCES>
+        <excluded>
+          <root url="file://$USER_HOME$/.clion11/system/cmake/generated/4a5ddcd4/4a5ddcd4/Debug0/babel_client_automoc.cpp" />
+        </excluded>
       </library>
     </orderEntry>
   </component>

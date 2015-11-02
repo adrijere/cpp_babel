@@ -8,7 +8,9 @@
 // Last update Tue Oct 27 16:53:36 2015 Nicolas Lequain
 //
 
-#include "BoostTCPNetwork.hpp"
+#ifdef _SERVER_
+
+# include "BoostTCPNetwork.hpp"
 
 BoostTCPNetwork::BoostTCPNetwork() : _socket(this->_io_service)
 {
@@ -61,3 +63,5 @@ boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()
 {
 	return this->_socket;
 }
+
+#endif

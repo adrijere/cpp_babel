@@ -48,6 +48,7 @@ public:
         ~ComError(){}
 
         const std::string &getError() const { return this->_error; }
+        void setError(const std::string &error) { this->_error = error; }
 
         void parse(INetwork *);
         void write();
@@ -84,7 +85,8 @@ public:
         }
         ~ComListResponse(){}
 
-        const std::map<unsigned short, std::string> getContactList() const { return this->_contactList; }
+        const std::map<unsigned short, std::string> &getContactList() const { return this->_contactList; }
+        void setContactList(const std::map<unsigned short, std::string> &contactList) { this->_contactList = contactList; }
 
         void parse(INetwork *);
         void write();
@@ -107,6 +109,7 @@ public:
         ~ComCoRequest(){}
 
         const std::string &getName() const { return this->_name; }
+        void setName(const std::string &name) { this->_name = name; }
 
         void parse(INetwork *);
         void write();
@@ -129,6 +132,7 @@ public:
         ~ComCoChange(){};
 
         unsigned char getStatus() { return this->_status; }
+        void setStatus(unsigned char status) { this->_status = status; }
 
         void parse(INetwork *);
         void write();
@@ -151,6 +155,7 @@ public:
         ~ComCallRequest(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
 
         void parse(INetwork *);
         void write();
@@ -173,6 +178,7 @@ public:
         ~ComCallCancel(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
 
         void parse(INetwork *);
         void write();
@@ -201,6 +207,9 @@ public:
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getAddr() const { return this->_addr; }
         unsigned short getPort() { return this->_port; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setAddr(const std::string &addr) { this->_addr = addr; }
+        void setPort(unsigned short port) { this->_port = port; }
 
         void parse(INetwork *);
         void write();
@@ -226,6 +235,8 @@ public:
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getMessage() const { return this->_message; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setMessage(const std::string &message) { this->_message = message; }
 
         void parse(INetwork *);
         void write();
@@ -251,6 +262,8 @@ public:
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getMessage() const { return this->_message; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setMessage(const std::string &message) { this->_message = message; }
 
         void parse(INetwork *);
         void write();

@@ -25,7 +25,7 @@ public:
 # else
 
 #  include "IClient.hpp"
-#  include "BoostTCPClient.hpp"
+#  include "QtTCPClient.hpp"
 
 class ImplementationFactory
 {
