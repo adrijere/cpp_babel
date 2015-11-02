@@ -14,14 +14,15 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
  public:
     explicit MainWindow(QMainWindow *parent) : QMainWindow(parent) {
-        this->setupUi(this);
-
         // Stylesheets
+        this->setupUi(this);
+        this->setWindowTitle("BABEL - Username");
+
         QTabBar *tb;
         tb = this->tabSidebar->findChild<QTabBar *>(QLatin1String("qt_tabwidget_tabbar"));
         tb->setStyleSheet("background-color: rgb(228, 238, 242); color: #12A5F4; border: none; font-weight: bold;");
 
-        // Interaction
+        // Connect
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
 
         QObject::connect(this->onlineList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeNickname(QListWidgetItem *, QListWidgetItem *)));

@@ -101,7 +101,7 @@ padding-top: 15px;
        <bool>true</bool>
       </property>
       <property name="dragDropMode">
-       <enum>QAbstractItemView::DropOnly</enum>
+       <enum>QAbstractItemView::NoDragDrop</enum>
       </property>
       <property name="defaultDropAction">
        <enum>Qt::MoveAction</enum>
@@ -149,17 +149,22 @@ padding-top: 15px;
       </item>
       <item>
        <property name="text">
-        <string>Yanis Bourabaa</string>
+        <string>Julien Loir</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Alexandre Dairay</string>
+        <string>Nicolas Lequain</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Victor De-Abreu</string>
+        <string>Jérémy Mathon</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Martin Kinoo</string>
        </property>
       </item>
      </widget>
@@ -629,8 +634,6 @@ border-right: 1px solid #000;</string>
       <bool>true</bool>
      </property>
     </widget>
-    <zorder>tabSidebar</zorder>
-    <zorder>label_9</zorder>
    </widget>
    <widget class="QLabel" name="userOnline">
     <property name="geometry">
@@ -740,8 +743,6 @@ border-right: 1px solid #000;</string>
    <zorder>sidebarList</zorder>
    <zorder>userOnline</zorder>
    <zorder>label_7</zorder>
-   <zorder>onlineList</zorder>
-   <zorder>textBrowser</zorder>
    <zorder>sendText</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
