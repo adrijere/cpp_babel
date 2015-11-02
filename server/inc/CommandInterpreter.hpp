@@ -23,8 +23,9 @@ public:
     static ACommand *interpretComListResponse(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComCoRequest(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComCoChange(ServerCore *, ACommand *, unsigned short);
-    static ACommand *interpretComFriendRequest(ServerCore *, ACommand *, unsigned short);
-    static ACommand *interpretComFriendResponse(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCallRequest(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCallCancel(ServerCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCallResponse(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComMessageSend(ServerCore *, ACommand *, unsigned short);
     static ACommand *interpretComMessageReceive(ServerCore *, ACommand *, unsigned short);
 };

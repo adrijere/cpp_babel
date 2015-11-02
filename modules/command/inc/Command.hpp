@@ -22,8 +22,9 @@ typedef enum {
     COM_LIST_RESPONSE_ID,
     COM_CO_REQUEST_ID,
     COM_CO_CHANGE_ID,
-    COM_FRIEND_REQUEST_ID,
-    COM_FRIEND_RESPONSE_ID,
+    COM_CALL_REQUEST_ID,
+    COM_CALL_CANCEL_ID,
+    COM_CALL_RESPONSE_ID,
     COM_MESSAGE_SEND_ID,
     COM_MESSAGE_RECEIVE_ID
 } commandId;
@@ -133,21 +134,21 @@ public:
         void write();
     };
 
-    class ComFriendRequest : public ACommand {
+    class ComCallRequest : public ACommand {
     private:
         unsigned short _id_friend;
 
     public:
-        ComFriendRequest(unsigned int size) : ACommand() {
-            this->_id = COM_FRIEND_REQUEST_ID;
+        ComCallRequest(unsigned int size) : ACommand() {
+            this->_id = COM_CALL_REQUEST_ID;
             this->_size = size;
         }
-        ComFriendRequest(INetwork *peer, unsigned short id_friend) : ACommand() {
-            this->_id = COM_FRIEND_REQUEST_ID;
+        ComCallRequest(INetwork *peer, unsigned short id_friend) : ACommand() {
+            this->_id = COM_CALL_REQUEST_ID;
             this->_peer = peer;
             this->_id_friend = id_friend;
         }
-        ~ComFriendRequest(){}
+        ~ComCallRequest(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
 
@@ -155,25 +156,47 @@ public:
         void write();
     };
 
-    class ComFriendResponse : public ACommand {
+    class ComCallCancel : public ACommand {
+    private:
+        unsigned short _id_friend;
+
+    public:
+        ComCallCancel(unsigned int size) : ACommand() {
+            this->_id = COM_CALL_CANCEL_ID;
+            this->_size = size;
+        }
+        ComCallCancel(INetwork *peer, unsigned short id_friend) : ACommand() {
+            this->_id = COM_CALL_CANCEL_ID;
+            this->_peer = peer;
+            this->_id_friend = id_friend;
+        }
+        ~ComCallCancel(){}
+
+        unsigned short getIdFriend() { return this->_id_friend; }
+
+        void parse(INetwork *);
+        void write();
+    };
+
+    class ComCallResponse : public ACommand {
     private:
         unsigned short _id_friend;
         std::string _addr;
         unsigned short _port;
 
     public:
-        ComFriendResponse(unsigned int size) : ACommand() {
-            this->_id = COM_FRIEND_RESPONSE_ID;
+        ComCallResponse(unsigned int size) : ACommand() {
+            this->_id = COM_CALL_RESPONSE_ID;
             this->_size = size;
         }
-        ComFriendResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) : ACommand() {
-            this->_id = COM_FRIEND_RESPONSE_ID;
+        ComCallResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) : ACommand() {
+            this->_id = COM_CALL_RESPONSE_ID;
             this->_peer = peer;
             this->_id_friend = id_friend;
             this->_addr = addr;
             this->_port = port;
         }
-        ~ComFriendResponse(){}
+        ~ComCallResponse(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getAddr() const { return this->_addr; }

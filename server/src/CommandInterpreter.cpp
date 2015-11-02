@@ -58,8 +58,8 @@ ACommand *CommandInterpreter::interpretComCoChange(ServerCore *mainCore, AComman
 }
 
 /* not yet implemented */
-ACommand *CommandInterpreter::interpretComFriendRequest(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
-    Command::ComFriendRequest *command = reinterpret_cast<Command::ComFriendRequest *>(abstractCommand);
+ACommand *CommandInterpreter::interpretComCallRequest(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCallRequest *command = reinterpret_cast<Command::ComCallRequest *>(abstractCommand);
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is calling the client " << command->getIdFriend();
@@ -68,12 +68,25 @@ ACommand *CommandInterpreter::interpretComFriendRequest(ServerCore *mainCore, AC
     return NULL;
 }
 
-/* not used server-side */
-ACommand *CommandInterpreter::interpretComFriendResponse(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
-    Command::ComFriendResponse *command = reinterpret_cast<Command::ComFriendResponse *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
-    (void)idClient;
+/* not yet implemented */
+ACommand *CommandInterpreter::interpretComCallCancel(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCallCancel *command = reinterpret_cast<Command::ComCallCancel *>(abstractCommand);
+    std::cout << "Client " << idClient;
+    std::cout << " (" << mainCore->getContactList()[idClient] << ")";
+    std::cout << " is canceling his call to the client " << command->getIdFriend();
+    std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
+    std::cout << "." << std::endl;
+    return NULL;
+}
+
+/* not yet implemented */
+ACommand *CommandInterpreter::interpretComCallResponse(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCallResponse *command = reinterpret_cast<Command::ComCallResponse *>(abstractCommand);
+    std::cout << "Client " << idClient;
+    std::cout << " (" << mainCore->getContactList()[idClient] << ")";
+    std::cout << " is accepting the call to the client " << command->getIdFriend();
+    std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
+    std::cout << "." << std::endl;
     return NULL;
 }
 
