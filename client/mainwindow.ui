@@ -79,7 +79,7 @@ border-top: #FFF;</string>
      <widget class="QListWidget" name="onlineList">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>-1</x>
         <y>0</y>
         <width>241</width>
         <height>271</height>
@@ -149,22 +149,12 @@ padding-top: 15px;
       </item>
       <item>
        <property name="text">
-        <string>Julien Loir</string>
+        <string>Test</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Nicolas Lequain</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Jérémy Mathon</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Martin Kinoo</string>
+        <string>Test2</string>
        </property>
       </item>
      </widget>
@@ -271,42 +261,86 @@ text-transform: uppercase;</string>
     <property name="alternatingRowColors">
      <bool>false</bool>
     </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
+    <property name="movement">
+     <enum>QListView::Static</enum>
+    </property>
+    <property name="flow">
+     <enum>QListView::TopToBottom</enum>
+    </property>
+    <property name="isWrapping" stdset="0">
+     <bool>false</bool>
+    </property>
+    <property name="resizeMode">
+     <enum>QListView::Fixed</enum>
+    </property>
+    <property name="layoutMode">
+     <enum>QListView::SinglePass</enum>
+    </property>
+    <property name="spacing">
+     <number>8</number>
+    </property>
+    <property name="viewMode">
+     <enum>QListView::ListMode</enum>
+    </property>
+    <property name="uniformItemSizes">
+     <bool>false</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="selectionRectVisible">
+     <bool>false</bool>
+    </property>
     <item>
      <property name="text">
-      <string>Hey salut mec, ça va ?</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Trkl et toi ?</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignRight|AlignVCenter</set>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Ouais, oklm</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Appel (durée 04:35)</string>
+      <string>Vous n'avez encore rien envoyé à votre correspondant ! N'hésitez pas à lui envoyer un petit message pour lui dire bonjour ! :)</string>
      </property>
      <property name="font">
       <font>
        <italic>true</italic>
       </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Message envoyé</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Message reçu</string>
+     </property>
+     <property name="font">
+      <font>
+       <stylestrategy>PreferDefault</stylestrategy>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignRight|AlignVCenter</set>
+     </property>
+     <property name="background">
+      <brush brushstyle="NoBrush">
+       <color alpha="255">
+        <red>244</red>
+        <green>244</green>
+        <blue>244</blue>
+       </color>
+      </brush>
+     </property>
+     <property name="foreground">
+      <brush brushstyle="NoBrush">
+       <color alpha="255">
+        <red>18</red>
+        <green>165</green>
+        <blue>244</blue>
+       </color>
+      </brush>
      </property>
     </item>
    </widget>
@@ -474,7 +508,7 @@ text-transform: uppercase;</string>
       <normaloff>:/images/camera.png</normaloff>:/images/camera.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="friendButton">
+   <widget class="QPushButton" name="addFriendButton">
     <property name="geometry">
      <rect>
       <x>689</x>
@@ -484,7 +518,7 @@ text-transform: uppercase;</string>
      </rect>
     </property>
     <property name="cursor">
-     <cursorShape>ForbiddenCursor</cursorShape>
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">border: 1px solid #B6B6B6;
@@ -497,7 +531,7 @@ text-transform: uppercase;</string>
     </property>
     <property name="icon">
      <iconset resource="resources.qrc">
-      <normaloff>:/images/star.png</normaloff>:/images/star.png</iconset>
+      <normaloff>:/images/starplus.png</normaloff>:/images/starplus.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -677,7 +711,7 @@ border-right: 1px solid #000;</string>
    <widget class="QFrame" name="frame_3">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>238</x>
       <y>-20</y>
       <width>591</width>
       <height>601</height>
@@ -725,6 +759,38 @@ border-right: 1px solid #000;</string>
      <string>Ecrivez un message à votre contact...</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="removeFriendButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>689</x>
+      <y>40</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid #B6B6B6;
+background-color: #FFC107;
+color: #FFFFFF;
+text-transform: uppercase;</string>
+    </property>
+    <property name="text">
+     <string>Ami</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/starminus.png</normaloff>:/images/starminus.png</iconset>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>frame_3</zorder>
    <zorder>frame</zorder>
    <zorder>tabSidebar</zorder>
@@ -737,13 +803,14 @@ border-right: 1px solid #000;</string>
    <zorder>mainLabel</zorder>
    <zorder>mainOnline</zorder>
    <zorder>videoButton</zorder>
-   <zorder>friendButton</zorder>
+   <zorder>addFriendButton</zorder>
    <zorder>label_8</zorder>
    <zorder>researchLine</zorder>
    <zorder>sidebarList</zorder>
    <zorder>userOnline</zorder>
    <zorder>label_7</zorder>
    <zorder>sendText</zorder>
+   <zorder>removeFriendButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
