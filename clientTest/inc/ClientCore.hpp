@@ -11,21 +11,28 @@
 #ifndef _CLIENTCORE_HPP_
 #define _CLIENTCORE_HPP_
 
+# include <map>
+# include <thread>
+# include <mutex>
 # include "ImplementationFactory.hpp"
 # include "QtTCPClient.hpp"
 # include "QtUDPClient.hpp"
 # include "Command.hpp"
+# include "CommandInterpreter.hpp"
 
 class ClientCore {
 private:
+    typedef ACommand *(*fct)(ClientCore *, ACommand *);
+
     std::string _name;
     IClient *_mainConnection;
+    std::thread *_readerThread;
+    std::map<unsigned short, fct> _interpreter;
+    std::mutex _mainMutex;
 public:
-    ClientCore(const std::string &name) {
-        this->_name = name;
-        this->_mainConnection = ImplementationFactory::createTCPClient();
-    }
+    ClientCore(const std::string &, const std::string &, unsigned short);
     ~ClientCore() {}
+    void reader();
     void sendComListRequest();
     void sendComCoRequest();
     void sendComCoChange(unsigned char);
