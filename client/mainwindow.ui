@@ -71,7 +71,7 @@ border-top: #FFF;</string>
     <widget class="QWidget" name="firstTab">
      <attribute name="icon">
       <iconset resource="resources.qrc">
-       <normaloff>:/images/online.png</normaloff>:/images/online.png</iconset>
+       <normaloff>:/images/users.png</normaloff>:/images/users.png</iconset>
      </attribute>
      <attribute name="title">
       <string>EN LIGNE</string>
@@ -82,7 +82,7 @@ border-top: #FFF;</string>
         <x>0</x>
         <y>-1</y>
         <width>241</width>
-        <height>271</height>
+        <height>321</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -109,6 +109,9 @@ padding-top: 15px;
       <property name="alternatingRowColors">
        <bool>false</bool>
       </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
       <property name="movement">
        <enum>QListView::Static</enum>
       </property>
@@ -116,7 +119,7 @@ padding-top: 15px;
        <enum>QListView::TopToBottom</enum>
       </property>
       <property name="resizeMode">
-       <enum>QListView::Adjust</enum>
+       <enum>QListView::Fixed</enum>
       </property>
       <property name="layoutMode">
        <enum>QListView::SinglePass</enum>
@@ -125,7 +128,7 @@ padding-top: 15px;
        <number>5</number>
       </property>
       <property name="viewMode">
-       <enum>QListView::IconMode</enum>
+       <enum>QListView::ListMode</enum>
       </property>
       <property name="modelColumn">
        <number>0</number>
@@ -147,16 +150,6 @@ padding-top: 15px;
         <string>Babel Echo Test</string>
        </property>
       </item>
-      <item>
-       <property name="text">
-        <string>Test</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Test2</string>
-       </property>
-      </item>
      </widget>
     </widget>
     <widget class="QWidget" name="secondTab">
@@ -173,7 +166,7 @@ padding-top: 15px;
         <x>0</x>
         <y>0</y>
         <width>241</width>
-        <height>271</height>
+        <height>321</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -194,6 +187,9 @@ padding-top: 15px;</string>
       </property>
       <property name="defaultDropAction">
        <enum>Qt::MoveAction</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
       <property name="spacing">
        <number>5</number>
@@ -475,7 +471,7 @@ background-color: #12A5F4;
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="resources.qrc">:/images/ok.png</pixmap>
+      <pixmap resource="resources.qrc">:/images/online.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -618,7 +614,7 @@ border-bottom: 1px solid #12A5F4;
     </item>
     <item>
      <property name="text">
-      <string>Récents appels</string>
+      <string>Appels récents</string>
      </property>
      <property name="icon">
       <iconset resource="resources.qrc">
@@ -669,7 +665,7 @@ border-right: 1px solid #000;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="userOnline">
+   <widget class="QLabel" name="statusUser">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -685,7 +681,7 @@ border-right: 1px solid #000;</string>
      <string>en ligne</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="statusPix">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -702,7 +698,7 @@ border-right: 1px solid #000;</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="resources.qrc">:/images/ok.png</pixmap>
+     <pixmap resource="resources.qrc">:/images/online.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -807,8 +803,8 @@ text-transform: uppercase;</string>
    <zorder>label_8</zorder>
    <zorder>researchLine</zorder>
    <zorder>sidebarList</zorder>
-   <zorder>userOnline</zorder>
-   <zorder>label_7</zorder>
+   <zorder>statusUser</zorder>
+   <zorder>statusPix</zorder>
    <zorder>sendText</zorder>
    <zorder>removeFriendButton</zorder>
   </widget>

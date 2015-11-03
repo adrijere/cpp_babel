@@ -2,17 +2,22 @@
 # define MAINWINDOW_HPP_
 
 # include <iostream>
+# include <list>
+# include <algorithm>
 
 # include <QWidget>
 # include <QMainWindow>
 # include <QTimer>
 # include <QList>
 # include <QMessageBox>
+# include <QPixmap>
 
 # include "ui_mainwindow.h"
 
 class MainWindow : public QMainWindow, public Ui_MainWindow {
     Q_OBJECT;
+
+    std::list<std::string> _onlineUsers;
 
  public:
     explicit MainWindow(QMainWindow *parent, QString username) : QMainWindow(parent) {
@@ -20,7 +25,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->setupUi(this);
         this->setWindowTitle(username);
         this->mainLabel->setText(username);
-        this->removeFriendButton->setVisible(false);
+        this->changeView(NULL, NULL);
 
         QTabBar *tb;
         tb = this->tabSidebar->findChild<QTabBar *>(QLatin1String("qt_tabwidget_tabbar"));
@@ -130,6 +135,23 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->toggleFriend(false);
         } else {
             this->toggleFriend(true);
+        }
+
+        std::string user = username.toStdString();
+        if (std::find(this->_onlineUsers.begin(), this->_onlineUsers.end(), user) != this->_onlineUsers.end()) {
+            QPixmap pix(":/images/online.png");
+
+            this->statusPix->setPixmap(pix);
+            this->statusUser->setText("en ligne");
+        } else {
+            QPixmap pix(":/images/offline.png");
+
+            this->statusPix->setPixmap(pix);
+            this->statusUser->setText("hors ligne");
+            this->callButton->setEnabled(false);
+            this->videoButton->setEnabled(false);
+            this->sendText->setEnabled(false);
+            this->sendButton->setEnabled(false);
         }
     }
 
