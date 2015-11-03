@@ -17,7 +17,7 @@ class Login : public QWidget, public Ui_Login {
     explicit Login(QWidget *parent) : QWidget(parent) {
         // Stylesheets
         this->setupUi(this);
-        this->setWindowTitle("Bienvenu sur Babel");
+        this->setWindowTitle("BABEL - Connexion");
 
         // Connect
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
@@ -52,7 +52,7 @@ class Login : public QWidget, public Ui_Login {
                 // LE RESTE
             // }
 
-            MainWindow *window = new MainWindow(NULL);
+            MainWindow *window = new MainWindow(NULL, this->usernameEdit->text());
 
             this->hide();
             window->show();
