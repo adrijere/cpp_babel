@@ -2,6 +2,7 @@
 # define MAINWINDOW_HPP_
 
 # include <iostream>
+# include <map>
 # include <list>
 # include <algorithm>
 
@@ -18,6 +19,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     Q_OBJECT;
 
     std::list<std::string> _onlineUsers;
+    std::map<std::string, std::list<std::string> > _history;
 
  public:
     explicit MainWindow(QMainWindow *parent, QString username) : QMainWindow(parent) {
@@ -25,6 +27,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->setupUi(this);
         this->setWindowTitle(username);
         this->mainLabel->setText(username);
+        this->ping();
         this->changeView(NULL, NULL);
 
         QTabBar *tb;
@@ -33,7 +36,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         // Connect
         QTimer *timer = new QTimer(this);
-        timer->start(500);
+        timer->start(30000);
 
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
         QObject::connect(timer, SIGNAL(timeout()), SLOT(ping()));
@@ -50,10 +53,9 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         QObject::connect(this->videoButton, SIGNAL(clicked()), SLOT(notImplemented()));
         QObject::connect(this->addFriendButton, SIGNAL(clicked()), SLOT(addFriend()));        
         QObject::connect(this->removeFriendButton, SIGNAL(clicked()), SLOT(removeFriend()));        
-        QObject::connect(this->sendButton, SIGNAL(clicked()), SLOT(notImplemented()));        
 
-        QObject::connect(this->sendText, SIGNAL(returnPressed()), this->sendText, SLOT(clear()));
-        QObject::connect(this->sendText, SIGNAL(returnPressed()), SLOT(notImplemented()));        
+        QObject::connect(this->sendButton, SIGNAL(clicked()), SLOT(sendMessage()));        
+        QObject::connect(this->sendText, SIGNAL(returnPressed()), SLOT(sendMessage()));
     };
 
     ~MainWindow(void) {}
@@ -75,14 +77,16 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     void ping(void) {
         // PING SERVER TO GET ONLINE USERS LIST
 
-        // QListWidgetItem *item = new QListWidgetItem("Babel Echo Test");
-        // this->onlineList->clear();
-        // this->onlineList->addItem(item);
+        QListWidgetItem *item = new QListWidgetItem("Babel Echo Test");
+        this->onlineList->clear();
+        this->onlineList->addItem(item);
 
-        // for (responseFromServer as reponse) {
-        //     QListWidgetItem *item = QListWidgetItem(reponse);
-        //     this->onlineList->addItem(item);
-        // }
+        for (std::list<std::string>::iterator it = this->_onlineUsers.begin(); it != this->_onlineUsers.end(); it++) {
+            QString itemName(it->c_str());
+            QListWidgetItem *item = new QListWidgetItem(itemName);
+
+            this->onlineList->addItem(item);
+        }
     }
 
     void addFriend(void) {
@@ -100,7 +104,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->friendList->addItem(item);
         }
 
-        this->changeView(NULL, NULL);
+        this->changeView();
     }
 
     void removeFriend(void) {
@@ -118,10 +122,10 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->friendList->addItem(item);
         }
 
-        this->changeView(NULL, NULL);
+        this->changeView();
     }
 
-    void changeView(QListWidgetItem *current, QListWidgetItem *previous) {
+    void changeView(QListWidgetItem *current = NULL, QListWidgetItem *previous = NULL) {
         (void)previous;
 
         if (current != NULL and current->text() != "Aucun ami") {
@@ -137,8 +141,8 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->toggleFriend(true);
         }
 
-        std::string user = username.toStdString();
-        if (std::find(this->_onlineUsers.begin(), this->_onlineUsers.end(), user) != this->_onlineUsers.end()) {
+        std::string name = username.toStdString();
+        if (std::find(this->_onlineUsers.begin(), this->_onlineUsers.end(), name) != this->_onlineUsers.end()) {
             QPixmap pix(":/images/online.png");
 
             this->statusPix->setPixmap(pix);
@@ -153,6 +157,31 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->sendText->setEnabled(false);
             this->sendButton->setEnabled(false);
         }
+
+        this->historyList->clear();
+        if (this->_history[name].empty()) {
+            QString content(QString::fromUtf8("Vous n'avez encore rien envoyé à votre correspondant ! N'hésitez pas à lui envoyer un petit message pour lui dire bonjour ! :)"));
+            QListWidgetItem *item = new QListWidgetItem(content);
+
+            item->setTextAlignment(Qt::AlignCenter);
+            this->historyList->addItem(item);
+        } else {        
+            for (std::list<std::string>::iterator it = this->_history[name].begin(); it != this->_history[name].end(); it++) {
+                QString itemName(it->c_str());
+                QListWidgetItem *item = new QListWidgetItem(itemName);
+
+                this->historyList->addItem(item);
+            }
+        }
+    }
+
+    void sendMessage(void) {
+        std::string content = this->sendText->text().toStdString();
+        std::string username = this->userLabel->text().toStdString();
+
+        this->_history[username].push_back(content);
+        this->sendText->clear();
+        this->changeView();
     }
 
     void notImplemented(void) {

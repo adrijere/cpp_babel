@@ -212,7 +212,7 @@ padding-top: 15px;</string>
      </rect>
     </property>
     <property name="cursor">
-     <cursorShape>ForbiddenCursor</cursorShape>
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true">border: 1px solid #B6B6B6;
@@ -301,42 +301,6 @@ text-transform: uppercase;</string>
      </property>
      <property name="textAlignment">
       <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Message envoyé</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Message reçu</string>
-     </property>
-     <property name="font">
-      <font>
-       <stylestrategy>PreferDefault</stylestrategy>
-      </font>
-     </property>
-     <property name="textAlignment">
-      <set>AlignRight|AlignVCenter</set>
-     </property>
-     <property name="background">
-      <brush brushstyle="NoBrush">
-       <color alpha="255">
-        <red>244</red>
-        <green>244</green>
-        <blue>244</blue>
-       </color>
-      </brush>
-     </property>
-     <property name="foreground">
-      <brush brushstyle="NoBrush">
-       <color alpha="255">
-        <red>18</red>
-        <green>165</green>
-        <blue>244</blue>
-       </color>
-      </brush>
      </property>
     </item>
    </widget>
