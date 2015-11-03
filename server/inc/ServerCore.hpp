@@ -39,7 +39,7 @@ public:
     std::map<unsigned short, std::string> &getContactList() { return this->_contactList; }
     std::map<unsigned short, fct> &getInterpreter() { return this->_interpreter; };
     std::vector<std::thread *> &getThreadList() { return this->_threadList; }
-    std::vector<INetwork *> &getNetworkList() { return this->_networkList; }
+    std::map<unsigned short, INetwork *> &getNetworkList() { return this->_networkList; }
     std::mutex &getMainMutex() { return this->_mainMutex; }
 
     void run();
