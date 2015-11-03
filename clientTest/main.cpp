@@ -11,5 +11,5 @@
 #include "ClientCore.hpp"
 
 int main() {
-    ClientCore mainCore("Namaneo");
+    ClientCore mainCore("Namaneo", "127.0.0.1", 4242);
 }

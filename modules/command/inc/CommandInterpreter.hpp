@@ -41,16 +41,16 @@ class ClientCore;
 
 class CommandInterpreter {
 public:
-    static ACommand *interpretComError(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComListRequest(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComListResponse(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComCoRequest(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComCoChange(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComCallRequest(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComCallCancel(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComCallResponse(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComMessageSend(ClientCore *, ACommand *, unsigned short);
-    static ACommand *interpretComMessageReceive(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComError(ClientCore *, ACommand *);
+    static ACommand *interpretComListRequest(ClientCore *, ACommand *);
+    static ACommand *interpretComListResponse(ClientCore *, ACommand *);
+    static ACommand *interpretComCoRequest(ClientCore *, ACommand *);
+    static ACommand *interpretComCoChange(ClientCore *, ACommand *);
+    static ACommand *interpretComCallRequest(ClientCore *, ACommand *);
+    static ACommand *interpretComCallCancel(ClientCore *, ACommand *);
+    static ACommand *interpretComCallResponse(ClientCore *, ACommand *);
+    static ACommand *interpretComMessageSend(ClientCore *, ACommand *);
+    static ACommand *interpretComMessageReceive(ClientCore *, ACommand *);
 };
 
 # endif
