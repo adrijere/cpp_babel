@@ -11,7 +11,8 @@
 #include "ServerCore.hpp"
 
 ServerCore::ServerCore() {
-    this->_connectionsListener = ImplementationFactory::createTCPServer();
+    this->_connectionsListenerIn = ImplementationFactory::createTCPServer();
+    this->_connectionsListenerOut = ImplementationFactory::createTCPServer();
 
     this->_interpreter[COM_ERROR_ID] = CommandInterpreter::interpretComError;
     this->_interpreter[COM_LIST_REQUEST_ID] = CommandInterpreter::interpretComListRequest;
@@ -28,19 +29,22 @@ ServerCore::ServerCore() {
 ServerCore::~ServerCore() { }
 
 void ServerCore::run() {
-    this->_connectionsListener->listen(4242);
-    INetwork *peer = this->_connectionsListener->waitConnection();
-    while(peer != NULL) {
-        this->_networkList[this->_networkList.size()] = peer;
+    this->_connectionsListenerIn->listen(SERVER_PORT_IN);
+    this->_connectionsListenerOut->listen(SERVER_PORT_OUT);
+    INetwork *peerIn = this->_connectionsListenerIn->waitConnection();
+    INetwork *peerOut = this->_connectionsListenerIn->waitConnection();
+    while(peerIn != NULL && peerOut != NULL) {
+        this->_networkList[this->_networkList.size()] = std::pair<INetwork *, INetwork *>(peerIn, peerOut);
         std::thread *newThread = new std::thread(&ServerCore::connection, this, this->_networkList.size() - 1);
         this->_threadList.push_back(newThread);
-        peer = this->_connectionsListener->waitConnection();
+        peerIn = this->_connectionsListenerIn->waitConnection();
+        peerOut = this->_connectionsListenerIn->waitConnection();
     }
 }
 
 void ServerCore::connection(unsigned short idClient) {
     std::cout << "New Connection !" << std::endl;
-    ACommand *newCommand = Command::parseCommand(this->_networkList[idClient]);
+    ACommand *newCommand = Command::parseCommand(this->_networkList[idClient].first);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand, idClient);
         if (responseCommand) {
@@ -48,7 +52,7 @@ void ServerCore::connection(unsigned short idClient) {
             delete responseCommand;
         }
         delete newCommand;
-        newCommand = Command::parseCommand(this->_networkList[idClient]);
+        newCommand = Command::parseCommand(this->_networkList[idClient].first);
     }
     std::cout << "Fin de Connection !" << std::endl;
 }

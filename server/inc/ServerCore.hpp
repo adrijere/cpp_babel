@@ -11,6 +11,7 @@
 #ifndef _CORE_HPP_
 # define _CORE_HPP_
 
+# include <utility>
 # include <map>
 # include <vector>
 # include <thread>
@@ -26,21 +27,22 @@ class ServerCore {
 private:
     typedef ACommand *(*fct)(ServerCore *, ACommand *, unsigned short);
 
-    IServer *_connectionsListener;
+    IServer *_connectionsListenerIn;
+    IServer *_connectionsListenerOut;
     std::map<unsigned short, std::string> _contactList;
     std::map<unsigned short, fct> _interpreter;
-    std::map<unsigned short, INetwork *> _networkList;
+    std::map<unsigned short, std::pair<INetwork *, INetwork *> > _networkList;
     std::vector<std::thread *> _threadList;
     std::mutex _mainMutex;
 public:
     ServerCore();
     ~ServerCore();
 
-    IServer *getConnectionsListener() { return this->_connectionsListener; }
+    IServer *getConnectionsListenerIn() { return this->_connectionsListenerIn; }
     std::map<unsigned short, std::string> &getContactList() { return this->_contactList; }
     std::map<unsigned short, fct> &getInterpreter() { return this->_interpreter; };
     std::vector<std::thread *> &getThreadList() { return this->_threadList; }
-    std::map<unsigned short, INetwork *> &getNetworkList() { return this->_networkList; }
+    std::map<unsigned short, std::pair<INetwork *, INetwork *> > &getNetworkList() { return this->_networkList; }
     std::mutex &getMainMutex() { return this->_mainMutex; }
 
     void run();

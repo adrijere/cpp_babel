@@ -25,7 +25,8 @@ private:
     typedef ACommand *(*fct)(ClientCore *, ACommand *);
 
     std::string _name;
-    IClient *_mainConnection;
+    IClient *_mainConnectionIn;
+    IClient *_mainConnectionOut;
     std::thread *_readerThread;
     std::map<unsigned short, fct> _interpreter;
     std::mutex _mainMutex;

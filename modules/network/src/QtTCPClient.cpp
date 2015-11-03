@@ -14,23 +14,21 @@
 
 void QtTCPClient::connect(const std::string & addr, const short port) {
     this->_socket.connectToHost(QString(addr.c_str()), (quint16)port);
+    this->_socket.waitForConnected();
 }
 
-void QtTCPClient::read(void *buffer, size_t size, bool littleEndian) {
-    unsigned int readLength = 0;
-    char readBuffer[1];
-
-    while (readLength < size) {
-        readLength += this->_socket.read(readBuffer, 1);
-		if (littleEndian)
-			std::memcpy((char *)(buffer) + readLength - 1, readBuffer, 1);
-		else
-			std::memcpy((char *)(buffer) + size - readLength, readBuffer, 1);
-    }
+void QtTCPClient::read(void *buffer, size_t size) {
+    while(!(this->_socket.isReadable()
+            && this->_socket.waitForReadyRead(2000)
+            && this->_socket.bytesAvailable() >= (qint64)size));
+    this->_socket.read((char *)buffer, (qint64)size);
 }
 
 void QtTCPClient::write(const void *data, size_t size) {
-    this->_socket.write((char *)data, (quint64)size);
+    while (!this->_socket.isWritable());
+    QByteArray tmp((char *)data, (int)size);
+    this->_socket.write(tmp);
+    this->_socket.waitForBytesWritten();
 }
 
 #endif

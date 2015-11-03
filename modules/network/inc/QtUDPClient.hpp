@@ -25,7 +25,7 @@ public:
     QtUDPClient() {}
     ~QtUDPClient() {}
     void connect(const std::string & addr, const short port);
-    void read(void *buffer, size_t size, bool littleEndian = false);
+    void read(void *buffer, size_t size);
     void write(const void *data, size_t size);
 };
 

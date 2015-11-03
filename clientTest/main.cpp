@@ -12,5 +12,7 @@
 
 int main() {
     ClientCore mainCore("Namaneo", "127.0.0.1", 4242);
+    mainCore.sendComCoRequest();
+    mainCore.sendComListRequest();
     while (true);
 }

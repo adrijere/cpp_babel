@@ -22,41 +22,26 @@ BoostTCPNetwork::~BoostTCPNetwork()
 
 }
 
-void BoostTCPNetwork::read(void *buffer, size_t size, bool littleEndian)
+void BoostTCPNetwork::read(void *buffer, size_t size)
 {
-	boost::array<char, 1> readBuffer;
-	size_t readLength = 0;
+	while (this->_socket.available() < size);
 	boost::system::error_code error;
-
-	while (readLength < size)
-	{
-		readLength += this->_socket.read_some(boost::asio::buffer(readBuffer), error);
-		if (error == boost::asio::error::eof)
-			return ; // Connection closed cleanly by peer.
-		else if (error)
-			throw boost::system::system_error(error); // Some other error.
-		if (littleEndian)
-			std::memcpy((char *)(buffer) + readLength - 1, &readBuffer[0], 1);
-		else
-			std::memcpy((char *)(buffer) + size - readLength, &readBuffer[0], 1);
-	}
+	this->_socket.read_some(boost::asio::buffer(buffer, size), error);
+	if (error == boost::asio::error::eof)
+		return ; // Connection closed cleanly by peer.
+	else if (error)
+		throw boost::system::system_error(error); // Some other error.
 }
 
 void BoostTCPNetwork::write(const void *data, size_t size)
 {
-	boost::array<char, 1> writeBuffer;
-	size_t writeLength = 0;
 	boost::system::error_code error;
-
-	while (writeLength < size)
-	{
-		writeBuffer[0] = ((char *)data)[writeLength];
-		writeLength += boost::asio::write(this->_socket, boost::asio::buffer(writeBuffer), error);
-		if (error == boost::asio::error::eof)
-			return ; // Connection closed cleanly by peer.
-		else if (error)
-			throw boost::system::system_error(error); // Some other error.
-	}
+	this->_socket.write_some(boost::asio::buffer(data, size), error);
+	if (error == boost::asio::error::eof)
+		return ; // Connection closed cleanly by peer.
+	else if (error)
+		throw boost::system::system_error(error); // Some other error.
+	printf("%d\n", size);
 }
 
 boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()

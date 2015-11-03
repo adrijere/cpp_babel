@@ -32,7 +32,7 @@ void ACommand::readString(std::string &elem) {
     this->readShort(&stringSize);
     char *tmp = new char[stringSize + 1];
     tmp[stringSize] = 0;
-    this->_peer->read(tmp, stringSize, true);
+    this->_peer->read(tmp, stringSize);
     elem = tmp;
 }
 

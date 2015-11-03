@@ -12,8 +12,10 @@
 
 ClientCore::ClientCore(const std::string &name, const std::string &addr, unsigned short port) {
     this->_name = name;
-    this->_mainConnection = ImplementationFactory::createTCPClient();
-    this->_mainConnection->connect(addr, port);
+    this->_mainConnectionOut = ImplementationFactory::createTCPClient();
+    this->_mainConnectionOut->connect(addr, port);
+    this->_mainConnectionIn = ImplementationFactory::createTCPClient();
+    this->_mainConnectionIn->connect(addr, port);
 
     this->_interpreter[COM_ERROR_ID] = CommandInterpreter::interpretComError;
     this->_interpreter[COM_LIST_REQUEST_ID] = CommandInterpreter::interpretComListRequest;
@@ -30,7 +32,7 @@ ClientCore::ClientCore(const std::string &name, const std::string &addr, unsigne
 }
 
 void ClientCore::reader() {
-    ACommand *newCommand = Command::parseCommand(this->_mainConnection);
+    ACommand *newCommand = Command::parseCommand(this->_mainConnectionIn);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
         if (responseCommand) {
@@ -38,36 +40,36 @@ void ClientCore::reader() {
             delete responseCommand;
         }
         delete newCommand;
-        newCommand = Command::parseCommand(this->_mainConnection);
+        newCommand = Command::parseCommand(this->_mainConnectionIn);
     }
 }
 
 void ClientCore::sendComListRequest() {
-    Command::ComListRequest command(this->_mainConnection);
+    Command::ComListRequest command(this->_mainConnectionOut);
     command.write();
 }
 
 void ClientCore::sendComCoRequest() {
-    Command::ComCoRequest command(this->_mainConnection, this->_name);
+    Command::ComCoRequest command(this->_mainConnectionOut, this->_name);
     command.write();
 }
 
 void ClientCore::sendComCoChange(unsigned char status) {
-    Command::ComCoChange command(this->_mainConnection, status);
+    Command::ComCoChange command(this->_mainConnectionOut, status);
     command.write();
 }
 
 void ClientCore::sendComCallRequest(unsigned short idFriend) {
-    Command::ComCallRequest command(this->_mainConnection, idFriend);
+    Command::ComCallRequest command(this->_mainConnectionOut, idFriend);
     command.write();
 }
 
 void ClientCore::sendComCallCancel(unsigned short idFriend) {
-    Command::ComCallCancel command(this->_mainConnection, idFriend);
+    Command::ComCallCancel command(this->_mainConnectionOut, idFriend);
     command.write();
 }
 
 void ClientCore::sendComMessageSend(unsigned short idFriend, const std::string &message) {
-    Command::ComMessageSend command(this->_mainConnection, idFriend, message);
+    Command::ComMessageSend command(this->_mainConnectionOut, idFriend, message);
     command.write();
 }

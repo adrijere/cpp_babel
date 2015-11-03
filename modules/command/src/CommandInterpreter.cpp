@@ -27,7 +27,7 @@ ACommand *CommandInterpreter::interpretComListRequest(ServerCore *mainCore, ACom
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is asking for contact list." << std::endl;
-    return new Command::ComListResponse(mainCore->getNetworkList()[idClient], mainCore->getContactList());
+    return new Command::ComListResponse(mainCore->getNetworkList()[idClient].second, mainCore->getContactList());
 }
 
 /* not used server-side */
@@ -43,7 +43,7 @@ ACommand *CommandInterpreter::interpretComCoRequest(ServerCore *mainCore, AComma
     Command::ComCoRequest *command = reinterpret_cast<Command::ComCoRequest *>(abstractCommand);
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
-    std::cout << " is setting/changing his name : " << command->getName();
+    std::cout << " is setting/changing his name to : " << command->getName();
     std::cout << "." << std::endl;
     mainCore->getContactList()[idClient] = command->getName();
     return NULL;
@@ -66,7 +66,7 @@ ACommand *CommandInterpreter::interpretComCallRequest(ServerCore *mainCore, ACom
     std::cout << " is calling the client " << command->getIdFriend();
     std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
     std::cout << "." << std::endl;
-    command->setPeer(mainCore->getNetworkList()[command->getIdFriend()]);
+    command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
     return command;
 }
@@ -78,7 +78,7 @@ ACommand *CommandInterpreter::interpretComCallCancel(ServerCore *mainCore, AComm
     std::cout << " is canceling his call to the client " << command->getIdFriend();
     std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
     std::cout << "." << std::endl;
-    command->setPeer(mainCore->getNetworkList()[command->getIdFriend()]);
+    command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
     return command;
 }
@@ -90,7 +90,7 @@ ACommand *CommandInterpreter::interpretComCallResponse(ServerCore *mainCore, ACo
     std::cout << " is accepting the call to the client " << command->getIdFriend();
     std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
     std::cout << "." << std::endl;
-    command->setPeer(mainCore->getNetworkList()[command->getIdFriend()]);
+    command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
     return command;
 }
@@ -103,7 +103,7 @@ ACommand *CommandInterpreter::interpretComMessageSend(ServerCore *mainCore, ACom
     std::cout << " to the client " << command->getIdFriend();
     std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
     std::cout << "." << std::endl;
-    return new Command::ComMessageReceive(mainCore->getNetworkList()[command->getIdFriend()], idClient, command->getMessage());
+    return new Command::ComMessageReceive(mainCore->getNetworkList()[command->getIdFriend()].second, idClient, command->getMessage());
 }
 
 /* not used server-side */
