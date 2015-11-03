@@ -48,10 +48,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = sources/main.cpp qrc_resources.cpp \
+SOURCES       = sources/main.cpp \
+		sources/addFont.cpp qrc_resources.cpp \
 		moc_MainWindow.cpp \
 		moc_Login.cpp
 OBJECTS       = main.o \
+		addFont.o \
 		qrc_resources.o \
 		moc_MainWindow.o \
 		moc_Login.o
@@ -207,7 +209,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		babel.pro headers/MainWindow.hpp \
-		headers/Login.hpp sources/main.cpp
+		headers/Login.hpp sources/main.cpp \
+		sources/addFont.cpp
 QMAKE_TARGET  = babel
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = babel
@@ -567,7 +570,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents headers/MainWindow.hpp headers/Login.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents sources/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents sources/main.cpp sources/addFont.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui login.ui $(DISTDIR)/
 
 
@@ -602,6 +605,7 @@ qrc_resources.cpp: resources.qrc \
 		images/cloud2.png \
 		images/camera.png \
 		images/babel.png \
+		images/starplus.png \
 		images/avatar.png \
 		images/tardis.png \
 		images/bird2.png \
@@ -611,8 +615,14 @@ qrc_resources.cpp: resources.qrc \
 		images/plane.png \
 		images/pass.png \
 		images/cloud.png \
+		images/starminus.png \
 		images/arrow.png \
-		images/home.png
+		images/home.png \
+		fonts/Roboto-Regular.ttf \
+		fonts/Roboto-Light.ttf \
+		fonts/Roboto-Medium.ttf \
+		fonts/Roboto-Thin.ttf \
+		fonts/Roboto-Bold.ttf
 	/usr/lib/qt/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_MainWindow.cpp moc_Login.cpp
@@ -651,6 +661,9 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 main.o: sources/main.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o sources/main.cpp
+
+addFont.o: sources/addFont.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addFont.o sources/addFont.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

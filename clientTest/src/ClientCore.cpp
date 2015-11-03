@@ -33,32 +33,41 @@ void ClientCore::reader() {
     ACommand *newCommand = Command::parseCommand(this->_mainConnection);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
-        if (responseCommand)
+        if (responseCommand) {
             responseCommand->write();
+            delete responseCommand;
+        }
+        delete newCommand;
         newCommand = Command::parseCommand(this->_mainConnection);
     }
 }
 
 void ClientCore::sendComListRequest() {
-
+    Command::ComListRequest command(this->_mainConnection);
+    command.write();
 }
 
 void ClientCore::sendComCoRequest() {
-
+    Command::ComCoRequest command(this->_mainConnection, this->_name);
+    command.write();
 }
 
 void ClientCore::sendComCoChange(unsigned char status) {
-    (void)status;
+    Command::ComCoChange command(this->_mainConnection, status);
+    command.write();
 }
 
 void ClientCore::sendComCallRequest(unsigned short idFriend) {
-    (void)idFriend;
+    Command::ComCallRequest command(this->_mainConnection, idFriend);
+    command.write();
 }
 
 void ClientCore::sendComCallCancel(unsigned short idFriend) {
-    (void)idFriend;
+    Command::ComCallCancel command(this->_mainConnection, idFriend);
+    command.write();
 }
 
-void ClientCore::sendComMessageSend(unsigned short idFriend) {
-    (void)idFriend;
+void ClientCore::sendComMessageSend(unsigned short idFriend, const std::string &message) {
+    Command::ComMessageSend command(this->_mainConnection, idFriend, message);
+    command.write();
 }
