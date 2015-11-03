@@ -22,8 +22,8 @@ class BabbelOpus {
     bool initDecode();
     bool initEncode();
 
-    unsigned char *OpusDecode(unsigned char *, int);
-    unsigned char *OpusEncode(unsigned char *, int);
+    unsigned char *OpusDecode(unsigned char *, unsigned int);
+    unsigned char *OpusEncode(unsigned char *, unsigned int);
 
     BabbelOpus() {};
     ~BabbelOpus() {};

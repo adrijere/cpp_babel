@@ -25,6 +25,9 @@ class BabbelAudio {
     bool openInputStream();
     bool openOutputStream();
 
+    PaStream *getInputStream();
+    PaStream *getOutputStream();
+    
     bool startStream(PaStream *);
     bool stopStream(PaStream *);
 

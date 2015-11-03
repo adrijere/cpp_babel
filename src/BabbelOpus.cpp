@@ -1,7 +1,7 @@
 #include <cstring>
 #include "BabbelOpus.hh"
 
-unsigned char *BabbelOpus::OpusDecode(unsigned char *data, int size) {
+unsigned char *BabbelOpus::OpusDecode(unsigned char *data, unsigned int size) {
   unsigned char *ret = new unsigned char [MAX_FRAME_SIZE * CHANNELS * 2];
   int   frame_size = opus_decode(decode, data, size, output, MAX_FRAME_SIZE * CHANNELS * 2, 0);
 
@@ -11,7 +11,7 @@ unsigned char *BabbelOpus::OpusDecode(unsigned char *data, int size) {
   return (ret);
 }
 
-unsigned char *BabbelOpus::OpusEncode(unsigned char *data, int size) {
+unsigned char *BabbelOpus::OpusEncode(unsigned char *data, unsigned int size) {
   unsigned char *ret = new unsigned char[size];
 
   memcpy(input, data, size);

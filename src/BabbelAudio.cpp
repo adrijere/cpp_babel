@@ -64,6 +64,14 @@ void BabbelAudio::cleanBuff() {
     readBuff[i] = 0;
 }
 
+PaStream *BabbelAudio::getInputStream() {
+  return inputStream;
+}
+
+PaStream *BabbelAudio::getOutputStream() {
+  return outputStream;
+}
+
 BabbelAudio::BabbelAudio() {
   readBuff =  NULL;
   if ((err = Pa_Initialize()) != paNoError) {
