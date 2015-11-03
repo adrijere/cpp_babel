@@ -2,17 +2,24 @@
 # define MAINWINDOW_HPP_
 
 # include <iostream>
+# include <map>
+# include <list>
+# include <algorithm>
 
 # include <QWidget>
 # include <QMainWindow>
 # include <QTimer>
 # include <QList>
 # include <QMessageBox>
+# include <QPixmap>
 
 # include "ui_mainwindow.h"
 
 class MainWindow : public QMainWindow, public Ui_MainWindow {
     Q_OBJECT;
+
+    std::list<std::string> _onlineUsers;
+    std::map<std::string, std::list<std::string> > _history;
 
  public:
     explicit MainWindow(QMainWindow *parent, QString username) : QMainWindow(parent) {
@@ -20,7 +27,8 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->setupUi(this);
         this->setWindowTitle(username);
         this->mainLabel->setText(username);
-        this->removeFriendButton->setVisible(false);
+        this->ping();
+        this->changeView(NULL, NULL);
 
         QTabBar *tb;
         tb = this->tabSidebar->findChild<QTabBar *>(QLatin1String("qt_tabwidget_tabbar"));
@@ -28,45 +36,36 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         // Connect
         QTimer *timer = new QTimer(this);
-        timer->start(500);
+        timer->start(30000);
 
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
         QObject::connect(timer, SIGNAL(timeout()), SLOT(ping()));
-
-        QObject::connect(this->onlineList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
-        QObject::connect(this->friendList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
         
         QObject::connect(this->sidebarList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(notImplemented()));
 
         QObject::connect(this->researchLine, SIGNAL(returnPressed()), this->researchLine, SLOT(clear()));
         QObject::connect(this->researchLine, SIGNAL(returnPressed()), SLOT(notImplemented()));
 
+        QObject::connect(this->onlineList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
+        QObject::connect(this->friendList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
+
         QObject::connect(this->callButton, SIGNAL(clicked()), SLOT(notImplemented()));
         QObject::connect(this->videoButton, SIGNAL(clicked()), SLOT(notImplemented()));
         QObject::connect(this->addFriendButton, SIGNAL(clicked()), SLOT(addFriend()));        
         QObject::connect(this->removeFriendButton, SIGNAL(clicked()), SLOT(removeFriend()));        
-        QObject::connect(this->sendButton, SIGNAL(clicked()), SLOT(notImplemented()));        
 
-        QObject::connect(this->sendText, SIGNAL(returnPressed()), this->sendText, SLOT(clear()));
-        QObject::connect(this->sendText, SIGNAL(returnPressed()), SLOT(notImplemented()));        
+        QObject::connect(this->sendButton, SIGNAL(clicked()), SLOT(sendMessage()));        
+        QObject::connect(this->sendText, SIGNAL(returnPressed()), SLOT(sendMessage()));
     };
 
     ~MainWindow(void) {}
 
-    void toggleAddFriend(void) {
-        this->addFriendButton->setEnabled(true);
-        this->addFriendButton->setVisible(true);
+    void toggleFriend(bool flag) {
+        this->addFriendButton->setEnabled(flag);
+        this->addFriendButton->setVisible(flag);
 
-        this->removeFriendButton->setEnabled(false);
-        this->removeFriendButton->setVisible(false);
-    }
-
-    void toggleRemoveFriend(void) {
-        this->addFriendButton->setEnabled(false);
-        this->addFriendButton->setVisible(false);
-
-        this->removeFriendButton->setEnabled(true);
-        this->removeFriendButton->setVisible(true);
+        this->removeFriendButton->setEnabled(!flag);
+        this->removeFriendButton->setVisible(!flag);
     }
 
  public slots:
@@ -78,27 +77,34 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     void ping(void) {
         // PING SERVER TO GET ONLINE USERS LIST
 
-        // QListWidgetItem *item = new QListWidgetItem("Babel Echo Test");
-        // this->onlineList->clear();
-        // this->onlineList->addItem(item);
+        QListWidgetItem *item = new QListWidgetItem("Babel Echo Test");
+        this->onlineList->clear();
+        this->onlineList->addItem(item);
 
-        // for (responseFromServer as reponse) {
-        //     QListWidgetItem *item = QListWidgetItem(reponse);
-        //     this->onlineList->addItem(item);
-        // }
+        for (std::list<std::string>::iterator it = this->_onlineUsers.begin(); it != this->_onlineUsers.end(); it++) {
+            QString itemName(it->c_str());
+            QListWidgetItem *item = new QListWidgetItem(itemName);
+
+            this->onlineList->addItem(item);
+        }
     }
 
     void addFriend(void) {
-        if (this->friendList->item(0) and this->friendList->item(0)->text() == "Aucun ami") {
-            this->friendList->clear();
+        QString username = this->userLabel->text();
+        QList<QListWidgetItem *> items = this->friendList->findItems(username, Qt::MatchExactly);
+
+        if (items.count() == 0) {        
+            if (this->friendList->item(0) and this->friendList->item(0)->text() == "Aucun ami") {
+                this->friendList->clear();
+            }
+
+            QString username = this->userLabel->text();
+
+            QListWidgetItem *item = new QListWidgetItem(username);
+            this->friendList->addItem(item);
         }
 
-        QString username = this->userLabel->text();
-
-        QListWidgetItem *item = new QListWidgetItem(username);
-        this->friendList->addItem(item);
-
-        this->toggleRemoveFriend();
+        this->changeView();
     }
 
     void removeFriend(void) {
@@ -116,10 +122,10 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->friendList->addItem(item);
         }
 
-        this->toggleAddFriend();
+        this->changeView();
     }
 
-    void changeView(QListWidgetItem *current, QListWidgetItem *previous) {
+    void changeView(QListWidgetItem *current = NULL, QListWidgetItem *previous = NULL) {
         (void)previous;
 
         if (current != NULL and current->text() != "Aucun ami") {
@@ -130,10 +136,52 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         QList<QListWidgetItem *> items = this->friendList->findItems(username, Qt::MatchExactly);
 
         if (items.count() > 0) {
-            this->toggleRemoveFriend();
+            this->toggleFriend(false);
         } else {
-            this->toggleAddFriend();
+            this->toggleFriend(true);
         }
+
+        std::string name = username.toStdString();
+        if (std::find(this->_onlineUsers.begin(), this->_onlineUsers.end(), name) != this->_onlineUsers.end()) {
+            QPixmap pix(":/images/online.png");
+
+            this->statusPix->setPixmap(pix);
+            this->statusUser->setText("en ligne");
+        } else {
+            QPixmap pix(":/images/offline.png");
+
+            this->statusPix->setPixmap(pix);
+            this->statusUser->setText("hors ligne");
+            this->callButton->setEnabled(false);
+            this->videoButton->setEnabled(false);
+            this->sendText->setEnabled(false);
+            this->sendButton->setEnabled(false);
+        }
+
+        this->historyList->clear();
+        if (this->_history[name].empty()) {
+            QString content(QString::fromUtf8("Vous n'avez encore rien envoyé à votre correspondant ! N'hésitez pas à lui envoyer un petit message pour lui dire bonjour ! :)"));
+            QListWidgetItem *item = new QListWidgetItem(content);
+
+            item->setTextAlignment(Qt::AlignCenter);
+            this->historyList->addItem(item);
+        } else {        
+            for (std::list<std::string>::iterator it = this->_history[name].begin(); it != this->_history[name].end(); it++) {
+                QString itemName(it->c_str());
+                QListWidgetItem *item = new QListWidgetItem(itemName);
+
+                this->historyList->addItem(item);
+            }
+        }
+    }
+
+    void sendMessage(void) {
+        std::string content = this->sendText->text().toStdString();
+        std::string username = this->userLabel->text().toStdString();
+
+        this->_history[username].push_back(content);
+        this->sendText->clear();
+        this->changeView();
     }
 
     void notImplemented(void) {
