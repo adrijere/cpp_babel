@@ -17,10 +17,15 @@ void QtTCPClient::connect(const std::string & addr, const short port) {
 }
 
 void QtTCPClient::read(void *buffer, size_t size, bool littleEndian) {
-    (void)littleEndian;
-    unsigned int currSize = 0;
-    while (currSize < size) {
-        currSize += this->_socket.read((char *)buffer, 1);
+    unsigned int readLength = 0;
+    char readBuffer[1];
+
+    while (readLength < size) {
+        readLength += this->_socket.read(readBuffer, 1);
+		if (littleEndian)
+			std::memcpy((char *)(buffer) + readLength - 1, readBuffer, 1);
+		else
+			std::memcpy((char *)(buffer) + size - readLength, readBuffer, 1);
     }
 }
 

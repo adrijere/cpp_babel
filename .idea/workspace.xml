@@ -17,12 +17,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec52f4cb-6e58-4e15-a835-39565ded2054" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clientTest/src/ClientCore.cpp" afterPath="$PROJECT_DIR$/clientTest/src/ClientCore.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clientTest/inc/ClientCore.hpp" afterPath="$PROJECT_DIR$/clientTest/inc/ClientCore.hpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/babel" afterPath="$PROJECT_DIR$/client/babel" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/Makefile" afterPath="$PROJECT_DIR$/client/Makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp" afterPath="$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp" afterPath="$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp" afterPath="$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/ServerCore.cpp" afterPath="$PROJECT_DIR$/server/src/ServerCore.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clientTest/main.cpp" afterPath="$PROJECT_DIR$/clientTest/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp" afterPath="$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cpp_babel.iws" />
@@ -44,16 +44,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ServerCore.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/ServerCore.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -74,35 +64,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Command.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/command/src/Command.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
-              <folding>
-                <element signature="e#257#362#0" expanded="false" />
-                <element signature="e#363#549#0" expanded="false" />
-                <element signature="e#551#628#0" expanded="false" />
-                <element signature="e#629#750#0" expanded="false" />
-                <element signature="e#752#1101#0" expanded="false" />
-                <element signature="e#1102#1597#0" expanded="false" />
-                <element signature="e#1599#1707#0" expanded="false" />
-                <element signature="e#1708#1896#0" expanded="false" />
-                <element signature="e#1898#2006#0" expanded="false" />
-                <element signature="e#2007#2159#0" expanded="false" />
-                <element signature="e#2161#2276#0" expanded="false" />
-                <element signature="e#2277#2436#0" expanded="false" />
-                <element signature="e#2713#2895#0" expanded="false" />
-                <element signature="e#2896#3158#0" expanded="false" />
-                <element signature="e#3160#3311#0" expanded="false" />
-                <element signature="e#3312#3546#0" expanded="false" />
-                <element signature="e#3548#3702#0" expanded="false" />
-                <element signature="e#3703#3940#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ClientCore.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientTest/src/ClientCore.cpp">
           <provider selected="true" editor-type-id="text-editor">
@@ -113,11 +74,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientCore.hpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientCore.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientTest/inc/ClientCore.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7222222">
+            <state vertical-scroll-proportion="0.0">
               <caret line="40" column="63" selection-start-line="40" selection-start-column="63" selection-end-line="40" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QtTCPClient.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QtTCPClient.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="29" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QtUDPClient.hpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.37128714">
+              <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QtUDPClient.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,8 +153,6 @@
         <option value="$PROJECT_DIR$/modules/network/src/BoostTCPNetwork.cpp" />
         <option value="$PROJECT_DIR$/modules/network/inc/QtTCPNetwork.hpp" />
         <option value="$PROJECT_DIR$/modules/network/src/QtTCPNetwork.cpp" />
-        <option value="$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp" />
-        <option value="$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp" />
         <option value="$PROJECT_DIR$/modules/implementations/src/ImplementationFactory.cpp" />
         <option value="$PROJECT_DIR$/modules/implementations/inc/ImplementationFactory.hpp" />
         <option value="$PROJECT_DIR$/modules/command/inc/ACommand.hpp" />
@@ -164,13 +163,15 @@
         <option value="$PROJECT_DIR$/modules/command/inc/CommandInterpreter.hpp" />
         <option value="$PROJECT_DIR$/modules/command/src/CommandInterpreter.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp" />
-        <option value="$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp" />
         <option value="$PROJECT_DIR$/modules/command/src/Command.cpp" />
         <option value="$PROJECT_DIR$/clientTest/src/ClientCore.cpp" />
         <option value="$PROJECT_DIR$/clientTest/inc/ClientCore.hpp" />
         <option value="$PROJECT_DIR$/clientTest/main.cpp" />
         <option value="$PROJECT_DIR$/server/src/ServerCore.cpp" />
+        <option value="$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp" />
+        <option value="$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp" />
+        <option value="$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp" />
+        <option value="$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp" />
       </list>
     </option>
   </component>
@@ -277,18 +278,12 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cpp_babel" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemId" value="network" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="clientTest" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -302,11 +297,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="clientTest" />
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="network" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="inc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cpp_babel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -380,7 +393,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980973" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -389,7 +402,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -636,14 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/network/src/BoostTCPNetwork.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66993463">
-          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/network/inc/IClient.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -657,24 +662,6 @@
         <state vertical-scroll-proportion="0.35947713">
           <caret line="22" column="80" selection-start-line="22" selection-start-column="80" selection-end-line="22" selection-end-column="80" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/network/inc/BoostTCPNetwork.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#318#341#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -810,57 +797,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6666667">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6666667">
-          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.027777778">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/ServerCore.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.3425926">
           <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="44" selection-start-line="68" selection-start-column="44" selection-end-line="68" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientTest/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/command/src/Command.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.3611111">
           <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding>
             <element signature="e#257#362#0" expanded="false" />
@@ -885,6 +832,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/clientTest/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/clientTest/src/ClientCore.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -893,10 +848,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="44" selection-start-line="68" selection-start-column="44" selection-end-line="68" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/clientTest/inc/ClientCore.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7222222">
+        <state vertical-scroll-proportion="0.0">
           <caret line="40" column="63" selection-start-line="40" selection-start-column="63" selection-end-line="40" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/network/src/BoostTCPNetwork.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/network/inc/QtTCPClient.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/network/inc/BoostTCPNetwork.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#368#387#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/network/src/QtTCPClient.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/network/src/QtUDPClient.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/network/inc/QtUDPClient.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37128714">
+          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
           <folding />
         </state>
       </provider>

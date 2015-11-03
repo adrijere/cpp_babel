@@ -13,6 +13,7 @@
 
 # ifndef _SERVER_
 
+#  include <cstring>
 #  include <QTcpSocket>
 #  include <QUdpSocket>
 #  include "IClient.hpp"
