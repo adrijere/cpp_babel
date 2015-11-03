@@ -20,5 +20,11 @@
         <file>images/bird2.png</file>
         <file>images/isle.png</file>
         <file>images/tardis.png</file>
+
+        <file>fonts/Roboto-Thin.ttf</file>
+        <file>fonts/Roboto-Regular.ttf</file>
+        <file>fonts/Roboto-Medium.ttf</file>
+        <file>fonts/Roboto-Light.ttf</file>
+        <file>fonts/Roboto-Bold.ttf</file>
     </qresource>
 </RCC>
