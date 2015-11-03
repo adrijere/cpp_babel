@@ -1,24 +1,24 @@
 <!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>images/home.png</file>
-    <file>images/phone.png</file>
-    <file>images/glass.png</file>
-    <file>images/online.png</file>
-    <file>images/friends.png</file>
-    <file>images/avatar.png</file>
-    <file>images/ok.png</file>
-    <file>images/arrow.png</file>
-    <file>images/camera.png</file>
-    <file>images/star.png</file>
-    <file>images/plane.png</file>
-    <file>images/user.png</file>
-    <file>images/pass.png</file>
-    <file>images/cloud.png</file>
-    <file>images/cloud2.png</file>
-    <file>images/babel.png</file>
-    <file>images/bird.png</file>
-    <file>images/bird2.png</file>
-    <file>images/isle.png</file>
-    <file>images/tardis.png</file>
-x</qresource>
+    <qresource>
+        <file>images/home.png</file>
+        <file>images/phone.png</file>
+        <file>images/glass.png</file>
+        <file>images/online.png</file>
+        <file>images/friends.png</file>
+        <file>images/avatar.png</file>
+        <file>images/ok.png</file>
+        <file>images/arrow.png</file>
+        <file>images/camera.png</file>
+        <file>images/star.png</file>
+        <file>images/plane.png</file>
+        <file>images/user.png</file>
+        <file>images/pass.png</file>
+        <file>images/cloud.png</file>
+        <file>images/cloud2.png</file>
+        <file>images/babel.png</file>
+        <file>images/bird.png</file>
+        <file>images/bird2.png</file>
+        <file>images/isle.png</file>
+        <file>images/tardis.png</file>
+    </qresource>
 </RCC>
