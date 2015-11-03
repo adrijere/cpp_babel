@@ -22,8 +22,8 @@ class Login : public QWidget, public Ui_Login {
         // Connect
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
 
-        QObject::connect(this->usernameEdit, SIGNAL(returnPressed()), SLOT(notImplemented()));
-        QObject::connect(this->passwordEdit, SIGNAL(returnPressed()), SLOT(notImplemented()));
+        QObject::connect(this->usernameEdit, SIGNAL(returnPressed()), SLOT(signIn()));
+        QObject::connect(this->passwordEdit, SIGNAL(returnPressed()), SLOT(signIn()));
 
         QObject::connect(this->connexionButton, SIGNAL(clicked()), SLOT(signIn()));
     }
@@ -41,10 +41,22 @@ class Login : public QWidget, public Ui_Login {
     }
 
     void signIn(void) {
-        MainWindow *window = new MainWindow(NULL);
 
-        this->hide();
-        window->show();
+        if (this->passwordEdit->text().isEmpty()) {
+            QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Vous devez entrer un mot de passe"));
+        } else {
+            // SEND USERNAME TO SERVER TO CHECK IF NOT ALREADY IN USE
+            // if (username.isInUse()) {
+            //     QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Nom d'utilisateur déjà utilisé"));
+            // } else {
+                // LE RESTE
+            // }
+
+            MainWindow *window = new MainWindow(NULL);
+
+            this->hide();
+            window->show();
+        }
     }
 };
 
