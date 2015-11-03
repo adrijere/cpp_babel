@@ -11,9 +11,20 @@
 #ifndef _CLIENTCORE_HPP_
 #define _CLIENTCORE_HPP_
 
+# include "ImplementationFactory.hpp"
+# include "QtTCPClient.hpp"
+# include "QtUDPClient.hpp"
+# include "Command.hpp"
+
 class ClientCore {
+private:
+    std::string _name;
+    IClient *_mainConnection;
 public:
-    ClientCore() {}
+    ClientCore(const std::string &name) {
+        this->_name = name;
+        this->_mainConnection = ImplementationFactory::createTCPClient();
+    }
     ~ClientCore() {}
     void run();
 };

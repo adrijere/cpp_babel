@@ -36,6 +36,9 @@ public:
     unsigned char getId() { return this->_id; }
     unsigned int getSize() { return this->_size; }
     INetwork *getPeer() { return this->_peer; }
+    void setId(unsigned char id) { this->_id = id; }
+    void setSize(unsigned int size) { this->_size = size; }
+    void setPeer(INetwork *peer) { this->_peer = peer; }
 
     virtual void parse(INetwork *) = 0;
     virtual void write() = 0;

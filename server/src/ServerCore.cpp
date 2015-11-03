@@ -31,7 +31,7 @@ void ServerCore::run() {
     this->_connectionsListener->listen(4243);
     INetwork *peer = this->_connectionsListener->waitConnection();
     while(peer != NULL) {
-        this->_networkList.push_back(peer);
+        this->_networkList[this->_networkList.size()] = peer;
         std::thread *newThread = new std::thread(&ServerCore::connection, this, this->_networkList.size() - 1);
         this->_threadList.push_back(newThread);
         peer = this->_connectionsListener->waitConnection();

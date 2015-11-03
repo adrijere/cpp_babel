@@ -11,6 +11,6 @@
 #include "ClientCore.hpp"
 
 int main(int ac, char **av) {
-    ClientCore mainCore;
+    ClientCore mainCore("Namaneo");
     mainCore.run();
 }

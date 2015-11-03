@@ -28,8 +28,8 @@ private:
     IServer *_connectionsListener;
     std::map<unsigned short, std::string> _contactList;
     std::map<unsigned short, fct> _interpreter;
+    std::map<unsigned short, INetwork *> _networkList;
     std::vector<std::thread *> _threadList;
-    std::vector<INetwork *> _networkList;
     std::mutex _mainMutex;
 public:
     ServerCore();
