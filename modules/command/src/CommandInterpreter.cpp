@@ -10,6 +10,8 @@
 
 #include "CommandInterpreter.hpp"
 
+#ifdef _SERVER_
+
 ACommand *CommandInterpreter::interpretComError(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComError *command = reinterpret_cast<Command::ComError *>(abstractCommand);
     std::cout << "Client " << idClient;
@@ -47,7 +49,7 @@ ACommand *CommandInterpreter::interpretComCoRequest(ServerCore *mainCore, AComma
     return NULL;
 }
 
-/* not yet implemented / not essential */
+/* TO IMPLEMENT (not essential) */
 ACommand *CommandInterpreter::interpretComCoChange(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComCoChange *command = reinterpret_cast<Command::ComCoChange *>(abstractCommand);
     std::cout << "Client " << idClient;
@@ -112,3 +114,96 @@ ACommand *CommandInterpreter::interpretComMessageReceive(ServerCore *mainCore, A
     (void)idClient;
     return NULL;
 }
+#else
+
+/* TO IMPLEMENT */
+ACommand *CommandInterpreter::interpretComError(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComError *command = reinterpret_cast<Command::ComError *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* not used client-side */
+ACommand *CommandInterpreter::interpretComListRequest(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComListRequest *command = reinterpret_cast<Command::ComListRequest *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* TO IMPLEMENT */
+ACommand *CommandInterpreter::interpretComListResponse(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComListResponse *command = reinterpret_cast<Command::ComListResponse *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* not used client-side */
+ACommand *CommandInterpreter::interpretComCoRequest(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCoRequest *command = reinterpret_cast<Command::ComCoRequest *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* not used client-side */
+ACommand *CommandInterpreter::interpretComCoChange(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCoChange *command = reinterpret_cast<Command::ComCoChange *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* TO IMPLEMENT */
+ACommand *CommandInterpreter::interpretComCallRequest(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCallRequest *command = reinterpret_cast<Command::ComCallRequest *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* TO IMPLEMENT */
+ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCallCancel *command = reinterpret_cast<Command::ComCallCancel *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* TO IMPLEMENT */
+ACommand *CommandInterpreter::interpretComCallResponse(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComCallResponse *command = reinterpret_cast<Command::ComCallResponse *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* not used client-side */
+ACommand *CommandInterpreter::interpretComMessageSend(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComMessageSend *command = reinterpret_cast<Command::ComMessageSend *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+/* TO IMPLEMENT */
+ACommand *CommandInterpreter::interpretComMessageReceive(ClientCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
+    Command::ComMessageReceive *command = reinterpret_cast<Command::ComMessageReceive *>(abstractCommand);
+    (void)mainCore;
+    (void)idClient;
+    (void)command;
+    return NULL;
+}
+
+#endif

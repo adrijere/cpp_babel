@@ -10,7 +10,7 @@
 
 #include "ClientCore.hpp"
 
-int main(int ac, char **av) {
+int main() {
     ClientCore mainCore("Namaneo");
     mainCore.run();
 }

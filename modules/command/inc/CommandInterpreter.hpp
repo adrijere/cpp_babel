@@ -12,6 +12,9 @@
 # define _COMMANDINTERPRETER_HPP_
 
 # include "Command.hpp"
+
+# ifdef _SERVER_
+
 # include "ServerCore.hpp"
 
 class ServerCore;
@@ -30,5 +33,26 @@ public:
     static ACommand *interpretComMessageReceive(ServerCore *, ACommand *, unsigned short);
 };
 
+# else
+
+# include "ClientCore.hpp"
+
+class ClientCore;
+
+class CommandInterpreter {
+public:
+    static ACommand *interpretComError(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComListRequest(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComListResponse(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCoRequest(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCoChange(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCallRequest(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCallCancel(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComCallResponse(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComMessageSend(ClientCore *, ACommand *, unsigned short);
+    static ACommand *interpretComMessageReceive(ClientCore *, ACommand *, unsigned short);
+};
+
+# endif
 
 #endif

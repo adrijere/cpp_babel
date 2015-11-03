@@ -13,7 +13,6 @@
 
 # include <map>
 # include "ACommand.hpp"
-# include "CommandManager.hpp"
 # include "INetwork.hpp"
 
 typedef enum {

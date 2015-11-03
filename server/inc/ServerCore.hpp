@@ -16,6 +16,7 @@
 # include <thread>
 # include <mutex>
 # include <iostream>
+# include "IServer.hpp"
 # include "ImplementationFactory.hpp"
 # include "BoostTCPNetwork.hpp"
 # include "Command.hpp"

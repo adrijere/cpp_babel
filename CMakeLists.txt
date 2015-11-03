@@ -24,6 +24,7 @@ set(NETWORK_FILES
 )
 
 set(COMMAND_FILES
+        ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/CommandInterpreter.cpp
         ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/Command.cpp
         ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/ACommand.cpp)
 
@@ -37,7 +38,6 @@ include_directories(
 set(SERVER_FILES
         ${SERVER_PATH}/main.cpp
         ${SERVER_PATH}/${SRC_PATH}/ServerCore.cpp
-        ${SERVER_PATH}/${SRC_PATH}/CommandInterpreter.cpp
         ${IMPLEMENTATIONS_FILES}
         ${NETWORK_FILES}
         ${COMMAND_FILES}
@@ -63,7 +63,7 @@ set(CLIENT_FILES
         ${COMMAND_FILES}
 )
 
-set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 add_definitions(${Qt5Network_DEFINITIONS})
 find_package(Qt5Network REQUIRED)
 add_executable(babel_client ${CLIENT_FILES})

@@ -7,13 +7,13 @@
       <sourceFolder url="file://$MODULE_DIR$/clientTest/src/ClientCore.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/command/src/ACommand.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/command/src/Command.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/command/src/CommandInterpreter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/implementations/src/ImplementationFactory.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPNetwork.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPServer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/QtTCPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/QtUDPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/server/src/CommandInterpreter.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src/ServerCore.cpp" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
