@@ -114,6 +114,7 @@ ACommand *CommandInterpreter::interpretComMessageReceive(ServerCore *mainCore, A
     (void)idClient;
     return NULL;
 }
+
 #else
 
 /* TO IMPLEMENT */

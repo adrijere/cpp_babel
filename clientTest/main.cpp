@@ -12,5 +12,4 @@
 
 int main() {
     ClientCore mainCore("Namaneo");
-    mainCore.run();
 }

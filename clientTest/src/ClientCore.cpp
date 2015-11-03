@@ -10,6 +10,26 @@
 
 #include "ClientCore.hpp"
 
-void ClientCore::run() {
+void ClientCore::sendComListRequest() {
 
+}
+
+void ClientCore::sendComCoRequest() {
+
+}
+
+void ClientCore::sendComCoChange(unsigned char status) {
+    (void)status;
+}
+
+void ClientCore::sendComCallRequest(unsigned short idFriend) {
+    (void)idFriend;
+}
+
+void ClientCore::sendComCallCancel(unsigned short idFriend) {
+    (void)idFriend;
+}
+
+void ClientCore::sendComMessageSend(unsigned short idFriend) {
+    (void)idFriend;
 }

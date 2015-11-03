@@ -26,7 +26,12 @@ public:
         this->_mainConnection = ImplementationFactory::createTCPClient();
     }
     ~ClientCore() {}
-    void run();
+    void sendComListRequest();
+    void sendComCoRequest();
+    void sendComCoChange(unsigned char);
+    void sendComCallRequest(unsigned short);
+    void sendComCallCancel(unsigned short);
+    void sendComMessageSend(unsigned short);
 };
 
 #endif
