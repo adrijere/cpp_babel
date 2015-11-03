@@ -63,8 +63,6 @@ set(CLIENT_FILES
         ${COMMAND_FILES}
 )
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_FLAGS "${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 add_definitions(${Qt5Network_DEFINITIONS})
 find_package(Qt5Network REQUIRED)
