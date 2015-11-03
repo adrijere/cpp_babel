@@ -32,14 +32,14 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
         QObject::connect(timer, SIGNAL(timeout()), SLOT(ping()));
-
-        QObject::connect(this->onlineList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
-        QObject::connect(this->friendList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
         
         QObject::connect(this->sidebarList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(notImplemented()));
 
         QObject::connect(this->researchLine, SIGNAL(returnPressed()), this->researchLine, SLOT(clear()));
         QObject::connect(this->researchLine, SIGNAL(returnPressed()), SLOT(notImplemented()));
+
+        QObject::connect(this->onlineList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
+        QObject::connect(this->friendList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
 
         QObject::connect(this->callButton, SIGNAL(clicked()), SLOT(notImplemented()));
         QObject::connect(this->videoButton, SIGNAL(clicked()), SLOT(notImplemented()));
@@ -53,20 +53,12 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
     ~MainWindow(void) {}
 
-    void toggleAddFriend(void) {
-        this->addFriendButton->setEnabled(true);
-        this->addFriendButton->setVisible(true);
+    void toggleFriend(bool flag) {
+        this->addFriendButton->setEnabled(flag);
+        this->addFriendButton->setVisible(flag);
 
-        this->removeFriendButton->setEnabled(false);
-        this->removeFriendButton->setVisible(false);
-    }
-
-    void toggleRemoveFriend(void) {
-        this->addFriendButton->setEnabled(false);
-        this->addFriendButton->setVisible(false);
-
-        this->removeFriendButton->setEnabled(true);
-        this->removeFriendButton->setVisible(true);
+        this->removeFriendButton->setEnabled(!flag);
+        this->removeFriendButton->setVisible(!flag);
     }
 
  public slots:
@@ -89,16 +81,21 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     }
 
     void addFriend(void) {
-        if (this->friendList->item(0) and this->friendList->item(0)->text() == "Aucun ami") {
-            this->friendList->clear();
+        QString username = this->userLabel->text();
+        QList<QListWidgetItem *> items = this->friendList->findItems(username, Qt::MatchExactly);
+
+        if (items.count() == 0) {        
+            if (this->friendList->item(0) and this->friendList->item(0)->text() == "Aucun ami") {
+                this->friendList->clear();
+            }
+
+            QString username = this->userLabel->text();
+
+            QListWidgetItem *item = new QListWidgetItem(username);
+            this->friendList->addItem(item);
         }
 
-        QString username = this->userLabel->text();
-
-        QListWidgetItem *item = new QListWidgetItem(username);
-        this->friendList->addItem(item);
-
-        this->toggleRemoveFriend();
+        this->changeView(NULL, NULL);
     }
 
     void removeFriend(void) {
@@ -116,7 +113,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->friendList->addItem(item);
         }
 
-        this->toggleAddFriend();
+        this->changeView(NULL, NULL);
     }
 
     void changeView(QListWidgetItem *current, QListWidgetItem *previous) {
@@ -130,9 +127,9 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         QList<QListWidgetItem *> items = this->friendList->findItems(username, Qt::MatchExactly);
 
         if (items.count() > 0) {
-            this->toggleRemoveFriend();
+            this->toggleFriend(false);
         } else {
-            this->toggleAddFriend();
+            this->toggleFriend(true);
         }
     }
 
