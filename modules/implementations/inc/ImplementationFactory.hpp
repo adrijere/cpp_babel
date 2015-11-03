@@ -25,12 +25,14 @@ public:
 # else
 
 #  include "IClient.hpp"
-#  include "BoostTCPClient.hpp"
+#  include "QtTCPClient.hpp"
+#  include "QtUDPClient.hpp"
 
 class ImplementationFactory
 {
 public:
 	static IClient * createTCPClient();
+	static IClient * createUDPClient();
 };
 
 # endif

@@ -10,7 +10,7 @@
 
 #include "ServerCore.hpp"
 
-int main(int ac, char **av) {
+int main() {
     ServerCore mainCore;
     mainCore.run();
 }

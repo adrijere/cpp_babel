@@ -13,7 +13,6 @@
 
 # include <map>
 # include "ACommand.hpp"
-# include "CommandManager.hpp"
 # include "INetwork.hpp"
 
 typedef enum {
@@ -22,8 +21,9 @@ typedef enum {
     COM_LIST_RESPONSE_ID,
     COM_CO_REQUEST_ID,
     COM_CO_CHANGE_ID,
-    COM_FRIEND_REQUEST_ID,
-    COM_FRIEND_RESPONSE_ID,
+    COM_CALL_REQUEST_ID,
+    COM_CALL_CANCEL_ID,
+    COM_CALL_RESPONSE_ID,
     COM_MESSAGE_SEND_ID,
     COM_MESSAGE_RECEIVE_ID
 } commandId;
@@ -47,6 +47,7 @@ public:
         ~ComError(){}
 
         const std::string &getError() const { return this->_error; }
+        void setError(const std::string &error) { this->_error = error; }
 
         void parse(INetwork *);
         void write();
@@ -83,7 +84,8 @@ public:
         }
         ~ComListResponse(){}
 
-        const std::map<unsigned short, std::string> getContactList() const { return this->_contactList; }
+        const std::map<unsigned short, std::string> &getContactList() const { return this->_contactList; }
+        void setContactList(const std::map<unsigned short, std::string> &contactList) { this->_contactList = contactList; }
 
         void parse(INetwork *);
         void write();
@@ -106,6 +108,7 @@ public:
         ~ComCoRequest(){}
 
         const std::string &getName() const { return this->_name; }
+        void setName(const std::string &name) { this->_name = name; }
 
         void parse(INetwork *);
         void write();
@@ -128,56 +131,84 @@ public:
         ~ComCoChange(){};
 
         unsigned char getStatus() { return this->_status; }
+        void setStatus(unsigned char status) { this->_status = status; }
 
         void parse(INetwork *);
         void write();
     };
 
-    class ComFriendRequest : public ACommand {
+    class ComCallRequest : public ACommand {
     private:
         unsigned short _id_friend;
 
     public:
-        ComFriendRequest(unsigned int size) : ACommand() {
-            this->_id = COM_FRIEND_REQUEST_ID;
+        ComCallRequest(unsigned int size) : ACommand() {
+            this->_id = COM_CALL_REQUEST_ID;
             this->_size = size;
         }
-        ComFriendRequest(INetwork *peer, unsigned short id_friend) : ACommand() {
-            this->_id = COM_FRIEND_REQUEST_ID;
+        ComCallRequest(INetwork *peer, unsigned short id_friend) : ACommand() {
+            this->_id = COM_CALL_REQUEST_ID;
             this->_peer = peer;
             this->_id_friend = id_friend;
         }
-        ~ComFriendRequest(){}
+        ~ComCallRequest(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
 
         void parse(INetwork *);
         void write();
     };
 
-    class ComFriendResponse : public ACommand {
+    class ComCallCancel : public ACommand {
+    private:
+        unsigned short _id_friend;
+
+    public:
+        ComCallCancel(unsigned int size) : ACommand() {
+            this->_id = COM_CALL_CANCEL_ID;
+            this->_size = size;
+        }
+        ComCallCancel(INetwork *peer, unsigned short id_friend) : ACommand() {
+            this->_id = COM_CALL_CANCEL_ID;
+            this->_peer = peer;
+            this->_id_friend = id_friend;
+        }
+        ~ComCallCancel(){}
+
+        unsigned short getIdFriend() { return this->_id_friend; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+
+        void parse(INetwork *);
+        void write();
+    };
+
+    class ComCallResponse : public ACommand {
     private:
         unsigned short _id_friend;
         std::string _addr;
         unsigned short _port;
 
     public:
-        ComFriendResponse(unsigned int size) : ACommand() {
-            this->_id = COM_FRIEND_RESPONSE_ID;
+        ComCallResponse(unsigned int size) : ACommand() {
+            this->_id = COM_CALL_RESPONSE_ID;
             this->_size = size;
         }
-        ComFriendResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) : ACommand() {
-            this->_id = COM_FRIEND_RESPONSE_ID;
+        ComCallResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) : ACommand() {
+            this->_id = COM_CALL_RESPONSE_ID;
             this->_peer = peer;
             this->_id_friend = id_friend;
             this->_addr = addr;
             this->_port = port;
         }
-        ~ComFriendResponse(){}
+        ~ComCallResponse(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getAddr() const { return this->_addr; }
         unsigned short getPort() { return this->_port; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setAddr(const std::string &addr) { this->_addr = addr; }
+        void setPort(unsigned short port) { this->_port = port; }
 
         void parse(INetwork *);
         void write();
@@ -203,6 +234,8 @@ public:
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getMessage() const { return this->_message; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setMessage(const std::string &message) { this->_message = message; }
 
         void parse(INetwork *);
         void write();
@@ -228,6 +261,8 @@ public:
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getMessage() const { return this->_message; }
+        void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setMessage(const std::string &message) { this->_message = message; }
 
         void parse(INetwork *);
         void write();

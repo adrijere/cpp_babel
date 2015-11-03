@@ -18,8 +18,9 @@ ServerCore::ServerCore() {
     this->_interpreter[COM_LIST_RESPONSE_ID] = CommandInterpreter::interpretComListResponse;
     this->_interpreter[COM_CO_REQUEST_ID] = CommandInterpreter::interpretComCoRequest;
     this->_interpreter[COM_CO_CHANGE_ID] = CommandInterpreter::interpretComCoChange;
-    this->_interpreter[COM_FRIEND_REQUEST_ID] = CommandInterpreter::interpretComFriendRequest;
-    this->_interpreter[COM_FRIEND_RESPONSE_ID] = CommandInterpreter::interpretComFriendResponse;
+    this->_interpreter[COM_CALL_REQUEST_ID] = CommandInterpreter::interpretComCallRequest;
+    this->_interpreter[COM_CALL_CANCEL_ID] = CommandInterpreter::interpretComCallCancel;
+    this->_interpreter[COM_CALL_RESPONSE_ID] = CommandInterpreter::interpretComCallResponse;
     this->_interpreter[COM_MESSAGE_SEND_ID] = CommandInterpreter::interpretComMessageSend;
     this->_interpreter[COM_MESSAGE_RECEIVE_ID] = CommandInterpreter::interpretComMessageReceive;
 }
@@ -30,7 +31,7 @@ void ServerCore::run() {
     this->_connectionsListener->listen(4243);
     INetwork *peer = this->_connectionsListener->waitConnection();
     while(peer != NULL) {
-        this->_networkList.push_back(peer);
+        this->_networkList[this->_networkList.size()] = peer;
         std::thread *newThread = new std::thread(&ServerCore::connection, this, this->_networkList.size() - 1);
         this->_threadList.push_back(newThread);
         peer = this->_connectionsListener->waitConnection();

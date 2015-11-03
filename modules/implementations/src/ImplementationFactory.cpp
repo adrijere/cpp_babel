@@ -21,7 +21,12 @@ IServer * ImplementationFactory::createTCPServer()
 
 IClient * ImplementationFactory::createTCPClient()
 {
-	return new BoostTCPClient();
+	return new QtTCPClient();
+}
+
+IClient * ImplementationFactory::createUDPClient()
+{
+	return new QtUDPClient();
 }
 
 #endif

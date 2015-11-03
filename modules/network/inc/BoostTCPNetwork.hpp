@@ -11,10 +11,12 @@
 #ifndef BOOSTTCPNETWORK_H_
 # define BOOSTTCPNETWORK_H_
 
-# include <string>
-# include <boost/array.hpp>
-# include <boost/asio.hpp>
-# include "INetwork.hpp"
+# ifdef _SERVER_
+
+#  include <string>
+#  include <boost/array.hpp>
+#  include <boost/asio.hpp>
+#  include "INetwork.hpp"
 
 class BoostTCPNetwork : virtual public INetwork
 {
@@ -29,5 +31,7 @@ public:
 	virtual void write(const void *data, size_t size);
 	boost::asio::ip::tcp::socket & getSocket();
 };
+
+# endif
 
 #endif /* BOOSTTCPNETWORK_H_ */
