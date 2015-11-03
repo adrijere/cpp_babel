@@ -18,7 +18,10 @@ void QtTCPClient::connect(const std::string & addr, const short port) {
 
 void QtTCPClient::read(void *buffer, size_t size, bool littleEndian) {
     (void)littleEndian;
-    this->_socket.read((char *)buffer, (quint64)size);
+    unsigned int currSize = 0;
+    while (currSize < size) {
+        currSize += this->_socket.read((char *)buffer, 1);
+    }
 }
 
 void QtTCPClient::write(const void *data, size_t size) {

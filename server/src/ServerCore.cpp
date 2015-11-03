@@ -28,7 +28,7 @@ ServerCore::ServerCore() {
 ServerCore::~ServerCore() { }
 
 void ServerCore::run() {
-    this->_connectionsListener->listen(4243);
+    this->_connectionsListener->listen(4242);
     INetwork *peer = this->_connectionsListener->waitConnection();
     while(peer != NULL) {
         this->_networkList[this->_networkList.size()] = peer;
@@ -43,8 +43,11 @@ void ServerCore::connection(unsigned short idClient) {
     ACommand *newCommand = Command::parseCommand(this->_networkList[idClient]);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand, idClient);
-        if (responseCommand)
+        if (responseCommand) {
             responseCommand->write();
+            delete responseCommand;
+        }
+        delete newCommand;
         newCommand = Command::parseCommand(this->_networkList[idClient]);
     }
     std::cout << "Fin de Connection !" << std::endl;

@@ -38,7 +38,7 @@ public:
     void sendComCoChange(unsigned char);
     void sendComCallRequest(unsigned short);
     void sendComCallCancel(unsigned short);
-    void sendComMessageSend(unsigned short);
+    void sendComMessageSend(unsigned short, const std::string &);
 };
 
 #endif

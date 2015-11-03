@@ -33,8 +33,11 @@ void ClientCore::reader() {
     ACommand *newCommand = Command::parseCommand(this->_mainConnection);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
-        if (responseCommand)
+        if (responseCommand) {
             responseCommand->write();
+            delete responseCommand;
+        }
+        delete newCommand;
         newCommand = Command::parseCommand(this->_mainConnection);
     }
 }
@@ -59,6 +62,6 @@ void ClientCore::sendComCallCancel(unsigned short idFriend) {
     (void)idFriend;
 }
 
-void ClientCore::sendComMessageSend(unsigned short idFriend) {
+void ClientCore::sendComMessageSend(unsigned short idFriend, const std::string &message) {
     (void)idFriend;
 }
