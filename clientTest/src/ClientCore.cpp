@@ -43,25 +43,31 @@ void ClientCore::reader() {
 }
 
 void ClientCore::sendComListRequest() {
-
+    Command::ComListRequest command(this->_mainConnection);
+    command.write();
 }
 
 void ClientCore::sendComCoRequest() {
-
+    Command::ComCoRequest command(this->_mainConnection, this->_name);
+    command.write();
 }
 
 void ClientCore::sendComCoChange(unsigned char status) {
-    (void)status;
+    Command::ComCoChange command(this->_mainConnection, status);
+    command.write();
 }
 
 void ClientCore::sendComCallRequest(unsigned short idFriend) {
-    (void)idFriend;
+    Command::ComCallRequest command(this->_mainConnection, idFriend);
+    command.write();
 }
 
 void ClientCore::sendComCallCancel(unsigned short idFriend) {
-    (void)idFriend;
+    Command::ComCallCancel command(this->_mainConnection, idFriend);
+    command.write();
 }
 
 void ClientCore::sendComMessageSend(unsigned short idFriend, const std::string &message) {
-    (void)idFriend;
+    Command::ComMessageSend command(this->_mainConnection, idFriend, message);
+    command.write();
 }
