@@ -2,7 +2,7 @@
 * @Author: gicque_p
 * @Date:   2015-04-14 10:59:05
 * @Last Modified by:   gicque_p
-* @Last Modified time: 2015-11-03 13:03:38
+* @Last Modified time: 2015-11-04 12:36:58
 */
 
 #include <iostream>
@@ -16,19 +16,26 @@
 #include "MainWindow.hpp"
 
 void addFont(void);
+void usage(char **);
 
 int main(int argc, char **argv) {
-    QApplication app(argc, argv);
+    if (argc != 3) {
+        usage(argv);
 
-    QString locale = QLocale::system().name().section('_', 0, 0);
-    QTranslator translator;
+        return 0;
+    } else {
+        QApplication app(argc, argv);
 
-    translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&translator);
-    addFont();
+        QString locale = QLocale::system().name().section('_', 0, 0);
+        QTranslator translator;
 
-    Login *window = new Login(NULL);
-	window->show();
+        translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+        app.installTranslator(&translator);
+        addFont();
 
-    return app.exec();
+        Login *window = new Login(NULL, argv[1], argv[2]);
+        window->show();
+
+        return app.exec();
+    }
 }
