@@ -34,8 +34,8 @@ void ServerCore::run() {
     INetwork *peerIn = this->_connectionsListenerIn->waitConnection();
     INetwork *peerOut = this->_connectionsListenerOut->waitConnection();
     while(peerIn != NULL && peerOut != NULL) {
-        this->_networkList[this->_networkList.size()] = std::pair<INetwork *, INetwork *>(peerIn, peerOut);
-        std::thread *newThread = new std::thread(&ServerCore::connection, this, this->_networkList.size() - 1);
+        this->_networkList[this->_networkList.size() + 1] = std::pair<INetwork *, INetwork *>(peerIn, peerOut);
+        std::thread *newThread = new std::thread(&ServerCore::connection, this, this->_networkList.size());
         this->_threadList.push_back(newThread);
         peerIn = this->_connectionsListenerIn->waitConnection();
         peerOut = this->_connectionsListenerOut->waitConnection();
