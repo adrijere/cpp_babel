@@ -9,10 +9,12 @@
 //
 
 #include "ClientCore.hpp"
+#include <unistd.h>
 
 int main() {
-    ClientCore mainCore("Namaneo", "127.0.0.1", 4242);
+    ClientCore mainCore("Namaneo", "127.0.0.1");
     mainCore.sendComCoRequest();
     mainCore.sendComListRequest();
+    mainCore.sendComMessageSend(0, "truc");
     while (true);
 }

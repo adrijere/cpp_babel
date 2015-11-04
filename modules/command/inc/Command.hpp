@@ -28,6 +28,12 @@ typedef enum {
     COM_MESSAGE_RECEIVE_ID
 } commandId;
 
+typedef enum {
+    FROM_ME,
+    FROM_OTHER,
+    SYSTEM
+} messageType;
+
 class Command {
 public:
     class ComError : public ACommand {

@@ -41,7 +41,6 @@ void BoostTCPNetwork::write(const void *data, size_t size)
 		return ; // Connection closed cleanly by peer.
 	else if (error)
 		throw boost::system::system_error(error); // Some other error.
-	printf("%d\n", size);
 }
 
 boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()

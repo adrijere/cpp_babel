@@ -133,11 +133,9 @@ ACommand *CommandInterpreter::interpretComListRequest(ClientCore *mainCore, ACom
     return NULL;
 }
 
-/* TO IMPLEMENT */
 ACommand *CommandInterpreter::interpretComListResponse(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComListResponse *command = reinterpret_cast<Command::ComListResponse *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
+    mainCore->setContactList(command->getContactList());
     return NULL;
 }
 
@@ -157,19 +155,15 @@ ACommand *CommandInterpreter::interpretComCoChange(ClientCore *mainCore, AComman
     return NULL;
 }
 
-/* TO IMPLEMENT */
 ACommand *CommandInterpreter::interpretComCallRequest(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallRequest *command = reinterpret_cast<Command::ComCallRequest *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
+    mainCore->getCallingList().push_back(command->getIdFriend());
     return NULL;
 }
 
-/* TO IMPLEMENT */
 ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallCancel *command = reinterpret_cast<Command::ComCallCancel *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
+    mainCore->getCancellingList().push_back(command->getIdFriend());
     return NULL;
 }
 
@@ -189,11 +183,11 @@ ACommand *CommandInterpreter::interpretComMessageSend(ClientCore *mainCore, ACom
     return NULL;
 }
 
-/* TO IMPLEMENT */
 ACommand *CommandInterpreter::interpretComMessageReceive(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComMessageReceive *command = reinterpret_cast<Command::ComMessageReceive *>(abstractCommand);
     (void)mainCore;
     (void)command;
+    mainCore->getMessagesList()[command->getIdFriend()].push_back(std::pair<messageType, std::string>(FROM_OTHER, command->getMessage()));
     return NULL;
 }
 

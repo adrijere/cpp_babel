@@ -23,6 +23,8 @@ set(NETWORK_FILES
         ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/BoostTCPServer.cpp
 )
 
+#file(GLOB NETWORK_FILES ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/*.cpp)
+
 set(COMMAND_FILES
         ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/CommandInterpreter.cpp
         ${MODULES_PATH}/${COMMAND_PATH}/${SRC_PATH}/Command.cpp

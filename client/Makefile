@@ -597,9 +597,9 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		images/phone.png \
+		images/users.png \
 		images/friends.png \
 		images/glass.png \
-		images/ok.png \
 		images/star.png \
 		images/online.png \
 		images/cloud2.png \
@@ -608,6 +608,7 @@ qrc_resources.cpp: resources.qrc \
 		images/starplus.png \
 		images/avatar.png \
 		images/tardis.png \
+		images/offline.png \
 		images/bird2.png \
 		images/isle.png \
 		images/bird.png \

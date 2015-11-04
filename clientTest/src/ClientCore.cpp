@@ -10,12 +10,12 @@
 
 #include "ClientCore.hpp"
 
-ClientCore::ClientCore(const std::string &name, const std::string &addr, unsigned short port) {
+ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_name = name;
     this->_mainConnectionOut = ImplementationFactory::createTCPClient();
-    this->_mainConnectionOut->connect(addr, port);
+    this->_mainConnectionOut->connect(addr, CLIENT_PORT_OUT);
     this->_mainConnectionIn = ImplementationFactory::createTCPClient();
-    this->_mainConnectionIn->connect(addr, port);
+    this->_mainConnectionIn->connect(addr, CLIENT_PORT_IN);
 
     this->_interpreter[COM_ERROR_ID] = CommandInterpreter::interpretComError;
     this->_interpreter[COM_LIST_REQUEST_ID] = CommandInterpreter::interpretComListRequest;
@@ -32,6 +32,7 @@ ClientCore::ClientCore(const std::string &name, const std::string &addr, unsigne
 }
 
 void ClientCore::reader() {
+
     ACommand *newCommand = Command::parseCommand(this->_mainConnectionIn);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
