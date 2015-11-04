@@ -35,11 +35,12 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         tb->setStyleSheet("background-color: rgb(228, 238, 242); color: #12A5F4; border: none; font-weight: bold;");
 
         // Connect
-        QTimer *timer = new QTimer(this);
-        timer->start(30000);
+        QTimer *refreshUsers = new QTimer(this);
+
+        refreshUsers->start(30000);
 
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
-        QObject::connect(timer, SIGNAL(timeout()), SLOT(ping()));
+        QObject::connect(refreshUsers, SIGNAL(timeout()), SLOT(pingOnline()));
         
         QObject::connect(this->sidebarList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(notImplemented()));
 
@@ -49,7 +50,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         QObject::connect(this->onlineList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
         QObject::connect(this->friendList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
 
-        QObject::connect(this->callButton, SIGNAL(clicked()), SLOT(notImplemented()));
+        QObject::connect(this->callButton, SIGNAL(clicked()), SLOT(callUser()));
         QObject::connect(this->videoButton, SIGNAL(clicked()), SLOT(notImplemented()));
         QObject::connect(this->addFriendButton, SIGNAL(clicked()), SLOT(addFriend()));        
         QObject::connect(this->removeFriendButton, SIGNAL(clicked()), SLOT(removeFriend()));        
@@ -74,7 +75,8 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         qApp->quit();
     }
 
-    void ping(void) {
+    void pingOnline(void) {
+        // this->_client->sendComListRequest();
         // PING SERVER TO GET ONLINE USERS LIST
 
         QListWidgetItem *item = new QListWidgetItem("Babel Echo Test");
@@ -87,6 +89,31 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
             this->onlineList->addItem(item);
         }
+    }
+
+    void callUser(void) {
+        // std::string username = this->userLabel->text().toStdString();
+        // 
+        // unsigned short id = this->_onlineUsers[username];
+        // this->_client->sendComCallRequest(id);
+    }
+
+    void hangOut(void) {
+        // std::string username = this->userLabel->text().toStdString();
+        // 
+        // unsigned short id = this->_onlineUsers[username];
+        // this->_client->sendComCallCancel(id);
+    }
+
+    void sendMessage(void) {
+        std::string username = this->userLabel->text().toStdString();
+        std::string content = this->sendText->text().toStdString();
+
+        // unsigned short id = this->_onlineUsers[username];
+        // this->_client->sendComMessageSend(id, content);
+        this->_history[username].push_back(content);
+        this->sendText->clear();
+        this->changeView();
     }
 
     void addFriend(void) {
@@ -173,15 +200,6 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
                 this->historyList->addItem(item);
             }
         }
-    }
-
-    void sendMessage(void) {
-        std::string content = this->sendText->text().toStdString();
-        std::string username = this->userLabel->text().toStdString();
-
-        this->_history[username].push_back(content);
-        this->sendText->clear();
-        this->changeView();
     }
 
     void notImplemented(void) {

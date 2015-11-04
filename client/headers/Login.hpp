@@ -12,9 +12,12 @@
 class Login : public QWidget, public Ui_Login {
     Q_OBJECT;
 
+    std::string _address;
+    std::string _port;
+
  public:
 
-    explicit Login(QWidget *parent) : QWidget(parent) {
+    explicit Login(QWidget *parent, const std::string &address, const std::string &port) : QWidget(parent), _address(address), _port(port) {
         // Stylesheets
         this->setupUi(this);
         this->setWindowTitle("BABEL - Connexion");
@@ -46,6 +49,7 @@ class Login : public QWidget, public Ui_Login {
             QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Vous devez entrer un mot de passe"));
         } else {
             // SEND USERNAME TO SERVER TO CHECK IF NOT ALREADY IN USE
+            // ClientCore *client = new ClientCore(username, this->_address, this->_port);
             // if (username.isInUse()) {
             //     QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Nom d'utilisateur déjà utilisé"));
             // } else {
