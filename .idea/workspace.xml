@@ -16,12 +16,7 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec52f4cb-6e58-4e15-a835-39565ded2054" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/ClientCore.cpp" afterPath="$PROJECT_DIR$/client/src/ClientCore.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/inc/ClientCore.hpp" afterPath="$PROJECT_DIR$/client/inc/ClientCore.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/command/src/CommandInterpreter.cpp" afterPath="$PROJECT_DIR$/modules/command/src/CommandInterpreter.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="ec52f4cb-6e58-4e15-a835-39565ded2054" name="Default" comment="" />
     <ignored path="cpp_babel.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
