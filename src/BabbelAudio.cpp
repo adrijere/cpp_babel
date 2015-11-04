@@ -2,14 +2,17 @@
 #include "BabbelAudio.hh"
 
 bool BabbelAudio::writeInput(unsigned char *buff) {
-  if ((err = Pa_WriteStream(inputStream, buff, FRAMES_PER_BUFFER)) != paNoError)
+  if ((err = Pa_WriteStream(outputStream, buff, FRAMES_PER_BUFFER)) != paNoError)
     return (false);
   return (true);
 }
 
 unsigned char *BabbelAudio::readOutput() {
-  if ((err = Pa_ReadStream(outputStream, readBuff, FRAMES_PER_BUFFER)) != paNoError)
+  if ((err = Pa_ReadStream(inputStream, readBuff, FRAMES_PER_BUFFER)) != paNoError) {
+    std::cerr << "Portaudio error:";
+    std::cerr << Pa_GetErrorText(err) << std::endl;
     return (NULL);
+  }
   return (readBuff);
 }
 

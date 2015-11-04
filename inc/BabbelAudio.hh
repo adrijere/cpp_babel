@@ -3,13 +3,14 @@
 
 #include "portaudio.h"
 
-# define SAMPLE_RATE (44100)
+# define SAMPLE_RATE (48000)
 # define FRAMES_PER_BUFFER (1024)
+# define FRAMES_SIZE (960)
 # define NUM_CHANNELS (2)
 # define SAMPLE_SIZE (3)
-# define NUM_SECONDS (1)
-# define PA_SAMPLE_TYPE paFloat32
-# define BUFFER_SIZE (FRAMES_PER_BUFFER * NUM_CHANNELS * SAMPLE_SIZE)
+# define NUM_SECONDS (15)
+# define PA_SAMPLE_TYPE paInt32
+# define BUFFER_SIZE (FRAMES_PER_BUFFER * NUM_CHANNELS * SAMPLE_RATE)
 
 
 class BabbelAudio {
@@ -27,7 +28,7 @@ class BabbelAudio {
 
     PaStream *getInputStream();
     PaStream *getOutputStream();
-    
+
     bool startStream(PaStream *);
     bool stopStream(PaStream *);
 

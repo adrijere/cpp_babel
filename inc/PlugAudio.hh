@@ -13,6 +13,7 @@ class PlugAudio : public APlugin {
   public:
     unsigned char *getData();
     bool sendData(unsigned char *, unsigned int);
+    void runTest();
 
   PlugAudio();
   ~PlugAudio();

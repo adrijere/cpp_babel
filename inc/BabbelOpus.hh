@@ -3,10 +3,11 @@
 
 #include "opus.h"
 
-# define FRAME_SIZE (1024)
-# define SAMPLE_RATE (44100)
+# define FRAME_SIZE (960)
+# define SAMPLE_RATE (48000)
 # define CHANNELS (2)
 # define MAX_FRAME_SIZE (6 * FRAME_SIZE)
+# define BUFFER_2SIZE (FRAME_SIZE * SAMPLE_RATE)
 
 class BabbelOpus {
   private:
@@ -26,7 +27,7 @@ class BabbelOpus {
     unsigned char *OpusEncode(unsigned char *, unsigned int);
 
     BabbelOpus() {};
-    ~BabbelOpus() {};
+    ~BabbelOpus();
 };
 
 #endif

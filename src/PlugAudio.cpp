@@ -1,6 +1,10 @@
 #include <cstdlib>
 #include "PlugAudio.hh"
 
+void PlugAudio::runTest() {
+    sendData(getData(), (1024));
+}
+
 unsigned char *PlugAudio::getData() {
   unsigned char *sample;
   if ((sample = _audio.readOutput()) == NULL)
@@ -36,4 +40,6 @@ PlugAudio::~PlugAudio() {
   // stop streams
   _audio.stopStream(_audio.getInputStream());
   _audio.stopStream(_audio.getOutputStream());
+
+
 }
