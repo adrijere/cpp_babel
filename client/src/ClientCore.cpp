@@ -79,3 +79,8 @@ void ClientCore::sendComMessageSend(unsigned short idFriend, const std::string &
     Command::ComMessageSend command(this->_mainConnectionOut, idFriend, message);
     command.write();
 }
+
+void ClientCore::sendComCallResponse(unsigned short idFriend, const std::string &addr, unsigned short port) {
+    Command::ComCallResponse command(this->_mainConnectionOut, idFriend, addr, port);
+    command.write();
+}
