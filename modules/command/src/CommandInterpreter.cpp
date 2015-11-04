@@ -138,8 +138,10 @@ ACommand *CommandInterpreter::interpretComMessageReceive(ServerCore *mainCore, A
 /* TO IMPLEMENT */
 ACommand *CommandInterpreter::interpretComError(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComError *command = reinterpret_cast<Command::ComError *>(abstractCommand);
+    MainMutex::mutex().lock();
     (void)mainCore;
     (void)command;
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
@@ -194,11 +196,11 @@ ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, AComm
     return NULL;
 }
 
-/* TO IMPLEMENT */
 ACommand *CommandInterpreter::interpretComCallResponse(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallResponse *command = reinterpret_cast<Command::ComCallResponse *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
+    MainMutex::mutex().lock();
+    mainCore->setCallingFriend((short)command->getIdFriend());
+    MainMutex::mutex().unlock();
     return NULL;
 }
 

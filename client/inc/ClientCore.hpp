@@ -38,6 +38,7 @@ private:
     std::vector<unsigned short> _cancellingList;
     bool _messagesUpdate;
     std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > _messagesList;
+    short _callingFriend;
 public:
     ClientCore(const std::string &, const std::string &);
     ~ClientCore() {}
@@ -54,10 +55,12 @@ public:
     bool getCallingUpdate() { return this->_callingUpdate; }
     bool getCancellingUpdate() { return this->_cancellingUpdate; }
     bool getMessagesUpdate() { return this->_messagesUpdate; }
+    short getCallingFriend() { return this->_callingFriend; }
     void setContactsUpdate(bool newValue) { this->_contactsUpdate = newValue; }
     void setCallingUpdate(bool newValue) { this->_callingUpdate = newValue; }
     void setCancellingUpdate(bool newValue) { this->_cancellingUpdate = newValue; }
     void setMessagesUpdate(bool newValue) { this->_messagesUpdate = newValue; }
+    void setCallingFriend(short newValue) { this->_callingFriend = newValue; }
 
     void reader();
     void sendComListRequest();
