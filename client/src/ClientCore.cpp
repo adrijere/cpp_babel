@@ -9,6 +9,7 @@
 //
 
 #include "ClientCore.hpp"
+#include <portaudiocpp/PortAudioCpp.hxx>
 
 ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_name = name;
