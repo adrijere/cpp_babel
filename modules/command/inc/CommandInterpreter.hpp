@@ -18,6 +18,7 @@
 # include "ServerCore.hpp"
 
 class ServerCore;
+class MainMutex;
 
 class CommandInterpreter {
 public:
@@ -38,6 +39,7 @@ public:
 # include "ClientCore.hpp"
 
 class ClientCore;
+class MainMutex;
 
 class CommandInterpreter {
 public:

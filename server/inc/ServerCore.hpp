@@ -33,7 +33,6 @@ private:
     std::map<unsigned short, fct> _interpreter;
     std::map<unsigned short, std::pair<INetwork *, INetwork *> > _networkList;
     std::vector<std::thread *> _threadList;
-    std::mutex _mainMutex;
 public:
     ServerCore();
     ~ServerCore();
@@ -43,7 +42,6 @@ public:
     std::map<unsigned short, fct> &getInterpreter() { return this->_interpreter; };
     std::vector<std::thread *> &getThreadList() { return this->_threadList; }
     std::map<unsigned short, std::pair<INetwork *, INetwork *> > &getNetworkList() { return this->_networkList; }
-    std::mutex &getMainMutex() { return this->_mainMutex; }
 
     void run();
     void connection(unsigned short);

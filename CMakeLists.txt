@@ -11,6 +11,7 @@ set(MODULES_PATH modules)
 set(IMPLEMENTATIONS_PATH implementations)
 set(NETWORK_PATH network)
 set(COMMAND_PATH command)
+set(MUTEX_PATH mutex)
 
 set(IMPLEMENTATIONS_FILES
         ${MODULES_PATH}/${IMPLEMENTATIONS_PATH}/${SRC_PATH}/ImplementationFactory.cpp

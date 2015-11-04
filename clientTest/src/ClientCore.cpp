@@ -28,11 +28,15 @@ ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_interpreter[COM_MESSAGE_SEND_ID] = CommandInterpreter::interpretComMessageSend;
     this->_interpreter[COM_MESSAGE_RECEIVE_ID] = CommandInterpreter::interpretComMessageReceive;
 
+    this->_contactsUpdate = false;
+    this->_callingUpdate = false;
+    this->_cancellingUpdate = false;
+    this->_messagesUpdate = false;
+
     this->_readerThread = new std::thread(&ClientCore::reader, this);
 }
 
 void ClientCore::reader() {
-
     ACommand *newCommand = Command::parseCommand(this->_mainConnectionIn);
     while (newCommand != NULL) {
         ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);

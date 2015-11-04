@@ -14,20 +14,25 @@
 
 ACommand *CommandInterpreter::interpretComError(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComError *command = reinterpret_cast<Command::ComError *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " sent an error : " << command->getError();
     std::cout << "."<< std::endl;
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
 ACommand *CommandInterpreter::interpretComListRequest(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComListRequest *command = reinterpret_cast<Command::ComListRequest *>(abstractCommand);
     (void)command;
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is asking for contact list." << std::endl;
-    return new Command::ComListResponse(mainCore->getNetworkList()[idClient].second, mainCore->getContactList());
+    ACommand *ret = new Command::ComListResponse(mainCore->getNetworkList()[idClient].second, mainCore->getContactList());
+    MainMutex::mutex().unlock();
+    return ret;
 }
 
 /* not used server-side */
@@ -41,26 +46,31 @@ ACommand *CommandInterpreter::interpretComListResponse(ServerCore *mainCore, ACo
 
 ACommand *CommandInterpreter::interpretComCoRequest(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComCoRequest *command = reinterpret_cast<Command::ComCoRequest *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is setting/changing his name to : " << command->getName();
     std::cout << "." << std::endl;
     mainCore->getContactList()[idClient] = command->getName();
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
 /* TO IMPLEMENT (not essential) */
 ACommand *CommandInterpreter::interpretComCoChange(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComCoChange *command = reinterpret_cast<Command::ComCoChange *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is setting his status to : " << command->getStatus();
     std::cout << "." << std::endl;
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
 ACommand *CommandInterpreter::interpretComCallRequest(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComCallRequest *command = reinterpret_cast<Command::ComCallRequest *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is calling the client " << command->getIdFriend();
@@ -68,11 +78,13 @@ ACommand *CommandInterpreter::interpretComCallRequest(ServerCore *mainCore, ACom
     std::cout << "." << std::endl;
     command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
+    MainMutex::mutex().unlock();
     return command;
 }
 
 ACommand *CommandInterpreter::interpretComCallCancel(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComCallCancel *command = reinterpret_cast<Command::ComCallCancel *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is canceling his call to the client " << command->getIdFriend();
@@ -80,11 +92,13 @@ ACommand *CommandInterpreter::interpretComCallCancel(ServerCore *mainCore, AComm
     std::cout << "." << std::endl;
     command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
+    MainMutex::mutex().unlock();
     return command;
 }
 
 ACommand *CommandInterpreter::interpretComCallResponse(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComCallResponse *command = reinterpret_cast<Command::ComCallResponse *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is accepting the call to the client " << command->getIdFriend();
@@ -92,18 +106,22 @@ ACommand *CommandInterpreter::interpretComCallResponse(ServerCore *mainCore, ACo
     std::cout << "." << std::endl;
     command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
+    MainMutex::mutex().unlock();
     return command;
 }
 
 ACommand *CommandInterpreter::interpretComMessageSend(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
     Command::ComMessageSend *command = reinterpret_cast<Command::ComMessageSend *>(abstractCommand);
+    MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is sending the message \"" << command->getMessage() << "\"";
     std::cout << " to the client " << command->getIdFriend();
     std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
     std::cout << "." << std::endl;
-    return new Command::ComMessageReceive(mainCore->getNetworkList()[command->getIdFriend()].second, idClient, command->getMessage());
+    ACommand *ret = new Command::ComMessageReceive(mainCore->getNetworkList()[command->getIdFriend()].second, idClient, command->getMessage());
+    MainMutex::mutex().unlock();
+    return ret;
 }
 
 /* not used server-side */
@@ -135,7 +153,10 @@ ACommand *CommandInterpreter::interpretComListRequest(ClientCore *mainCore, ACom
 
 ACommand *CommandInterpreter::interpretComListResponse(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComListResponse *command = reinterpret_cast<Command::ComListResponse *>(abstractCommand);
+    MainMutex::mutex().lock();
     mainCore->setContactList(command->getContactList());
+    mainCore->setContactsUpdate(true);
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
@@ -157,13 +178,19 @@ ACommand *CommandInterpreter::interpretComCoChange(ClientCore *mainCore, AComman
 
 ACommand *CommandInterpreter::interpretComCallRequest(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallRequest *command = reinterpret_cast<Command::ComCallRequest *>(abstractCommand);
+    MainMutex::mutex().lock();
     mainCore->getCallingList().push_back(command->getIdFriend());
+    mainCore->setCallingUpdate(true);
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
 ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallCancel *command = reinterpret_cast<Command::ComCallCancel *>(abstractCommand);
+    MainMutex::mutex().lock();
     mainCore->getCancellingList().push_back(command->getIdFriend());
+    mainCore->setCancellingUpdate(true);
+    MainMutex::mutex().unlock();
     return NULL;
 }
 
@@ -185,9 +212,10 @@ ACommand *CommandInterpreter::interpretComMessageSend(ClientCore *mainCore, ACom
 
 ACommand *CommandInterpreter::interpretComMessageReceive(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComMessageReceive *command = reinterpret_cast<Command::ComMessageReceive *>(abstractCommand);
-    (void)mainCore;
-    (void)command;
+    MainMutex::mutex().lock();
     mainCore->getMessagesList()[command->getIdFriend()].push_back(std::pair<messageType, std::string>(FROM_OTHER, command->getMessage()));
+    mainCore->setMessagesUpdate(true);
+    MainMutex::mutex().unlock();
     return NULL;
 }
 

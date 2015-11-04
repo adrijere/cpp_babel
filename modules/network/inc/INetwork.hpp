@@ -12,6 +12,7 @@
 # define INETWORK_H_
 
 # include <string>
+# include "MainMutex.hpp"
 
 # define SERVER_PORT_IN 4242
 # define SERVER_PORT_OUT 4243

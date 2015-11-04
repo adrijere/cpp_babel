@@ -30,11 +30,14 @@ private:
     IClient *_mainConnectionOut;
     std::thread *_readerThread;
     std::map<unsigned short, fct> _interpreter;
+    bool _contactsUpdate;
     std::map<unsigned short, std::string> _contactList;
+    bool _callingUpdate;
     std::vector<unsigned short> _callingList;
+    bool _cancellingUpdate;
     std::vector<unsigned short> _cancellingList;
+    bool _messagesUpdate;
     std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > _messagesList;
-    std::mutex _mainMutex;
 public:
     ClientCore(const std::string &, const std::string &);
     ~ClientCore() {}
@@ -44,9 +47,17 @@ public:
     std::vector<unsigned short> &getCallingList() { return this->_callingList; }
     std::vector<unsigned short> &getCancellingList() { return this->_cancellingList; }
     std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > &getMessagesList() { return this->_messagesList; }
-    std::mutex &getMutex() { return this->_mainMutex; }
     void setName(const std::string &name) { this->_name = name; }
     void setContactList(const std::map<unsigned short, std::string> &contactList) { this->_contactList = contactList; }
+
+    bool getContactsUpdate() { return this->_contactsUpdate; }
+    bool getCallingUpdate() { return this->_callingUpdate; }
+    bool getCancellingUpdate() { return this->_cancellingUpdate; }
+    bool getMessagesUpdate() { return this->_messagesUpdate; }
+    void setContactsUpdate(bool newValue) { this->_contactsUpdate = newValue; }
+    void setCallingUpdate(bool newValue) { this->_callingUpdate = newValue; }
+    void setCancellingUpdate(bool newValue) { this->_cancellingUpdate = newValue; }
+    void setMessagesUpdate(bool newValue) { this->_messagesUpdate = newValue; }
 
     void reader();
     void sendComListRequest();
