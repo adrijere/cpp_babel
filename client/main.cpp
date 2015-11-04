@@ -1,4 +1,4 @@
-/* 
+/*
 * @Author: gicque_p
 * @Date:   2015-04-14 10:59:05
 * @Last Modified by:   gicque_p
@@ -6,12 +6,12 @@
 */
 
 #include <iostream>
-
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
 
+#include "ClientCore.hpp"
 #include "Login.hpp"
 #include "MainWindow.hpp"
 

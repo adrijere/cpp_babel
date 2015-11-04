@@ -1,6 +1,17 @@
 # Projets specifications #
 #########################
-**/babel
+**/babel_client
+**/babel_server
+**/*.cpp_parameters
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+babel_client_automoc.cpp
+client/inc/moc_Login.cpp
+client/inc/moc_MainWindow.cpp
+ui_login.h
+ui_mainwindow.h
 
 # Compiled source #
 ###################

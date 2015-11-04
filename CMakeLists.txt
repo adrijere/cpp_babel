@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Wextra -g")
 set(INC_PATH inc)
 set(SRC_PATH src)
 set(SERVER_PATH server)
-set(CLIENT_PATH clientTest)
+set(CLIENT_PATH client)
 set(MODULES_PATH modules)
 set(IMPLEMENTATIONS_PATH implementations)
 set(NETWORK_PATH network)
@@ -56,20 +56,36 @@ include_directories(
         ${MODULES_PATH}/${IMPLEMENTATIONS_PATH}/${INC_PATH}
         ${MODULES_PATH}/${NETWORK_PATH}/${INC_PATH}
         ${MODULES_PATH}/${COMMAND_PATH}/${INC_PATH}
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 set(CLIENT_FILES
         ${CLIENT_PATH}/main.cpp
         ${CLIENT_PATH}/${SRC_PATH}/ClientCore.cpp
+        ${CLIENT_PATH}/${SRC_PATH}/addFont.cpp
+        ${CLIENT_PATH}/${SRC_PATH}/usage.cpp
         ${IMPLEMENTATIONS_FILES}
         ${NETWORK_FILES}
         ${COMMAND_FILES}
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Network_EXECUTABLE_COMPILE_FLAGS}")
-add_definitions(${Qt5Network_DEFINITIONS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5_EXECUTABLE_COMPILE_FLAGS}")
+add_definitions(${Qt5_DEFINITIONS})
 find_package(Qt5Network REQUIRED)
-add_executable(babel_client ${CLIENT_FILES})
-TARGET_LINK_LIBRARIES(babel_client ${Qt5Network_LIBRARIES})
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Core REQUIRED)
+qt5_wrap_cpp(CPP_HDRS
+        ${CLIENT_PATH}/inc/MainWindow.hpp
+        ${CLIENT_PATH}/inc/Login.hpp
+)
+qt5_wrap_ui(UIS_HDRS
+        ${CLIENT_PATH}/login.ui
+        ${CLIENT_PATH}/mainwindow.ui
+)
+set(CMAKE_AUTORCC ON)#
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+add_executable(babel_client ${CLIENT_FILES} ${CLIENT_PATH}/resources.qrc ${UIS_HDRS} ${CPP_HDRS})
+TARGET_LINK_LIBRARIES(babel_client ${Qt5Network_LIBRARIES} ${Qt5Widgets_LIBRARIES})
 set_target_properties(babel_client PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -D _CLIENT_")
-set_target_properties(babel_client PROPERTIES LINK_FLAGS "${CMAKE_LINK_FLAGS} -pthread")
+set_target_properties(babel_client PROPERTIES LINK_FLAGS "${CMAKE_LINK_FLAGS} -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread")
