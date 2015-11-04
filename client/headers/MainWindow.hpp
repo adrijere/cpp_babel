@@ -27,7 +27,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->setupUi(this);
         this->setWindowTitle(username);
         this->mainLabel->setText(username);
-        this->ping();
+        this->pingOnline();
         this->changeView(NULL, NULL);
 
         QTabBar *tb;
@@ -76,6 +76,12 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     }
 
     void pingOnline(void) {
+        // MainMutex::mutex().lock();
+        // if (client->_boolToto) {
+        //     faire tout ça
+        // }
+        // MainMutex::mutex().unlock();
+
         // this->_client->sendComListRequest();
         // PING SERVER TO GET ONLINE USERS LIST
 

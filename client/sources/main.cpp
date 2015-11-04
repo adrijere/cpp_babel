@@ -2,7 +2,7 @@
 * @Author: gicque_p
 * @Date:   2015-04-14 10:59:05
 * @Last Modified by:   gicque_p
-* @Last Modified time: 2015-11-04 12:36:58
+* @Last Modified time: 2015-11-04 15:14:47
 */
 
 #include <iostream>
@@ -19,7 +19,7 @@ void addFont(void);
 void usage(char **);
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
+    if (argc != 2) {
         usage(argv);
 
         return 0;
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
         app.installTranslator(&translator);
         addFont();
 
-        Login *window = new Login(NULL, argv[1], argv[2]);
+        Login *window = new Login(NULL, argv[1]);
         window->show();
 
         return app.exec();
