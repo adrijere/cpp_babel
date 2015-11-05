@@ -5,17 +5,16 @@
 
 # define FRAME_SIZE (960)
 # define SAMPLE_RATE (48000)
-# define CHANNELS (2)
+# define CHANNELS (1)
 # define MAX_FRAME_SIZE (6 * FRAME_SIZE)
-# define BUFFER_2SIZE (FRAME_SIZE * SAMPLE_RATE)
 
 class BabbelOpus {
   private:
     OpusEncoder *encode;
     OpusDecoder *decode;
 
-    opus_int16 input[FRAME_SIZE*CHANNELS];
-    opus_int16 output[MAX_FRAME_SIZE*CHANNELS];
+    opus_int16 *input;
+    opus_int16 *output;
     int nbBytes;
     int error;
 
