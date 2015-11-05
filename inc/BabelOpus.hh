@@ -1,5 +1,5 @@
-#ifndef _BABBEL_OPUS_HH_
-# define _BABBEL_OPUS_HH_
+#ifndef _BABEL_OPUS_HH_
+# define _BABEL_OPUS_HH_
 
 #include "opus.h"
 
@@ -8,7 +8,7 @@
 # define CHANNELS (1)
 # define MAX_FRAME_SIZE (6 * FRAME_SIZE)
 
-class BabbelOpus {
+class BabelOpus {
   private:
     OpusEncoder *encode;
     OpusDecoder *decode;
@@ -34,8 +34,8 @@ class BabbelOpus {
     unsigned char *getDec();
     EncodePack *getEnc();
 
-    BabbelOpus();
-    ~BabbelOpus();
+    BabelOpus();
+    ~BabelOpus();
   private:
 
   EncodePack retEncode;

@@ -1,11 +1,11 @@
-NAME		=	babbel
+NAME		=	babel
 
 CXX		=	clang++
 
 RM		=	rm -rf
 
-SRC		=	src/BabbelOpus.cpp \
-			src/BabbelAudio.cpp \
+SRC		=	src/BabelOpus.cpp \
+			src/BabelAudio.cpp \
 			src/PlugAudio.cpp \
 			src/APlugin.cpp \
 			src/main_test.cpp

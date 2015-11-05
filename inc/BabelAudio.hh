@@ -1,5 +1,5 @@
-#ifndef _BABBEL_AUDIO_HH_
-# define _BABBEL_AUDIO_HH_
+#ifndef _BABEL_AUDIO_HH_
+# define _BABEL_AUDIO_HH_
 
 #include "portaudio.h"
 
@@ -12,7 +12,7 @@
 # define BUFFER_SIZE (FRAMES_PER_BUFFER * SAMPLE_RATE)
 
 
-class BabbelAudio {
+class BabelAudio {
   private:
     PaStream *inputStream;
     PaStream *outputStream;
@@ -35,8 +35,8 @@ class BabbelAudio {
     bool writeInput(unsigned char *);
     unsigned char *readOutput();
 
-    ~BabbelAudio();
-    BabbelAudio();
+    ~BabelAudio();
+    BabelAudio();
 };
 
 #endif

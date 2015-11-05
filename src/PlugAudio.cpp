@@ -18,7 +18,7 @@ void *PlugAudio::getData() {
 }
 
 bool PlugAudio::sendData(void *data) {
-  BabbelOpus::EncodePack *pack = static_cast<BabbelOpus::EncodePack *>(data);
+  BabelOpus::EncodePack *pack = static_cast<BabelOpus::EncodePack *>(data);
   if ( _opus.OpusDecode(pack))
     return _audio.writeInput(_opus.getDec());
   return false;
