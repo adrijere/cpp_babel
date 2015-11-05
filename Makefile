@@ -1,6 +1,6 @@
 NAME		=	babbel
 
-CXX		=	g++
+CXX		=	clang++
 
 RM		=	rm -rf
 

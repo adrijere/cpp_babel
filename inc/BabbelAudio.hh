@@ -4,11 +4,11 @@
 #include "portaudio.h"
 
 # define SAMPLE_RATE (48000)
-# define FRAMES_PER_BUFFER (1024)
-# define FRAMES_SIZE (960)
+# define FRAMES_PER_BUFFER (480)
+# define FRAMES_SIZE (480)
 # define NUM_CHANNELS (1)
 # define SAMPLE_SIZE (3)
-# define PA_SAMPLE_TYPE paInt32
+# define PA_SAMPLE_TYPE paInt16
 # define BUFFER_SIZE (FRAMES_PER_BUFFER * SAMPLE_RATE)
 
 

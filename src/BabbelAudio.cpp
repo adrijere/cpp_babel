@@ -4,7 +4,6 @@
 bool BabbelAudio::writeInput(unsigned char *buff) {
   if ((err = Pa_WriteStream(outputStream, buff, FRAMES_PER_BUFFER)) != paNoError)
     return (false);
-  delete[] buff;
   return (true);
 }
 

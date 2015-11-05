@@ -18,8 +18,8 @@ public:
   bool run();
   bool runSet();
   bool runGet();
-  virtual bool sendData(unsigned char *, unsigned int) = 0;
-  virtual unsigned char *getData() = 0;
+  virtual bool sendData(void *) = 0;
+  virtual void *getData() = 0;
   APlugin(eID id) : _ID(id) {};
   virtual ~APlugin() {};
 };

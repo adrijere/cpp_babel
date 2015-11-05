@@ -2,23 +2,21 @@
 #include <iostream>
 #include "BabbelOpus.hh"
 
-unsigned char *BabbelOpus::OpusDecode(unsigned char *data, unsigned int size) {
-  unsigned char *ret = new unsigned char [FRAME_SIZE * SAMPLE_RATE];
-  int frame_size = opus_decode(decode, data, size, output, FRAME_SIZE, 0);
+bool BabbelOpus::OpusDecode(EncodePack *reserve) {
+  // voir const
+  int frame_size = opus_decode(decode, reserve->pack, reserve->nbBytes, output, FRAME_SIZE, 0);
   if (frame_size <= 0)
-    return (NULL);
-  std::memcpy(ret, output, FRAME_SIZE * SAMPLE_RATE);
-  delete[] data;
-  return (ret);
+    return (false);
+  std::memcpy(retDecode, output, FRAME_SIZE * SAMPLE_RATE);
+  return (true);
 }
 
-unsigned char *BabbelOpus::OpusEncode(unsigned char *data, unsigned int size) {
-  unsigned char *ret = new unsigned char[size];
+bool BabbelOpus::OpusEncode(unsigned char *data, unsigned int size) {
   std::memcpy(input, data, size);
-  nbBytes = opus_encode(encode, input, FRAME_SIZE, ret, size);
-  if (nbBytes <= 0)
-    return NULL;
-  return (ret);
+  retEncode.nbBytes = opus_encode(encode, input, FRAME_SIZE, retEncode.pack, size);
+  if (retEncode.nbBytes <= 0)
+    return (false);
+  return (true);
 }
 
 
@@ -34,6 +32,20 @@ bool BabbelOpus::initEncode() {
   if ((decode = opus_decoder_create(SAMPLE_RATE, CHANNELS, &error)) == NULL)
     return (false);
   return true;
+}
+
+BabbelOpus::EncodePack *BabbelOpus::getEnc() {
+  // a voir si const
+  return &retEncode;
+}
+
+unsigned char *BabbelOpus::getDec() {
+  // a voir si const
+  return retDecode;
+}
+
+BabbelOpus::BabbelOpus() {
+retDecode = new unsigned char [FRAME_SIZE * SAMPLE_RATE];
 }
 
 BabbelOpus::~BabbelOpus() {

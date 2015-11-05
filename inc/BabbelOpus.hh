@@ -3,7 +3,7 @@
 
 #include "opus.h"
 
-# define FRAME_SIZE (960)
+# define FRAME_SIZE (480)
 # define SAMPLE_RATE (48000)
 # define CHANNELS (1)
 # define MAX_FRAME_SIZE (6 * FRAME_SIZE)
@@ -15,18 +15,30 @@ class BabbelOpus {
 
     opus_int16 *input;
     opus_int16 *output;
-    int nbBytes;
+
+    unsigned char *retDecode;
     int error;
 
   public:
+    struct EncodePack {
+      int nbBytes;
+      unsigned char pack[960];
+    };
+
     bool initDecode();
     bool initEncode();
 
-    unsigned char *OpusDecode(unsigned char *, unsigned int);
-    unsigned char *OpusEncode(unsigned char *, unsigned int);
+    bool OpusDecode(EncodePack *);
+    bool OpusEncode(unsigned char *, unsigned int);
 
-    BabbelOpus() {};
+    unsigned char *getDec();
+    EncodePack *getEnc();
+
+    BabbelOpus();
     ~BabbelOpus();
+  private:
+
+  EncodePack retEncode;
 };
 
 #endif

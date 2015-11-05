@@ -11,8 +11,8 @@ class PlugAudio : public APlugin {
     BabbelAudio _audio;
 
   public:
-    unsigned char *getData();
-    bool sendData(unsigned char *, unsigned int);
+    void *getData();
+    bool sendData(void *);
     void runTest();
 
   PlugAudio();
