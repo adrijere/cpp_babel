@@ -9,6 +9,7 @@
 //
 
 #include "ClientCore.hpp"
+#include <portaudiocpp/PortAudioCpp.hxx>
 
 ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_name = name;
@@ -77,5 +78,10 @@ void ClientCore::sendComCallCancel(unsigned short idFriend) {
 
 void ClientCore::sendComMessageSend(unsigned short idFriend, const std::string &message) {
     Command::ComMessageSend command(this->_mainConnectionOut, idFriend, message);
+    command.write();
+}
+
+void ClientCore::sendComCallResponse(unsigned short idFriend, const std::string &addr, unsigned short port) {
+    Command::ComCallResponse command(this->_mainConnectionOut, idFriend, addr, port);
     command.write();
 }
