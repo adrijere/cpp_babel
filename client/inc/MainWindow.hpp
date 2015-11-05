@@ -13,34 +13,37 @@
 # include <QMessageBox>
 # include <QPixmap>
 
+# include "ClientCore.hpp"
 # include "ui_mainwindow.h"
 
 class MainWindow : public QMainWindow, public Ui_MainWindow {
     Q_OBJECT;
 
-    std::list<std::string> _onlineUsers;
-    std::map<std::string, std::list<std::string> > _history;
-
+    ClientCore *_client;
  public:
-    explicit MainWindow(QMainWindow *parent, QString username) : QMainWindow(parent) {
+    explicit MainWindow(QMainWindow *parent, ClientCore *client) : QMainWindow(parent), _client(client) {
         // Stylesheets
         this->setupUi(this);
-        this->setWindowTitle(username);
-        this->mainLabel->setText(username);
-        this->pingOnline();
-        this->changeView(NULL, NULL);
+        this->setWindowTitle(this->_client->getName().c_str());
+        this->mainLabel->setText(this->_client->getName().c_str());
+        this->ping();
+        this->refresh();
+        this->changeView();
 
         QTabBar *tb;
         tb = this->tabSidebar->findChild<QTabBar *>(QLatin1String("qt_tabwidget_tabbar"));
         tb->setStyleSheet("background-color: rgb(228, 238, 242); color: #12A5F4; border: none; font-weight: bold;");
 
         // Connect
-        QTimer *refreshUsers = new QTimer(this);
+        QTimer *pingServer = new QTimer(this);
+        QTimer *refreshAll = new QTimer(this);
 
-        refreshUsers->start(30000);
+        pingServer->start(3000);
+        refreshAll->start(500);
 
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
-        QObject::connect(refreshUsers, SIGNAL(timeout()), SLOT(pingOnline()));
+        QObject::connect(pingServer, SIGNAL(timeout()), SLOT(ping()));
+        QObject::connect(refreshAll, SIGNAL(timeout()), SLOT(refresh()));
         
         QObject::connect(this->sidebarList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(notImplemented()));
 
@@ -69,55 +72,189 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->removeFriendButton->setVisible(!flag);
     }
 
- public slots:
+    void refreshOnline(void) {
+        MainMutex::mutex().lock();
+        std::map<unsigned short, std::string> map = this->_client->getContactList();
+        MainMutex::mutex().unlock();
 
-    void quitWindow(void) {
-        qApp->quit();
-    }
-
-    void pingOnline(void) {
-        // MainMutex::mutex().lock();
-        // if (client->_boolToto) {
-        //     faire tout ça
-        // }
-        // MainMutex::mutex().unlock();
-
-        // this->_client->sendComListRequest();
-        // PING SERVER TO GET ONLINE USERS LIST
-
-        QListWidgetItem *item = new QListWidgetItem("Babel Echo Test");
         this->onlineList->clear();
-        this->onlineList->addItem(item);
-
-        for (std::list<std::string>::iterator it = this->_onlineUsers.begin(); it != this->_onlineUsers.end(); it++) {
-            QString itemName(it->c_str());
+        for (std::map<unsigned short, std::string>::iterator it = map.begin(); it != map.end(); it++) {
+            QString itemName(it->second.c_str());
             QListWidgetItem *item = new QListWidgetItem(itemName);
 
             this->onlineList->addItem(item);
         }
     }
 
+    void refreshHistory(QString username) {
+        MainMutex::mutex().lock();
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username.toStdString());
+        std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > history = this->_client->getMessagesList();
+        MainMutex::mutex().unlock();
+
+        this->historyList->clear();
+        if (history[id].empty()) {
+            QString content(QString::fromUtf8("Vous n'avez encore rien envoyé à votre correspondant ! N'hésitez pas à lui envoyer un petit message pour lui dire bonjour ! :)"));
+            QListWidgetItem *item = new QListWidgetItem(content);
+
+            item->setTextAlignment(Qt::AlignCenter);
+            this->historyList->addItem(item);
+        } else {
+            for (std::vector<std::pair<messageType, std::string> >::iterator it = history[id].begin(); it != history[id].end(); it++) {
+                QString itemName(it->second.c_str());
+                QListWidgetItem *item = new QListWidgetItem(itemName);
+
+                this->historyList->addItem(item);
+            }
+        }
+    }
+
+    void refreshStatus(QString username) {
+        std::string name = username.toStdString();
+
+        MainMutex::mutex().lock();
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), name);
+        MainMutex::mutex().unlock();
+
+        if (id != 0) {
+            QPixmap pix(":/images/online.png");
+
+            this->statusPix->setPixmap(pix);
+            this->statusUser->setText("en ligne");
+            this->callButton->setEnabled(true);
+            this->videoButton->setEnabled(true);
+            this->sendText->setEnabled(true);
+            this->sendButton->setEnabled(true);
+        } else {
+            QPixmap pix(":/images/offline.png");
+
+            this->statusPix->setPixmap(pix);
+            this->statusUser->setText("hors ligne");
+            this->callButton->setEnabled(false);
+            this->videoButton->setEnabled(false);
+            this->sendText->setEnabled(false);
+            this->sendButton->setEnabled(false);
+        }        
+    }
+
+    unsigned short getKeyOfMap(const std::map<unsigned short, std::string> &map, const std::string &username) {
+        for (std::map<unsigned short, std::string>::const_iterator it = map.begin(); it != map.end(); ++it ) {
+            if (it->second == username) {
+                return it->first;
+            }
+        }
+
+        return 0;
+    }
+
+ public slots:
+
+    void quitWindow(void) {
+        qApp->quit();
+    }
+
+    void ping(void) {
+        this->_client->sendComListRequest();
+    }
+
+    void refresh(void) {
+        std::string username = this->userLabel->text().toStdString();
+
+        MainMutex::mutex().lock();
+        if (this->_client->getContactsUpdate()) {
+            this->_client->setContactsUpdate(false);
+            MainMutex::mutex().unlock();
+
+            this->refreshOnline();
+        } else {
+            MainMutex::mutex().unlock();
+        }
+
+        MainMutex::mutex().lock();
+        if (this->_client->getMessagesUpdate()) {
+            this->_client->setMessagesUpdate(false);
+            MainMutex::mutex().unlock();
+
+            this->changeView();
+        } else {
+            MainMutex::mutex().unlock();
+        }
+
+        MainMutex::mutex().lock();
+        if (this->_client->getCallingUpdate()) {
+            this->_client->setCallingUpdate(false);
+            unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+            MainMutex::mutex().unlock();
+
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Quelqu'un vous appelle", "Répondre ?", QMessageBox::No|QMessageBox::Yes);
+
+            if (reply == QMessageBox::Yes) {
+                // this->_client->sendComCallResponse(id, addr, port);
+            } else {
+                // this->_client->sendComCallResponse(id, "", 0);
+            }
+        } else {
+            MainMutex::mutex().unlock();
+        }
+    }
+
+    void changeView(QListWidgetItem *current = NULL, QListWidgetItem *previous = NULL) {
+        (void)previous;
+
+        if (current != NULL and current->text() != "Aucun ami") {
+            this->userLabel->setText(current->text());
+        }
+
+        QString username = this->userLabel->text();
+        QList<QListWidgetItem *> items = this->friendList->findItems(username, Qt::MatchExactly);
+
+        if (items.count() > 0) {
+            this->toggleFriend(false);
+        } else {
+            this->toggleFriend(true);
+        }
+
+        this->refreshStatus(username);
+        this->refreshHistory(username);
+    }
+
     void callUser(void) {
-        // std::string username = this->userLabel->text().toStdString();
-        // 
-        // unsigned short id = this->_onlineUsers[username];
-        // this->_client->sendComCallRequest(id);
+        std::string username = this->userLabel->text().toStdString();
+
+        MainMutex::mutex().lock();        
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+        MainMutex::mutex().unlock();
+
+        if (id != 0) {
+            this->_client->sendComCallRequest(id);
+        }
     }
 
     void hangOut(void) {
-        // std::string username = this->userLabel->text().toStdString();
-        // 
-        // unsigned short id = this->_onlineUsers[username];
-        // this->_client->sendComCallCancel(id);
+        std::string username = this->userLabel->text().toStdString();
+
+        MainMutex::mutex().lock();
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+        MainMutex::mutex().unlock();
+
+        if (id != 0) {
+            this->_client->sendComCallCancel(id);
+        }
     }
 
     void sendMessage(void) {
         std::string username = this->userLabel->text().toStdString();
         std::string content = this->sendText->text().toStdString();
 
-        // unsigned short id = this->_onlineUsers[username];
-        // this->_client->sendComMessageSend(id, content);
-        this->_history[username].push_back(content);
+        MainMutex::mutex().lock();
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+        MainMutex::mutex().unlock();
+
+        if (id != 0) {
+            this->_client->sendComMessageSend(id, content);
+        }
+
         this->sendText->clear();
         this->changeView();
     }
@@ -156,56 +293,6 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         }
 
         this->changeView();
-    }
-
-    void changeView(QListWidgetItem *current = NULL, QListWidgetItem *previous = NULL) {
-        (void)previous;
-
-        if (current != NULL and current->text() != "Aucun ami") {
-            this->userLabel->setText(current->text());
-        }
-
-        QString username = this->userLabel->text();
-        QList<QListWidgetItem *> items = this->friendList->findItems(username, Qt::MatchExactly);
-
-        if (items.count() > 0) {
-            this->toggleFriend(false);
-        } else {
-            this->toggleFriend(true);
-        }
-
-        std::string name = username.toStdString();
-        if (std::find(this->_onlineUsers.begin(), this->_onlineUsers.end(), name) != this->_onlineUsers.end()) {
-            QPixmap pix(":/images/online.png");
-
-            this->statusPix->setPixmap(pix);
-            this->statusUser->setText("en ligne");
-        } else {
-            QPixmap pix(":/images/offline.png");
-
-            this->statusPix->setPixmap(pix);
-            this->statusUser->setText("hors ligne");
-            this->callButton->setEnabled(false);
-            this->videoButton->setEnabled(false);
-            this->sendText->setEnabled(false);
-            this->sendButton->setEnabled(false);
-        }
-
-        this->historyList->clear();
-        if (this->_history[name].empty()) {
-            QString content(QString::fromUtf8("Vous n'avez encore rien envoyé à votre correspondant ! N'hésitez pas à lui envoyer un petit message pour lui dire bonjour ! :)"));
-            QListWidgetItem *item = new QListWidgetItem(content);
-
-            item->setTextAlignment(Qt::AlignCenter);
-            this->historyList->addItem(item);
-        } else {        
-            for (std::list<std::string>::iterator it = this->_history[name].begin(); it != this->_history[name].end(); it++) {
-                QString itemName(it->c_str());
-                QListWidgetItem *item = new QListWidgetItem(itemName);
-
-                this->historyList->addItem(item);
-            }
-        }
     }
 
     void notImplemented(void) {

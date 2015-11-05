@@ -6,6 +6,7 @@
 # include <QWidget>
 # include <QMessageBox>
 
+# include "ClientCore.hpp"
 # include "MainWindow.hpp"
 # include "ui_login.h"
 
@@ -47,15 +48,10 @@ class Login : public QWidget, public Ui_Login {
         if (this->passwordEdit->text().isEmpty()) {
             QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Vous devez entrer un mot de passe"));
         } else {
-            // SEND USERNAME TO SERVER TO CHECK IF NOT ALREADY IN USE
-            // ClientCore *client = new ClientCore(username, this->_address);
-            // if (username.isInUse()) {
-            //     QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Nom d'utilisateur déjà utilisé"));
-            // } else {
-                // LE RESTE
-            // }
+            ClientCore *client = new ClientCore(this->usernameEdit->text().toStdString(), this->_address);
+            client->sendComCoRequest();
 
-            MainWindow *window = new MainWindow(NULL, this->usernameEdit->text());
+            MainWindow *window = new MainWindow(NULL, client);
 
             this->hide();
             window->show();
