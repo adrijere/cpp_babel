@@ -22,6 +22,7 @@
 # include "BoostTCPNetwork.hpp"
 # include "Command.hpp"
 # include "CommandInterpreter.hpp"
+# include "Errors.hpp"
 
 class ServerCore {
 private:
@@ -32,7 +33,7 @@ private:
     std::map<unsigned short, std::string> _contactList;
     std::map<unsigned short, fct> _interpreter;
     std::map<unsigned short, std::pair<INetwork *, INetwork *> > _networkList;
-    std::vector<std::thread *> _threadList;
+    std::map<unsigned short, std::thread *> _threadList;
 public:
     ServerCore();
     ~ServerCore();
@@ -40,7 +41,7 @@ public:
     IServer *getConnectionsListenerIn() { return this->_connectionsListenerIn; }
     std::map<unsigned short, std::string> &getContactList() { return this->_contactList; }
     std::map<unsigned short, fct> &getInterpreter() { return this->_interpreter; };
-    std::vector<std::thread *> &getThreadList() { return this->_threadList; }
+    std::map<unsigned short, std::thread *> &getThreadList() { return this->_threadList; }
     std::map<unsigned short, std::pair<INetwork *, INetwork *> > &getNetworkList() { return this->_networkList; }
 
     void run();

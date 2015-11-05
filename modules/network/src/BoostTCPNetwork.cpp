@@ -10,6 +10,7 @@
 
 #ifdef _SERVER_
 
+#include <iostream>
 # include "BoostTCPNetwork.hpp"
 
 BoostTCPNetwork::BoostTCPNetwork() : _socket(this->_io_service)
@@ -24,23 +25,18 @@ BoostTCPNetwork::~BoostTCPNetwork()
 
 void BoostTCPNetwork::read(void *buffer, size_t size)
 {
-	while (this->_socket.available() < size);
 	boost::system::error_code error;
 	this->_socket.read_some(boost::asio::buffer(buffer, size), error);
-	if (error == boost::asio::error::eof)
-		return ; // Connection closed cleanly by peer.
-	else if (error)
-		throw boost::system::system_error(error); // Some other error.
+	if (error)
+		throw Error::Module::Network::ReadError();
 }
 
 void BoostTCPNetwork::write(const void *data, size_t size)
 {
 	boost::system::error_code error;
 	this->_socket.write_some(boost::asio::buffer(data, size), error);
-	if (error == boost::asio::error::eof)
-		return ; // Connection closed cleanly by peer.
-	else if (error)
-		throw boost::system::system_error(error); // Some other error.
+	if (error)
+		throw Error::Module::Network::WriteError();
 }
 
 boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()

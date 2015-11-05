@@ -36,23 +36,30 @@ void ServerCore::run() {
     while(peerIn != NULL && peerOut != NULL) {
         this->_networkList[this->_networkList.size() + 1] = std::pair<INetwork *, INetwork *>(peerIn, peerOut);
         std::thread *newThread = new std::thread(&ServerCore::connection, this, this->_networkList.size());
-        this->_threadList.push_back(newThread);
+        this->_threadList[this->_networkList.size()] = newThread;
         peerIn = this->_connectionsListenerIn->waitConnection();
         peerOut = this->_connectionsListenerOut->waitConnection();
     }
 }
 
 void ServerCore::connection(unsigned short idClient) {
-    std::cout << "New Connection !" << std::endl;
-    ACommand *newCommand = Command::parseCommand(this->_networkList[idClient].first);
-    while (newCommand != NULL) {
-        ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand, idClient);
-        if (responseCommand) {
-            responseCommand->write();
-            delete responseCommand;
+    try {
+        std::cout << "New Connection !" << std::endl;
+        ACommand *newCommand = Command::parseCommand(this->_networkList[idClient].first);
+        while (newCommand != NULL) {
+            ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand, idClient);
+            if (responseCommand) {
+                responseCommand->write();
+                delete responseCommand;
+            }
+//            delete newCommand;
+            newCommand = Command::parseCommand(this->_networkList[idClient].first);
         }
-        delete newCommand;
-        newCommand = Command::parseCommand(this->_networkList[idClient].first);
+        std::cout << "Fin de Connection !" << std::endl;
+    } catch(const Error &e) {
+        std::cout << "[Error occurred] (" << e.where() << ") " << e.what() << std::endl;
     }
-    std::cout << "Fin de Connection !" << std::endl;
+    this->_contactList.erase(this->_contactList.find(idClient));
+    this->_networkList.erase(this->_networkList.find(idClient));
+    this->_threadList.erase(this->_threadList.find(idClient));
 }

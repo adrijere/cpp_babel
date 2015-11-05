@@ -17,6 +17,7 @@
 #  include <boost/array.hpp>
 #  include <boost/asio.hpp>
 #  include "INetwork.hpp"
+#  include "Errors.hpp"
 
 class BoostTCPNetwork : virtual public INetwork
 {

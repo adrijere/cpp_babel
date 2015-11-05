@@ -20,6 +20,7 @@
 # include "QtUDPClient.hpp"
 # include "Command.hpp"
 # include "CommandInterpreter.hpp"
+# include "Errors.hpp"
 
 class ClientCore {
 private:

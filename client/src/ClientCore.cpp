@@ -9,7 +9,6 @@
 //
 
 #include "ClientCore.hpp"
-#include <portaudiocpp/PortAudioCpp.hxx>
 
 ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_name = name;
@@ -39,15 +38,20 @@ ClientCore::ClientCore(const std::string &name, const std::string &addr) {
 }
 
 void ClientCore::reader() {
-    ACommand *newCommand = Command::parseCommand(this->_mainConnectionIn);
-    while (newCommand != NULL) {
-        ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
-        if (responseCommand) {
-            responseCommand->write();
-            delete responseCommand;
+    try {
+        ACommand *newCommand = Command::parseCommand(this->_mainConnectionIn);
+        while (newCommand != NULL) {
+            ACommand *responseCommand = this->_interpreter[newCommand->getId()](this, newCommand);
+            if (responseCommand) {
+                responseCommand->write();
+                delete responseCommand;
+            }
+            delete newCommand;
+            newCommand = Command::parseCommand(this->_mainConnectionIn);
         }
-        delete newCommand;
-        newCommand = Command::parseCommand(this->_mainConnectionIn);
+    } catch(const Error &e) {
+        std::cout << "[Error occurred] (" << e.where() << ") " << e.what() << std::endl;
+        std::exit(0);
     }
 }
 
