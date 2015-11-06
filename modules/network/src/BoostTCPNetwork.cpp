@@ -26,9 +26,11 @@ BoostTCPNetwork::~BoostTCPNetwork()
 void BoostTCPNetwork::read(void *buffer, size_t size)
 {
 	boost::system::error_code error;
-	this->_socket.read_some(boost::asio::buffer(buffer, size), error);
+	size_t ret = this->_socket.read_some(boost::asio::buffer(buffer, size), error);
 	if (error)
 		throw Error::Module::Network::ReadError();
+	if (ret < size)
+		this->read((char *)buffer + ret, size - ret);
 }
 
 void BoostTCPNetwork::write(const void *data, size_t size)

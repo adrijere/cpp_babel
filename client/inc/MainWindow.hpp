@@ -103,7 +103,12 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             for (std::vector<std::pair<messageType, std::string> >::iterator it = history[id].begin(); it != history[id].end(); it++) {
                 QString itemName(it->second.c_str());
                 QListWidgetItem *item = new QListWidgetItem(itemName);
-
+                if (it->first == FROM_ME)
+                    item->setTextAlignment(Qt::AlignRight);
+                else if (it->first == FROM_OTHER)
+                    item->setTextAlignment(Qt::AlignLeft);
+                else
+                    item->setTextAlignment(Qt::AlignCenter);
                 this->historyList->addItem(item);
             }
         }
@@ -249,6 +254,8 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         MainMutex::mutex().lock();
         unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+        this->_client->getMessagesList()[id].push_back(std::pair<messageType, std::string>(FROM_ME, content));
+        this->_client->setMessagesUpdate(true);
         MainMutex::mutex().unlock();
 
         if (id != 0) {
