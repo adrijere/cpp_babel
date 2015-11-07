@@ -9,6 +9,7 @@
 # include <QWidget>
 # include <QMainWindow>
 # include <QTimer>
+# include <QTime>
 # include <QList>
 # include <QMessageBox>
 # include <QPixmap>
@@ -20,8 +21,19 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     Q_OBJECT;
 
     ClientCore *_client;
+    QTime *_callingTime;
+
  public:
     explicit MainWindow(QMainWindow *parent, ClientCore *client) : QMainWindow(parent), _client(client) {
+        // Timers
+        QTimer *pingServer = new QTimer(this);
+        QTimer *refreshAll = new QTimer(this);
+        this->_callingTime = new QTime();
+
+        pingServer->start(3000);
+        refreshAll->start(500);
+        this->_callingTime->start();
+
         // Stylesheets
         this->setupUi(this);
         this->setWindowTitle(this->_client->getName().c_str());
@@ -35,12 +47,6 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         tb->setStyleSheet("background-color: rgb(228, 238, 242); color: #12A5F4; border: none; font-weight: bold;");
 
         // Connect
-        QTimer *pingServer = new QTimer(this);
-        QTimer *refreshAll = new QTimer(this);
-
-        pingServer->start(3000);
-        refreshAll->start(500);
-
         QObject::connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(quitWindow()));
         QObject::connect(pingServer, SIGNAL(timeout()), SLOT(ping()));
         QObject::connect(refreshAll, SIGNAL(timeout()), SLOT(refresh()));
@@ -54,6 +60,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         QObject::connect(this->friendList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), SLOT(changeView(QListWidgetItem *, QListWidgetItem *)));
 
         QObject::connect(this->callButton, SIGNAL(clicked()), SLOT(callUser()));
+        QObject::connect(this->hangOutButton, SIGNAL(clicked()), SLOT(hangOut()));
         QObject::connect(this->videoButton, SIGNAL(clicked()), SLOT(notImplemented()));
         QObject::connect(this->addFriendButton, SIGNAL(clicked()), SLOT(addFriend()));        
         QObject::connect(this->removeFriendButton, SIGNAL(clicked()), SLOT(removeFriend()));        
@@ -70,6 +77,16 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         this->removeFriendButton->setEnabled(!flag);
         this->removeFriendButton->setVisible(!flag);
+    }
+
+    void toggleCall(bool flag) {
+        this->callButton->setEnabled(flag);
+        this->callButton->setVisible(flag);
+
+        this->hangOutButton->setEnabled(!flag);
+        this->hangOutButton->setVisible(!flag);
+
+        this->callTimer->setVisible(!flag);
     }
 
     void refreshOnline(void) {
@@ -142,6 +159,24 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         }        
     }
 
+    void refreshCalling(QString username) {
+        std::string name = username.toStdString();
+
+        MainMutex::mutex().lock();
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), name);
+        MainMutex::mutex().unlock();
+
+        MainMutex::mutex().lock();
+        unsigned short callingId = this->_client->getCallingFriend();
+        MainMutex::mutex().unlock();
+
+        if (id != callingId) {
+            this->toggleCall(true);
+        } else {
+            this->toggleCall(false);
+        }
+    }
+
     unsigned short getKeyOfMap(const std::map<unsigned short, std::string> &map, const std::string &username) {
         for (std::map<unsigned short, std::string>::const_iterator it = map.begin(); it != map.end(); ++it ) {
             if (it->second == username) {
@@ -196,12 +231,15 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
             if (reply == QMessageBox::Yes) {
 //                this->_client->sendComCallResponse(id, this->_client->getMainConnectionOut()->getLocalAddress(), 0); //implementer le port variable
+                this->_callingTime->restart();
             } else {
 //                this->_client->sendComCallResponse(id, "", 0);
             }
         } else {
             MainMutex::mutex().unlock();
         }
+
+        this->callTimer->display(this->_callingTime->elapsed());
     }
 
     void changeView(QListWidgetItem *current = NULL, QListWidgetItem *previous = NULL) {
@@ -220,8 +258,9 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             this->toggleFriend(true);
         }
 
-        this->refreshStatus(username);
         this->refreshHistory(username);
+        this->refreshCalling(username);
+        this->refreshStatus(username);
     }
 
     void callUser(void) {
@@ -243,9 +282,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
         MainMutex::mutex().unlock();
 
-        if (id != 0) {
-            this->_client->sendComCallCancel(id);
-        }
+        // METTRE LA MÉTHODE POUR RACCROCHER ICI
     }
 
     void sendMessage(void) {
