@@ -188,16 +188,16 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         MainMutex::mutex().lock();
         if (this->_client->getCallingUpdate()) {
             this->_client->setCallingUpdate(false);
-            unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+            unsigned short id = this->_client->getCallingList().back();
             MainMutex::mutex().unlock();
 
             QMessageBox::StandardButton reply;
             reply = QMessageBox::question(this, "Quelqu'un vous appelle", "Répondre ?", QMessageBox::No|QMessageBox::Yes);
 
             if (reply == QMessageBox::Yes) {
-                // this->_client->sendComCallResponse(id, addr, port);
+//                this->_client->sendComCallResponse(id, this->_client->getMainConnectionOut()->getLocalAddress(), 0); //implementer le port variable
             } else {
-                // this->_client->sendComCallResponse(id, "", 0);
+//                this->_client->sendComCallResponse(id, "", 0);
             }
         } else {
             MainMutex::mutex().unlock();

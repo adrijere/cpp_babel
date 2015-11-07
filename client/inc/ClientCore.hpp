@@ -51,6 +51,8 @@ public:
     std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > &getMessagesList() { return this->_messagesList; }
     void setName(const std::string &name) { this->_name = name; }
     void setContactList(const std::map<unsigned short, std::string> &contactList) { this->_contactList = contactList; }
+    const IClient * getMainConnectionIn() const { return this->_mainConnectionIn; }
+    const IClient * getMainConnectionOut() const { return this->_mainConnectionOut; }
 
     bool getContactsUpdate() { return this->_contactsUpdate; }
     bool getCallingUpdate() { return this->_callingUpdate; }

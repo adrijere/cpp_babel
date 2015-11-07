@@ -18,6 +18,8 @@
 # define SERVER_PORT_OUT 4243
 # define CLIENT_PORT_IN 4243
 # define CLIENT_PORT_OUT 4242
+# define VOIP_PORT_IN 4244
+# define VOIP_PORT_OUT 4245
 
 class INetwork
 {

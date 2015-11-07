@@ -18,6 +18,10 @@ void QtTCPClient::connect(const std::string & addr, const short port) {
     this->_socket.waitForConnected();
 }
 
+std::string QtTCPClient::getLocalAddress() const {
+    return this->_socket.localAddress().toString().toStdString();
+}
+
 void QtTCPClient::read(void *buffer, size_t size) {
     while(!(this->_socket.isReadable()
             && this->_socket.bytesAvailable() >= (qint64)size))
