@@ -2,6 +2,7 @@
     <qresource>
         <file>images/home.png</file>
         <file>images/phone.png</file>
+        <file>images/hangout.png</file>
         <file>images/glass.png</file>
         <file>images/users.png</file>
         <file>images/friends.png</file>

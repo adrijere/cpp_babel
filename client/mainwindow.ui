@@ -331,7 +331,7 @@ color: #12A5F4;</string>
      </rect>
     </property>
     <property name="cursor">
-     <cursorShape>ForbiddenCursor</cursorShape>
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
@@ -634,7 +634,7 @@ border-right: 1px solid #000;</string>
      <rect>
       <x>300</x>
       <y>58</y>
-      <width>61</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -701,6 +701,31 @@ border-right: 1px solid #000;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
+     <widget class="QLCDNumber" name="callTimer">
+      <property name="geometry">
+       <rect>
+        <x>247</x>
+        <y>2</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="smallDecimalPoint">
+       <bool>false</bool>
+      </property>
+      <property name="digitCount">
+       <number>1</number>
+      </property>
+      <property name="segmentStyle">
+       <enum>QLCDNumber::Flat</enum>
+      </property>
+      <property name="value" stdset="0">
+       <double>0.000000000000000</double>
+      </property>
+      <property name="intValue" stdset="0">
+       <number>0</number>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QLineEdit" name="sendText">
@@ -751,6 +776,52 @@ text-transform: uppercase;</string>
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="hangOutButton">
+    <property name="geometry">
+     <rect>
+      <x>485</x>
+      <y>40</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid #B6B6B6;
+color: #FFFFFF;
+background-color: #D32F2F;
+border-radius: 25px;
+text-transform: uppercase;
+font-size: 10px;</string>
+    </property>
+    <property name="text">
+     <string>RACCROCHER</string>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/images/hangout.png</normaloff>:/images/hangout.png</iconset>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="autoRepeat">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>frame_3</zorder>
    <zorder>frame</zorder>
    <zorder>tabSidebar</zorder>
@@ -771,6 +842,7 @@ text-transform: uppercase;</string>
    <zorder>statusPix</zorder>
    <zorder>sendText</zorder>
    <zorder>removeFriendButton</zorder>
+   <zorder>hangOutButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -778,7 +850,7 @@ text-transform: uppercase;</string>
      <x>0</x>
      <y>0</y>
      <width>821</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuBabel">
