@@ -36,9 +36,12 @@ void BoostTCPNetwork::read(void *buffer, size_t size)
 void BoostTCPNetwork::write(const void *data, size_t size)
 {
 	boost::system::error_code error;
-	this->_socket.write_some(boost::asio::buffer(data, size), error);
+
+	size_t ret = this->_socket.write_some(boost::asio::buffer(data, size), error);
 	if (error)
 		throw Error::Module::Network::WriteError();
+	if (ret < size)
+		this->write(data + ret, size - ret);
 }
 
 boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()

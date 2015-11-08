@@ -21,7 +21,7 @@ IServer * ImplementationFactory::createTCPServer()
 
 IClient * ImplementationFactory::createTCPClient()
 {
-	return new QtTCPClient();
+	return new UnixTCPClient();
 }
 
 IClient * ImplementationFactory::createUDPClient()

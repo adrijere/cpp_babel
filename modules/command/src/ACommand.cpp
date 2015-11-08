@@ -34,6 +34,7 @@ void ACommand::readString(std::string &elem) {
     tmp[stringSize] = 0;
     this->_peer->read(tmp, stringSize);
     elem = tmp;
+    delete[] tmp;
 }
 
 void ACommand::readInt(unsigned int *elem) {

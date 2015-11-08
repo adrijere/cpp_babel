@@ -11,7 +11,8 @@
 #ifndef _SERVER_
 
 #include <iostream>
-# include "QtTCPClient.hpp"
+#include "QtTCPClient.hpp"
+#include "Errors.hpp"
 
 void QtTCPClient::connect(const std::string & addr, const short port) {
     this->_socket.connectToHost(QString(addr.c_str()), (quint16)port);
@@ -23,8 +24,7 @@ std::string QtTCPClient::getLocalAddress() const {
 }
 
 void QtTCPClient::read(void *buffer, size_t size) {
-    while(!(this->_socket.isReadable()
-            && this->_socket.bytesAvailable() >= (qint64)size))
+    while(!(this->_socket.isReadable() && this->_socket.bytesAvailable() >= (qint64)size))
         this->_socket.waitForReadyRead(2000);
     this->_socket.read((char *)buffer, (qint64)size);
 }

@@ -40,7 +40,8 @@ void Command::ComListResponse::parse(INetwork *peer) {
     std::string stringData;
     this->readShort(&idName);
     this->readString(stringData);
-    currSize += 4 + stringData.size();
+//    currSize += 4 + stringData.size();
+    this->_size -= (4 + stringData.size()); // ca c'est moche
     this->_contactList[idName] = stringData;
   }
 }
