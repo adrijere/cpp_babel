@@ -24,10 +24,6 @@ void PlugAudio::init()
   // init Audio
   if (!_audio.startStream(_audio.getInputStream()) || !_audio.startStream(_audio.getOutputStream()))
     std::cerr << "can't initialize stream" << std::endl;
-
-  // init encoder and Decode
-  if (!_opus.initEncode() ||  !_opus.initDecode())
-    std::cerr << "can't initialize opus" << std::endl;
 }
 
 void PlugAudio::destroy()

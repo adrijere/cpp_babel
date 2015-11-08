@@ -2,6 +2,7 @@
 #include "APlugin.hh"
 #include "ImplementationFactory.hpp"
 #include "BabelOpus.hh"
+#include "Errors.hpp"
 
 INetwork * APlugin::initPeer(short port)
 {
@@ -44,12 +45,16 @@ bool APlugin::runThreadIn()
 	if (peer == NULL)
 		return false;
 	this->init();
-	while (this->_running)
+	try
 	{
-//		std::cout << "READ" << std::endl;
-		BabelOpus::EncodePack data;
-		peer->read(&data, sizeof(data));
-		this->playInput(&data);
+		while (this->_running)
+		{
+			BabelOpus::EncodePack data;
+			peer->read(&data, sizeof(data));
+			this->playInput(&data);
+		}
+	} catch (Error::Module::Network::ReadError & /*e*/) {
+
 	}
 	this->destroy();
 	delete peer;
@@ -63,12 +68,16 @@ bool APlugin::runThreadOut()
 	if (peer == NULL)
 		return false;
 	this->init();
-	while (this->_running)
+	try
 	{
-//		std::cout << "WRITE" << std::endl;
-		BabelOpus::EncodePack * data;
-		data = static_cast<BabelOpus::EncodePack *>(this->getOutput());
-		peer->write(data, sizeof(*data));
+		while (this->_running)
+		{
+			BabelOpus::EncodePack * data;
+			data = static_cast<BabelOpus::EncodePack *>(this->getOutput());
+			peer->write(data, sizeof(*data));
+		}
+	} catch (Error::Module::Network::WriteError & /*e*/) {
+		
 	}
 	this->destroy();
 	delete peer;
