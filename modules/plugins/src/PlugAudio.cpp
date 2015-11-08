@@ -17,19 +17,25 @@ void *PlugAudio::getOutput() {
     return static_cast<void *>(_opus.getEnc());
 }
 
-void PlugAudio::init()
+void PlugAudio::initInput()
 {
-  // exception, think about it
-
-  // init Audio
-  if (!_audio.startStream(_audio.getInputStream()) || !_audio.startStream(_audio.getOutputStream()))
+  if (!_audio.startStream(_audio.getInputStream()))
     std::cerr << "can't initialize stream" << std::endl;
 }
 
-void PlugAudio::destroy()
+void PlugAudio::destroyInput()
 {
-  // stop streams
   _audio.stopStream(_audio.getInputStream());
+}
+
+void PlugAudio::initOutput()
+{
+  if (!_audio.startStream(_audio.getOutputStream()))
+    std::cerr << "can't initialize stream" << std::endl;
+}
+
+void PlugAudio::destroyOutput()
+{
   _audio.stopStream(_audio.getOutputStream());
 }
 

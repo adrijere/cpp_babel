@@ -37,8 +37,10 @@ public:
 protected:
   virtual bool playInput(void *) = 0;
   virtual void *getOutput() = 0;
-  virtual void init() = 0;
-  virtual void destroy() = 0;
+  virtual void initInput() = 0;
+  virtual void destroyInput() = 0;
+  virtual void initOutput() = 0;
+  virtual void destroyOutput() = 0;
 
 private:
   bool runThreadIn();

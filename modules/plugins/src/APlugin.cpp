@@ -37,14 +37,13 @@ INetwork * APlugin::initPeer(short port)
 	return peer;
 }
 
-#include <iostream>
 bool APlugin::runThreadIn()
 {
 	INetwork * peer = this->initPeer(this->_networkMode == APlugin::SERVER ? VOIP_PORT_IN : VOIP_PORT_OUT);
 
 	if (peer == NULL)
 		return false;
-	this->init();
+	this->initInput();
 	try
 	{
 		while (this->_running)
@@ -56,7 +55,7 @@ bool APlugin::runThreadIn()
 	} catch (Error::Module::Network::ReadError & /*e*/) {
 
 	}
-	this->destroy();
+	this->destroyInput();
 	delete peer;
 	return true;
 }
@@ -67,7 +66,7 @@ bool APlugin::runThreadOut()
 
 	if (peer == NULL)
 		return false;
-	this->init();
+	this->initOutput();
 	try
 	{
 		while (this->_running)
@@ -79,7 +78,7 @@ bool APlugin::runThreadOut()
 	} catch (Error::Module::Network::WriteError & /*e*/) {
 		
 	}
-	this->destroy();
+	this->destroyOutput();
 	delete peer;
 	return true;
 }
