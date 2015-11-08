@@ -86,13 +86,15 @@ void Command::ComCoChange::write() {
 void Command::ComCallRequest::parse(INetwork *peer) {
   this->_peer = peer;
   this->readShort(&this->_id_friend);
+  this->readString(this->_addr);
 }
 void Command::ComCallRequest::write() {
-  unsigned int size = 2;
+  unsigned int size = 4 + (unsigned int)this->_addr.size(); // a la base c'etait 2
 
   this->writeChar(this->_id);
   this->writeInt(size);
   this->writeShort(this->_id_friend);
+  this->writeString(this->_addr);
 }
 
 void Command::ComCallCancel::parse(INetwork *peer) {
@@ -113,7 +115,7 @@ void Command::ComCallResponse::parse(INetwork *peer) {
   this->readString(this->_addr);
 }
 void Command::ComCallResponse::write() {
-  unsigned int size = 6 + (unsigned int)this->_addr.size();
+  unsigned int size = 4 + (unsigned int)this->_addr.size(); // a la base c'etait 6 + ...
 
   this->writeChar(this->_id);
   this->writeInt(size);

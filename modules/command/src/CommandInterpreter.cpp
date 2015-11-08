@@ -78,6 +78,7 @@ ACommand *CommandInterpreter::interpretComCallRequest(ServerCore *mainCore, ACom
     std::cout << "." << std::endl;
     command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
+    command->setAddr(reinterpret_cast<BoostTCPNetwork *>(mainCore->getNetworkList()[idClient].second)->getSocket().remote_endpoint().address().to_string());
     MainMutex::mutex().unlock();
     return command;
 }
@@ -189,7 +190,7 @@ ACommand *CommandInterpreter::interpretComCoChange(ClientCore *mainCore, AComman
 ACommand *CommandInterpreter::interpretComCallRequest(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallRequest *command = reinterpret_cast<Command::ComCallRequest *>(abstractCommand);
     MainMutex::mutex().lock();
-    mainCore->getCallingList().push_back(command->getIdFriend());
+    mainCore->getCallingList().push_back(std::pair<unsigned short, std::string>(command->getIdFriend(), command->getAddr()));
     mainCore->setCallingUpdate(true);
     MainMutex::mutex().unlock();
     return NULL;
@@ -200,7 +201,6 @@ ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, AComm
     MainMutex::mutex().lock();
     mainCore->getCancellingList().push_back(command->getIdFriend());
     mainCore->setCancellingUpdate(true);
-    mainCore->setCurrentCallUpdate(true);
     MainMutex::mutex().unlock();
     return NULL;
 }
@@ -208,7 +208,8 @@ ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, AComm
 ACommand *CommandInterpreter::interpretComCallResponse(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallResponse *command = reinterpret_cast<Command::ComCallResponse *>(abstractCommand);
     MainMutex::mutex().lock();
-    mainCore->setCallingFriend((short)command->getIdFriend(), command->getAddr());
+    mainCore->setHangUpId((short)command->getIdFriend());
+    mainCore->setHangUpAddr(command->getAddr());
     mainCore->setCurrentCallUpdate(true);
     MainMutex::mutex().unlock();
     return NULL;

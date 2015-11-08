@@ -32,11 +32,13 @@ private:
     bool _contactsUpdate;
     std::map<unsigned short, std::string> _contactList;
     bool _callingUpdate;
-    std::vector<unsigned short> _callingList;
+    std::vector< std::pair<unsigned short, std::string> > _callingList;
     bool _cancellingUpdate;
     std::vector<unsigned short> _cancellingList;
     bool _messagesUpdate;
     std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > _messagesList;
+    short _hangUpId, _hangOutId;
+    std::string _hangUpAddr;
     bool _currentCallUpdate;
     std::pair<short, std::string> _callingFriend;
 public:
@@ -45,7 +47,7 @@ public:
 
     const std::string &getName() { return this->_name; }
     std::map<unsigned short, std::string> &getContactList() { return this->_contactList; };
-    std::vector<unsigned short> &getCallingList() { return this->_callingList; }
+    std::vector< std::pair<unsigned short, std::string> > &getCallingList() { return this->_callingList; }
     std::vector<unsigned short> &getCancellingList() { return this->_cancellingList; }
     std::map<unsigned short, std::vector<std::pair<messageType, std::string> > > &getMessagesList() { return this->_messagesList; }
     void setName(const std::string &name) { this->_name = name; }
@@ -57,6 +59,9 @@ public:
     bool getCallingUpdate() { return this->_callingUpdate; }
     bool getCancellingUpdate() { return this->_cancellingUpdate; }
     bool getMessagesUpdate() { return this->_messagesUpdate; }
+    short getHangUpId() { return this->_hangUpId; }
+    const std::string & getHangUpAddr() { return this->_hangUpAddr; }
+    short getHangOutId() { return this->_hangOutId; }
     bool getCurrentCallUpdate() { return this->_currentCallUpdate; }
     const std::pair<short, std::string> & getCallingFriend() { return this->_callingFriend; }
     void setContactsUpdate(bool newValue) { this->_contactsUpdate = newValue; }
@@ -64,6 +69,9 @@ public:
     void setCancellingUpdate(bool newValue) { this->_cancellingUpdate = newValue; }
     void setMessagesUpdate(bool newValue) { this->_messagesUpdate = newValue; }
     void setCallingFriend(short newValue, const std::string & addr) { this->_callingFriend.first = newValue; this->_callingFriend.second = addr; }
+    void setHangUpId(short newValue) { this->_hangUpId = newValue; }
+    void setHangUpAddr(const std::string & newValue) { this->_hangUpAddr = newValue; }
+    void setHangOutId(short newValue) { this->_hangOutId = newValue; }
     void setCurrentCallUpdate(bool newValue) { this->_currentCallUpdate = newValue; }
 
     void reader();

@@ -146,21 +146,25 @@ public:
     class ComCallRequest : public ACommand {
     private:
         unsigned short _id_friend;
+        std::string _addr;
 
     public:
         ComCallRequest(unsigned int size) : ACommand() {
             this->_id = COM_CALL_REQUEST_ID;
             this->_size = size;
         }
-        ComCallRequest(INetwork *peer, unsigned short id_friend) : ACommand() {
+        ComCallRequest(INetwork *peer, unsigned short id_friend, const std::string &addr) : ACommand() {
             this->_id = COM_CALL_REQUEST_ID;
             this->_peer = peer;
             this->_id_friend = id_friend;
+            this->_addr = addr;
         }
         ~ComCallRequest(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
+        const std::string &getAddr() const { return this->_addr; }
         void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
+        void setAddr(const std::string &addr) { this->_addr = addr; }
 
         void parse(INetwork *);
         void write();

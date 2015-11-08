@@ -33,6 +33,8 @@ ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_cancellingUpdate = false;
     this->_messagesUpdate = false;
     this->_callingFriend.first = -1;
+    this->_hangUpId = -1;
+    this->_hangOutId = -1;
 
     this->_readerThread = new std::thread(&ClientCore::reader, this);
 }
@@ -71,7 +73,7 @@ void ClientCore::sendComCoChange(unsigned char status) {
 }
 
 void ClientCore::sendComCallRequest(unsigned short idFriend) {
-    Command::ComCallRequest command(this->_mainConnectionOut, idFriend);
+    Command::ComCallRequest command(this->_mainConnectionOut, idFriend, "");
     command.write();
 }
 

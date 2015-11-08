@@ -226,7 +226,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         MainMutex::mutex().lock();
         if (this->_client->getCallingUpdate()) {
             this->_client->setCallingUpdate(false);
-            unsigned short id = this->_client->getCallingList().back();
+            unsigned short id = this->_client->getCallingList().back().first;
             MainMutex::mutex().unlock();
 
             QMessageBox::StandardButton reply;
@@ -234,7 +234,9 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
             if (reply == QMessageBox::Yes) {
                 this->_client->sendComCallResponse(id, "Y");
-                this->_callingTime->restart();
+                this->_client->setHangUpId(id);
+                this->_client->setHangUpAddr(this->_client->getCallingList().back().second);
+                this->_client->setCurrentCallUpdate(true);
             } else {
                 this->_client->sendComCallResponse(id, "N");
             }
@@ -246,12 +248,13 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         MainMutex::mutex().lock();
         if (this->_client->getCancellingUpdate()) {
             this->_client->setCancellingUpdate(false);
-
             unsigned short id = this->_client->getCancellingList().back();
-            if (this->_client->getCallingFriend().first == id)
-                this->_client->setCallingFriend(-1, "");
-
             MainMutex::mutex().unlock();
+ 
+            if (this->_client->getCallingFriend().first == id) {
+                this->_client->setHangOutId(id);
+                this->_client->setCurrentCallUpdate(true);
+            }
         } else {
             MainMutex::mutex().unlock();
         }
@@ -259,10 +262,13 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         // Current call update
         MainMutex::mutex().lock();
         if (this->_client->getCurrentCallUpdate()) {
-            this->_client->setCurrentCallUpdate(false);
             MainMutex::mutex().unlock();
+            this->_client->setCurrentCallUpdate(false);
 
-            this->changeView();
+            if (this->_client->getHangOutId() != -1)
+                this->handleHangOut();
+            if (this->_client->getHangUpId() != -1)
+                this->handleHangUp();
         } else {
             MainMutex::mutex().unlock();
         }
@@ -273,6 +279,21 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         }
 
         this->callTimer->display(this->_callingTime->elapsed());
+    }
+
+    void handleHangUp()
+    {
+        this->_callingTime->restart();
+        this->_client->setCallingFriend(this->_client->getHangUpId(), this->_client->getHangUpAddr());
+        this->_client->setHangUpId(-1);
+        this->changeView();
+    }
+
+    void handleHangOut()
+    {
+        this->_client->setCallingFriend(-1, "");
+        this->_client->setHangOutId(-1);
+        this->changeView();
     }
 
     void changeView(QListWidgetItem *current = NULL, QListWidgetItem *previous = NULL) {
@@ -315,8 +336,11 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
         MainMutex::mutex().unlock();
 
-        if (this->_client->getCallingFriend().first == id)
+        if (id != 0) {
             this->_client->sendComCallCancel(id);
+            this->_client->setHangOutId(id);
+            this->_client->setCurrentCallUpdate(true);
+        }
     }
 
     void sendMessage(void) {
