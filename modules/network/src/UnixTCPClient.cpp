@@ -31,17 +31,18 @@ UnixTCPClient::~UnixTCPClient()
 
 }
 
-void UnixTCPClient::connect(const std::string & addr, const short port)
+bool UnixTCPClient::connect(const std::string & addr, const short port)
 {
   struct sockaddr_in info;
 
   if ((this->_socket = socket(AF_INET, SOCK_STREAM, getprotobyname("TCP")->p_proto)) == -1)
-    return ;
+    return false;
   info.sin_family = AF_INET;
   info.sin_port = htons(port);
   info.sin_addr.s_addr = inet_addr(addr.c_str());
   if (::connect(this->_socket, (struct sockaddr *)&info, sizeof(info)) == -1)
-    return ;
+  	return false;
+  return true;
 }
 
 void UnixTCPClient::read(void *buffer, size_t size)

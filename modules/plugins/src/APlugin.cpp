@@ -1,13 +1,6 @@
 #include "APlugin.hh"
 #include "ImplementationFactory.hpp"
 
-/*
-	INetwork * _socketIn;
-	INetwork * _socketOut;
-	IServer * _server;
-	std::string & _addr;
-*/
-
 INetwork * APlugin::initPeer(short port)
 {
 	INetwork * peer;
@@ -22,19 +15,38 @@ INetwork * APlugin::initPeer(short port)
 	else
 	{
 		IClient * client = ImplementationFactory::createUDPClient();
-		client->connect(this->_address, port);
+
+		int try_connect = 0;
+		while (try_connect < NB_TRY_CONNECT)
+		{
+			if (client->connect(this->_address, port) == true)
+				break ;
+			try_connect++;
+		}
+		if (try_connect == NB_TRY_CONNECT)
+		{
+			delete client;
+			return NULL;
+		}
 		peer = client;
 	}
 	return peer;
 }
 
+#include <unistd.h>
+#include <iostream>
+
 bool APlugin::runThreadIn()
 {
 	INetwork * peer = this->initPeer(VOIP_PORT_IN);
 
+	if (peer == NULL)
+		return false;
 	while (this->_running)
 	{
-		
+		int nb = 0;
+		peer->read(&nb, sizeof(nb));
+		std::cout << nb << std::endl;
 	}
 	delete peer;
 	return true;
@@ -44,9 +56,13 @@ bool APlugin::runThreadOut()
 {
 	INetwork * peer = this->initPeer(VOIP_PORT_OUT);
 
+	if (peer == NULL)
+		return false;
 	while (this->_running)
 	{
-		
+		int nb = 3;
+		peer->write(&nb, sizeof(nb));
+		sleep(1);
 	}
 	delete peer;
 	return true;

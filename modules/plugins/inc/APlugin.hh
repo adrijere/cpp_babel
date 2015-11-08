@@ -4,6 +4,9 @@
 #include <thread>
 #include "INetwork.hpp"
 
+# define BLOCK_SIZE 50
+# define NB_TRY_CONNECT 10
+
 class APlugin {
 public:
   enum eID {

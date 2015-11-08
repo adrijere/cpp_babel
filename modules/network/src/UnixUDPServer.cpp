@@ -16,7 +16,7 @@ void UnixUDPServer::listen(const short port) {
     struct sockaddr_in	info;
     int			fd;
 
-    if ((fd = socket(AF_INET, SOCK_STREAM, getprotobyname("UDO")->p_proto)) == -1) {
+    if ((fd = socket(AF_INET, SOCK_STREAM, getprotobyname("UDP")->p_proto)) == -1) {
         this->_fd_server = -1;
         return ;
     }
