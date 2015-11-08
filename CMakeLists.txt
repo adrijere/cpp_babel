@@ -12,6 +12,7 @@ set(IMPLEMENTATIONS_PATH implementations)
 set(NETWORK_PATH network)
 set(COMMAND_PATH command)
 set(ERRORS_PATH errors)
+set(PLUGINS_PATH plugins)
 
 set(IMPLEMENTATIONS_FILES
         ${MODULES_PATH}/${IMPLEMENTATIONS_PATH}/${SRC_PATH}/ImplementationFactory.cpp
@@ -34,12 +35,19 @@ set(COMMAND_FILES
 set(ERRORS_FILES
         ${MODULES_PATH}/${ERRORS_PATH}/${SRC_PATH}/Errors.cpp)
 
+set(PLUGINS_FILES
+        ${MODULES_PATH}/${PLUGINS_PATH}/${SRC_PATH}/APlugin.cpp
+#        ${MODULES_PATH}/${PLUGINS_PATH}/${SRC_PATH}/BabelAudio.cpp
+#        ${MODULES_PATH}/${PLUGINS_PATH}/${SRC_PATH}/BabelOpus.cpp
+        ${MODULES_PATH}/${PLUGINS_PATH}/${SRC_PATH}/PlugAudio.cpp)
+
 include_directories(
         ${SERVER_PATH}/${INC_PATH}
         ${MODULES_PATH}/${IMPLEMENTATIONS_PATH}/${INC_PATH}
         ${MODULES_PATH}/${NETWORK_PATH}/${INC_PATH}
         ${MODULES_PATH}/${COMMAND_PATH}/${INC_PATH}
         ${MODULES_PATH}/${ERRORS_PATH}/${INC_PATH}
+        ${MODULES_PATH}/${PLUGINS_PATH}/${INC_PATH}
 )
 
 set(SERVER_FILES
@@ -74,6 +82,7 @@ set(CLIENT_FILES
         ${NETWORK_FILES}
         ${COMMAND_FILES}
         ${ERRORS_FILES}
+        ${PLUGINS_FILES}        
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5_EXECUTABLE_COMPILE_FLAGS}")

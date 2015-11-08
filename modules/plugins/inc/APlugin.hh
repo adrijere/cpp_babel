@@ -10,18 +10,26 @@ enum eID {
 
 class APlugin {
 private:
-  std::thread *_set;
-  std::thread *_get;
+  std::thread *_threadIn;
+  std::thread *_threadOut;
   int _ID;
+  bool _running;
 
 public:
   bool run();
-  bool runSet();
-  bool runGet();
-  virtual bool sendData(void *) = 0;
-  virtual void *getData() = 0;
-  APlugin(eID id) : _ID(id) {};
+  bool stop();
+  APlugin(eID id) : _ID(id), _running(false) {};
   virtual ~APlugin() {};
+
+protected:
+  virtual bool runThreadIn() = 0;
+  virtual bool runThreadOut() = 0;
+  virtual bool playInput(void *) = 0;
+  virtual void *getOutput() = 0;
+
+private:
+  bool runThreadIn_wrapper();
+  bool runThreadOut_wrapper();
 };
 
 #endif

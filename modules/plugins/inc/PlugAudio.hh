@@ -2,21 +2,26 @@
 # define _PLUGAUDIO_HH_
 
 #include "APlugin.hh"
+/*
 #include "BabelOpus.hh"
 #include "BabelAudio.hh"
+*/
 
 class PlugAudio : public APlugin {
-  private:
-    BabelOpus _opus;
-    BabelAudio _audio;
+private:
+	/*
+	BabelOpus _opus;
+	BabelAudio _audio;
+	*/
+protected:
+	bool runThreadIn();
+	bool runThreadOut();
+	bool playInput(void *);
+	void *getOutput();
 
-  public:
-    void *getData();
-    bool sendData(void *);
-    void runTest();
-
-  PlugAudio();
-  ~PlugAudio();
+public:
+	PlugAudio();
+	~PlugAudio();
 };
 
 #endif
