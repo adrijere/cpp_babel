@@ -230,10 +230,10 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             reply = QMessageBox::question(this, "Quelqu'un vous appelle", "Répondre ?", QMessageBox::No|QMessageBox::Yes);
 
             if (reply == QMessageBox::Yes) {
-//                this->_client->sendComCallResponse(id, this->_client->getMainConnectionOut()->getLocalAddress(), 0); //implementer le port variable
+                this->_client->sendComCallResponse(id, "Y");
                 this->_callingTime->restart();
             } else {
-//                this->_client->sendComCallResponse(id, "", 0);
+                this->_client->sendComCallResponse(id, "N");
             }
         } else {
             MainMutex::mutex().unlock();
@@ -278,9 +278,9 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     void hangOut(void) {
         std::string username = this->userLabel->text().toStdString();
 
-        MainMutex::mutex().lock();
-        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
-        MainMutex::mutex().unlock();
+        // MainMutex::mutex().lock();
+        // unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+        // MainMutex::mutex().unlock();
 
         // METTRE LA MÉTHODE POUR RACCROCHER ICI
     }

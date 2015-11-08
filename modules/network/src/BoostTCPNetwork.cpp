@@ -41,7 +41,7 @@ void BoostTCPNetwork::write(const void *data, size_t size)
 	if (error)
 		throw Error::Module::Network::WriteError();
 	if (ret < size)
-		this->write(data + ret, size - ret);
+		this->write((char *)data + ret, size - ret);
 }
 
 boost::asio::ip::tcp::socket & BoostTCPNetwork::getSocket()

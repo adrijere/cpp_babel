@@ -72,7 +72,7 @@ public:
     void sendComCallRequest(unsigned short);
     void sendComCallCancel(unsigned short);
     void sendComMessageSend(unsigned short, const std::string &);
-    void sendComCallResponse(unsigned short, const std::string &, unsigned short);
+    void sendComCallResponse(unsigned short, const std::string &);
 };
 
 #endif

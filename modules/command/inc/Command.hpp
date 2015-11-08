@@ -193,28 +193,24 @@ public:
     private:
         unsigned short _id_friend;
         std::string _addr;
-        unsigned short _port;
 
     public:
         ComCallResponse(unsigned int size) : ACommand() {
             this->_id = COM_CALL_RESPONSE_ID;
             this->_size = size;
         }
-        ComCallResponse(INetwork *peer, unsigned short id_friend, const std::string &addr, unsigned short port) : ACommand() {
+        ComCallResponse(INetwork *peer, unsigned short id_friend, const std::string &addr) : ACommand() {
             this->_id = COM_CALL_RESPONSE_ID;
             this->_peer = peer;
             this->_id_friend = id_friend;
             this->_addr = addr;
-            this->_port = port;
         }
         ~ComCallResponse(){}
 
         unsigned short getIdFriend() { return this->_id_friend; }
         const std::string &getAddr() const { return this->_addr; }
-        unsigned short getPort() { return this->_port; }
         void setIdFriend(unsigned short idFriend) { this->_id_friend = idFriend; }
         void setAddr(const std::string &addr) { this->_addr = addr; }
-        void setPort(unsigned short port) { this->_port = port; }
 
         void parse(INetwork *);
         void write();

@@ -22,10 +22,6 @@ public:
 	** Connects the socket to the address and port sent as an argument.
 	*/
 	virtual void connect(const std::string & addr, const short port) = 0;
-	/*
-	** Returns the local address used for the connection
-	*/
-	virtual std::string getLocalAddress() const = 0;
 };
 
 #endif /* ICLIENT_H_ */

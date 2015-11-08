@@ -111,7 +111,6 @@ void Command::ComCallResponse::parse(INetwork *peer) {
   this->_peer = peer;
   this->readShort(&this->_id_friend);
   this->readString(this->_addr);
-  this->readShort(&this->_port);
 }
 void Command::ComCallResponse::write() {
   unsigned int size = 6 + (unsigned int)this->_addr.size();
@@ -120,7 +119,6 @@ void Command::ComCallResponse::write() {
   this->writeInt(size);
   this->writeShort(this->_id_friend);
   this->writeString(this->_addr);
-  this->writeShort(this->_port);
 }
 
 void Command::ComMessageSend::parse(INetwork *peer) {

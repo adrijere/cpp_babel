@@ -28,6 +28,7 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/BoostTCPServer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/QtTCPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/QtUDPClient.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/network/src/UnixTCPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src/ServerCore.cpp" isTestSource="false" />
     </content>

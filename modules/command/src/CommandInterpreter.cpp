@@ -101,13 +101,21 @@ ACommand *CommandInterpreter::interpretComCallResponse(ServerCore *mainCore, ACo
     MainMutex::mutex().lock();
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
-    std::cout << " is accepting the call to the client " << command->getIdFriend();
+    std::cout << " is " << (command->getAddr() == "Y" ? "accepting" : "refusing") << " the call to the client " << command->getIdFriend();
     std::cout << " (" << mainCore->getContactList()[command->getIdFriend()] << ")";
     std::cout << "." << std::endl;
     command->setPeer(mainCore->getNetworkList()[command->getIdFriend()].second);
     command->setIdFriend(idClient);
+    bool toRet = false;
+    if (command->getAddr() == "Y") {
+        command->setAddr(reinterpret_cast<BoostTCPNetwork *>(command->getPeer())->getSocket().remote_endpoint().address().to_string());
+        toRet = true;
+    }
     MainMutex::mutex().unlock();
-    return command;
+    if (toRet)
+        return command;
+    else
+        return NULL;
 }
 
 ACommand *CommandInterpreter::interpretComMessageSend(ServerCore *mainCore, ACommand *abstractCommand, unsigned short idClient) {
