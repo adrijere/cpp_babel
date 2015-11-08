@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <iostream>
 #include "APlugin.hh"
 #include "ImplementationFactory.hpp"
 #include "BabelOpus.hh"
@@ -52,8 +53,8 @@ bool APlugin::runThreadIn()
 			peer->read(&data, sizeof(data));
 			this->playInput(&data);
 		}
-	} catch (Error::Module::Network::ReadError & /*e*/) {
-
+	} catch (Error::Module::Network::ReadError & e) {
+		std::cout << "[ERROR] (" << e.where() << ") " << e.what() << "." << std::endl;
 	}
 	this->destroyInput();
 	delete peer;
@@ -76,8 +77,8 @@ bool APlugin::runThreadOut()
 			if (data != NULL)
 				peer->write(data, sizeof(*data));
 		}
-	} catch (Error::Module::Network::WriteError & /*e*/) {
-		
+	} catch (Error::Module::Network::WriteError & e) {
+				std::cout << "[ERROR] (" << e.where() << ") " << e.what() << "." << std::endl;
 	}
 	this->destroyOutput();
 	delete peer;
