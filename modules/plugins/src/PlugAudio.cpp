@@ -22,7 +22,7 @@ void PlugAudio::init()
   // exception, think about it
 
   // init Audio
-  if (!_audio.openStream() || !_audio.startStream(_audio.getInputStream()) || !_audio.startStream(_audio.getOutputStream()))
+  if (!_audio.startStream(_audio.getInputStream()) || !_audio.startStream(_audio.getOutputStream()))
     std::cerr << "can't initialize stream" << std::endl;
 
   // init encoder and Decode
@@ -38,7 +38,13 @@ void PlugAudio::destroy()
 }
 
 PlugAudio::PlugAudio() : APlugin(APlugin::AUDIO_ID) {
+  // init Audio
+  if (!_audio.openStream())
+    std::cerr << "can't initialize stream" << std::endl;
 
+  // init encoder and Decode
+  if (!_opus.initEncode() ||  !_opus.initDecode())
+    std::cerr << "can't initialize opus" << std::endl;
 }
 
 PlugAudio::~PlugAudio() {
