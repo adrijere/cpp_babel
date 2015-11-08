@@ -26,7 +26,7 @@ IClient * ImplementationFactory::createTCPClient()
 
 IClient * ImplementationFactory::createUDPClient()
 {
-	return new QtUDPClient();
+	return new UnixUDPClient();
 }
 
 #endif

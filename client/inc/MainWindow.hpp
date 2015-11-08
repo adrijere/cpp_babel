@@ -167,7 +167,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         MainMutex::mutex().unlock();
 
         MainMutex::mutex().lock();
-        unsigned short callingId = this->_client->getCallingFriend();
+        unsigned short callingId = this->_client->getCallingFriend().first;
         MainMutex::mutex().unlock();
 
         if (id != callingId) {
@@ -237,6 +237,10 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             }
         } else {
             MainMutex::mutex().unlock();
+        }
+
+        if (this->_client->getCallingFriend().first != -1) {
+            std::cout << "Appel en cours vers Client " << this->_client->getCallingFriend().first << " (" << this->_client->getCallingFriend().second << ")." << std::endl;
         }
 
         this->callTimer->display(this->_callingTime->elapsed());

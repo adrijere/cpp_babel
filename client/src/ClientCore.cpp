@@ -32,7 +32,7 @@ ClientCore::ClientCore(const std::string &name, const std::string &addr) {
     this->_callingUpdate = false;
     this->_cancellingUpdate = false;
     this->_messagesUpdate = false;
-    this->_callingFriend = -1;
+    this->_callingFriend.first = -1;
 
     this->_readerThread = new std::thread(&ClientCore::reader, this);
 }

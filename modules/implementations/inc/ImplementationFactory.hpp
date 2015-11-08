@@ -25,9 +25,8 @@ public:
 # else
 
 #  include "IClient.hpp"
-#  include "QtTCPClient.hpp"
-#  include "QtUDPClient.hpp"
 #  include "UnixTCPClient.hpp"
+#  include "UnixUDPClient.hpp"
 
 class ImplementationFactory
 {

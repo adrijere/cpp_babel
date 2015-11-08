@@ -19,8 +19,7 @@ set(IMPLEMENTATIONS_FILES
 
 set(NETWORK_FILES
         ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/UnixTCPClient.cpp
-        ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/QtTCPClient.cpp
-        ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/QtUDPClient.cpp
+        ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/UnixUDPClient.cpp
         ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/BoostTCPNetwork.cpp
         ${MODULES_PATH}/${NETWORK_PATH}/${SRC_PATH}/BoostTCPServer.cpp
 )

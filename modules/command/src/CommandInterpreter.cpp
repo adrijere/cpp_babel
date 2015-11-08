@@ -207,7 +207,7 @@ ACommand *CommandInterpreter::interpretComCallCancel(ClientCore *mainCore, AComm
 ACommand *CommandInterpreter::interpretComCallResponse(ClientCore *mainCore, ACommand *abstractCommand) {
     Command::ComCallResponse *command = reinterpret_cast<Command::ComCallResponse *>(abstractCommand);
     MainMutex::mutex().lock();
-    mainCore->setCallingFriend((short)command->getIdFriend());
+    mainCore->setCallingFriend((short)command->getIdFriend(), command->getAddr());
     MainMutex::mutex().unlock();
     return NULL;
 }
