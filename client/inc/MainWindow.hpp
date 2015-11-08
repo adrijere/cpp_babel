@@ -234,6 +234,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
             if (reply == QMessageBox::Yes) {
                 this->_client->sendComCallResponse(id, "Y");
+                this->stopCurrentCall();
                 this->_client->setHangUpId(id);
                 this->_client->setHangUpAddr(this->_client->getCallingList().back().second);
                 this->_client->setCurrentCallUpdate(true);
@@ -281,6 +282,16 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->callTimer->display(this->_callingTime->elapsed());
     }
 
+    void stopCurrentCall()
+    {
+        if (this->_client->getCallingFriend().first != -1)
+        {
+            this->_client->sendComCallCancel(this->_client->getCallingFriend().first);
+            this->_client->setHangOutId(this->_client->getCallingFriend().first);
+            this->_client->setCurrentCallUpdate(true);
+        }
+    }
+
     void handleHangUp()
     {
         this->_callingTime->restart();
@@ -325,6 +336,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         MainMutex::mutex().unlock();
 
         if (id != 0) {
+            this->stopCurrentCall();
             this->_client->sendComCallRequest(id);
         }
     }
