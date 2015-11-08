@@ -1,8 +1,7 @@
+#include <unistd.h>
 #include "APlugin.hh"
 #include "ImplementationFactory.hpp"
-
-#include <unistd.h>
-#include <iostream>
+#include "BabelOpus.hh"
 
 INetwork * APlugin::initPeer(short port)
 {
@@ -45,9 +44,9 @@ bool APlugin::runThreadIn()
 		return false;
 	while (this->_running)
 	{
-		int nb = 0;
-		peer->read(&nb, sizeof(nb));
-		std::cout << nb << std::endl;
+		BabelOpus::EncodePack data;
+		peer->read(&data, sizeof(data));
+		this->playInput(&data);
 	}
 	delete peer;
 	return true;
@@ -61,9 +60,9 @@ bool APlugin::runThreadOut()
 		return false;
 	while (this->_running)
 	{
-		int nb = 3;
-		peer->write(&nb, sizeof(nb));
-		sleep(1);
+		BabelOpus::EncodePack * data;
+		data = static_cast<BabelOpus::EncodePack *>(this->getOutput());
+		peer->write(data, sizeof(*data));
 	}
 	delete peer;
 	return true;
