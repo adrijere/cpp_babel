@@ -12,6 +12,8 @@ private:
 protected:
 	bool playInput(void *);
 	void *getOutput();
+	void init();
+	void destroy();
 
 public:
 	PlugAudio();

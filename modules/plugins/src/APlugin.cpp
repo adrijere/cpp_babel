@@ -36,18 +36,22 @@ INetwork * APlugin::initPeer(short port)
 	return peer;
 }
 
+#include <iostream>
 bool APlugin::runThreadIn()
 {
 	INetwork * peer = this->initPeer(this->_networkMode == APlugin::SERVER ? VOIP_PORT_IN : VOIP_PORT_OUT);
 
 	if (peer == NULL)
 		return false;
+	this->init();
 	while (this->_running)
 	{
+//		std::cout << "READ" << std::endl;
 		BabelOpus::EncodePack data;
 		peer->read(&data, sizeof(data));
 		this->playInput(&data);
 	}
+	this->destroy();
 	delete peer;
 	return true;
 }
@@ -58,12 +62,15 @@ bool APlugin::runThreadOut()
 
 	if (peer == NULL)
 		return false;
+	this->init();
 	while (this->_running)
 	{
+//		std::cout << "WRITE" << std::endl;
 		BabelOpus::EncodePack * data;
 		data = static_cast<BabelOpus::EncodePack *>(this->getOutput());
 		peer->write(data, sizeof(*data));
 	}
+	this->destroy();
 	delete peer;
 	return true;
 }

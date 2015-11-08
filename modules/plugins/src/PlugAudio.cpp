@@ -17,7 +17,8 @@ void *PlugAudio::getOutput() {
     return static_cast<void *>(_opus.getEnc());
 }
 
-PlugAudio::PlugAudio() : APlugin(APlugin::AUDIO_ID) {
+void PlugAudio::init()
+{
   // exception, think about it
 
   // init Audio
@@ -29,8 +30,17 @@ PlugAudio::PlugAudio() : APlugin(APlugin::AUDIO_ID) {
     std::cerr << "can't initialize opus" << std::endl;
 }
 
-PlugAudio::~PlugAudio() {
+void PlugAudio::destroy()
+{
   // stop streams
   _audio.stopStream(_audio.getInputStream());
   _audio.stopStream(_audio.getOutputStream());
+}
+
+PlugAudio::PlugAudio() : APlugin(APlugin::AUDIO_ID) {
+
+}
+
+PlugAudio::~PlugAudio() {
+
 }
