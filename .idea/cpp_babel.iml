@@ -29,6 +29,10 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/UnixTCPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/UnixUDPClient.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modules/network/src/UnixUDPServer.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/plugins/src/APlugin.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/plugins/src/BabelAudio.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/plugins/src/BabelOpus.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/plugins/src/PlugAudio.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src/ServerCore.cpp" isTestSource="false" />
     </content>

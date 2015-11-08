@@ -38,7 +38,7 @@ INetwork * UnixUDPServer::waitConnection() {
     struct sockaddr_in addr;
     socklen_t len;
     UnixUDPClient *accepted = new UnixUDPClient();
-    int fd = accept(_fd_server, (struct sockaddr *)&addr, &len);
+    int fd = accept(this->_fd_server, (struct sockaddr *)&addr, &len);
     accepted->setSocket(fd);
     return accepted;
 }

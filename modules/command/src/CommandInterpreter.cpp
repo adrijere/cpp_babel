@@ -30,7 +30,12 @@ ACommand *CommandInterpreter::interpretComListRequest(ServerCore *mainCore, ACom
     std::cout << "Client " << idClient;
     std::cout << " (" << mainCore->getContactList()[idClient] << ")";
     std::cout << " is asking for contact list." << std::endl;
-    ACommand *ret = new Command::ComListResponse(mainCore->getNetworkList()[idClient].second, mainCore->getContactList());
+    std::map<unsigned short, std::string> contactList;
+    for (std::map<unsigned short, std::string>::iterator it = mainCore->getContactList().begin(); it != mainCore->getContactList().end(); ++it){
+        if (it->first != idClient)
+            contactList[it->first] = it->second;
+    }
+    ACommand *ret = new Command::ComListResponse(mainCore->getNetworkList()[idClient].second, contactList);
     MainMutex::mutex().unlock();
     return ret;
 }

@@ -16,26 +16,19 @@
 #include "MainWindow.hpp"
 
 void addFont(void);
-void usage(char **);
 
 int main(int argc, char **argv) {
-    if (argc != 2) {
-        usage(argv);
+    QApplication app(argc, argv);
 
-        return 0;
-    } else {
-        QApplication app(argc, argv);
+    QString locale = QLocale::system().name().section('_', 0, 0);
+    QTranslator translator;
 
-        QString locale = QLocale::system().name().section('_', 0, 0);
-        QTranslator translator;
+    translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&translator);
+    addFont();
 
-        translator.load(QString("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-        app.installTranslator(&translator);
-        addFont();
+    Login *window = new Login(NULL);
+    window->show();
 
-        Login *window = new Login(NULL, argv[1]);
-        window->show();
-
-        return app.exec();
-    }
+    return app.exec();
 }

@@ -13,11 +13,9 @@
 class Login : public QWidget, public Ui_Login {
     Q_OBJECT;
 
-    std::string _address;
-
  public:
 
-    explicit Login(QWidget *parent, const std::string &address) : QWidget(parent), _address(address) {
+    explicit Login(QWidget *parent) : QWidget(parent) {
         // Stylesheets
         this->setupUi(this);
         this->setWindowTitle("BABEL - Connexion");
@@ -45,10 +43,12 @@ class Login : public QWidget, public Ui_Login {
 
     void signIn(void) {
 
-        if (this->passwordEdit->text().isEmpty()) {
-            QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Vous devez entrer un mot de passe"));
+        if (this->usernameEdit->text().isEmpty()) {
+            QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Vous devez entrer un username"));
+        } else if (this->passwordEdit->text().isEmpty()) {
+            QMessageBox::warning(this, QString::fromUtf8("Erreur à la connexion"), QString::fromUtf8("Vous devez entrer l'adresse ip du serveur"));
         } else {
-            ClientCore *client = new ClientCore(this->usernameEdit->text().toStdString(), this->_address);
+            ClientCore *client = new ClientCore(this->usernameEdit->text().toStdString(), this->passwordEdit->text().toStdString());
             client->sendComCoRequest();
 
             MainWindow *window = new MainWindow(NULL, client);
