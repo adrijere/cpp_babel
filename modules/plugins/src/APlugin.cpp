@@ -73,7 +73,8 @@ bool APlugin::runThreadOut()
 		{
 			BabelOpus::EncodePack * data;
 			data = static_cast<BabelOpus::EncodePack *>(this->getOutput());
-			peer->write(data, sizeof(*data));
+			if (data != NULL)
+				peer->write(data, sizeof(*data));
 		}
 	} catch (Error::Module::Network::WriteError & /*e*/) {
 		
