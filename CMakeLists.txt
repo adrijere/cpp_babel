@@ -37,10 +37,10 @@ set(ERRORS_FILES
         ${MODULES_PATH}/${ERRORS_PATH}/${SRC_PATH}/Errors.cpp)
 
 set(PLUGIN_FILE
-        ${MODULE_PATH}/${PLUGIN_PATH}/${SRC_PATH}/APlugin.cpp
-        ${MODULE_PATH}/${PLUGIN_PATH}/${SRC_PATH}/BabelAudio.cpp
-        ${MODULE_PATH}/${PLUGIN_PATH}/${SRC_PATH}/BabelOpus.cpp
-        ${MODULE_PATH}/${PLUGIN_PATH}/${SRC_PATH}/PlugAudio.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/APlugin.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/BabelAudio.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/BabelOpus.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/PlugAudio.cpp
         )
 include_directories(
         ${SERVER_PATH}/${INC_PATH}
@@ -48,7 +48,6 @@ include_directories(
         ${MODULES_PATH}/${NETWORK_PATH}/${INC_PATH}
         ${MODULES_PATH}/${COMMAND_PATH}/${INC_PATH}
         ${MODULES_PATH}/${ERRORS_PATH}/${INC_PATH}
-        ${MODULES_PATH}/${PLUGIN_PATH}/${INC_PATH}
 )
 
 set(SERVER_FILES
@@ -72,6 +71,7 @@ include_directories(
         ${MODULES_PATH}/${COMMAND_PATH}/${INC_PATH}
         ${MODULES_PATH}/${ERRORS_PATH}/${INC_PATH}
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${MODULES_PATH}/${PLUGIN_PATH}/${INC_PATH}
 )
 
 set(CLIENT_FILES
@@ -83,6 +83,7 @@ set(CLIENT_FILES
         ${NETWORK_FILES}
         ${COMMAND_FILES}
         ${ERRORS_FILES}
+        ${PLUGIN_FILE}
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5_EXECUTABLE_COMPILE_FLAGS}")
