@@ -25,14 +25,17 @@ public:
 # else
 
 #  include "IClient.hpp"
+#  include "IServer.hpp"
 #  include "UnixTCPClient.hpp"
 #  include "UnixUDPClient.hpp"
+#  include "UnixUDPServer.hpp"
 
 class ImplementationFactory
 {
 public:
 	static IClient * createTCPClient();
 	static IClient * createUDPClient();
+	static IServer * createUDPServer();
 };
 
 # endif
