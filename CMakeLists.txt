@@ -49,6 +49,7 @@ include_directories(
         ${MODULES_PATH}/${NETWORK_PATH}/${INC_PATH}
         ${MODULES_PATH}/${COMMAND_PATH}/${INC_PATH}
         ${MODULES_PATH}/${ERRORS_PATH}/${INC_PATH}
+        ${MODULES_PATH}/${PLUGINS_PATH}/${INC_PATH}
 )
 
 set(SERVER_FILES

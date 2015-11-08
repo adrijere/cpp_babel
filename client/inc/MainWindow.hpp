@@ -16,15 +16,20 @@
 
 # include "ClientCore.hpp"
 # include "ui_mainwindow.h"
+# include "PlugAudio.hh"
 
 class MainWindow : public QMainWindow, public Ui_MainWindow {
     Q_OBJECT;
 
     ClientCore *_client;
     QTime *_callingTime;
+    APlugin * _audioPlugin;
 
  public:
     explicit MainWindow(QMainWindow *parent, ClientCore *client) : QMainWindow(parent), _client(client) {
+        // Plugins
+        this->_audioPlugin = new PlugAudio();
+
         // Timers
         QTimer *pingServer = new QTimer(this);
         QTimer *refreshAll = new QTimer(this);
@@ -235,6 +240,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             if (reply == QMessageBox::Yes) {
                 this->_client->sendComCallResponse(id, "Y");
                 this->stopCurrentCall();
+                this->_client->setNetworkMode(APlugin::SERVER);
                 this->_client->setHangUpId(id);
                 this->_client->setHangUpAddr(this->_client->getCallingList().back().second);
                 this->_client->setCurrentCallUpdate(true);
@@ -274,11 +280,6 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             MainMutex::mutex().unlock();
         }
 
-        // Current call display (useless, will be deleted)
-        if (this->_client->getCallingFriend().first != -1) {
-            std::cout << "Appel en cours vers Client " << this->_client->getCallingFriend().first << " (" << this->_client->getCallingFriend().second << ")." << std::endl;
-        }
-
         this->callTimer->display(this->_callingTime->elapsed());
     }
 
@@ -294,6 +295,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
     void handleHangUp()
     {
+        this->_audioPlugin->run(this->_client->getCallingFriend().second, this->_client->getNetworkMode());
         this->_callingTime->restart();
         this->_client->setCallingFriend(this->_client->getHangUpId(), this->_client->getHangUpAddr());
         this->_client->setHangUpId(-1);
@@ -302,6 +304,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
     void handleHangOut()
     {
+        this->_audioPlugin->stop();
         this->_client->setCallingFriend(-1, "");
         this->_client->setHangOutId(-1);
         this->changeView();
@@ -337,6 +340,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         if (id != 0) {
             this->stopCurrentCall();
+            this->_client->setNetworkMode(APlugin::CLIENT);
             this->_client->sendComCallRequest(id);
         }
     }
