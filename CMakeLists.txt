@@ -106,4 +106,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 add_executable(babel_client ${CLIENT_FILES} ${CLIENT_PATH}/resources.qrc ${UIS_HDRS} ${CPP_HDRS})
 TARGET_LINK_LIBRARIES(babel_client ${Qt5Network_LIBRARIES} ${Qt5Widgets_LIBRARIES})
 set_target_properties(babel_client PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -D _CLIENT_")
-set_target_properties(babel_client PROPERTIES LINK_FLAGS "${CMAKE_LINK_FLAGS} -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread -lrt -lasound -ljack -L${CMAKE_WORKING_DIR}/lib/ -lportaudio -L${CMAKE_WORKING_DIR}/lib/ -lopus")
+set_target_properties(babel_client PROPERTIES LINK_FLAGS "${CMAKE_LINK_FLAGS} -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread -lrt -lasound -ljack")
+target_link_libraries(babel_client
+        ${CMAKE_SOURCE_DIR}/lib/libportaudio.a
+        ${CMAKE_SOURCE_DIR}/lib/libopus.a
+)
