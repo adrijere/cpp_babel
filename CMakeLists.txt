@@ -12,6 +12,7 @@ set(IMPLEMENTATIONS_PATH implementations)
 set(NETWORK_PATH network)
 set(COMMAND_PATH command)
 set(ERRORS_PATH errors)
+set(PLUGIN_PATH plugins)
 
 set(IMPLEMENTATIONS_FILES
         ${MODULES_PATH}/${IMPLEMENTATIONS_PATH}/${SRC_PATH}/ImplementationFactory.cpp
@@ -35,6 +36,12 @@ set(COMMAND_FILES
 set(ERRORS_FILES
         ${MODULES_PATH}/${ERRORS_PATH}/${SRC_PATH}/Errors.cpp)
 
+set(PLUGIN_FILE
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/APlugin.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/BabelAudio.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/BabelOpus.cpp
+        ${MODULES_PATH}/${PLUGIN_PATH}/${SRC_PATH}/PlugAudio.cpp
+        )
 include_directories(
         ${SERVER_PATH}/${INC_PATH}
         ${MODULES_PATH}/${IMPLEMENTATIONS_PATH}/${INC_PATH}
@@ -64,6 +71,7 @@ include_directories(
         ${MODULES_PATH}/${COMMAND_PATH}/${INC_PATH}
         ${MODULES_PATH}/${ERRORS_PATH}/${INC_PATH}
         ${CMAKE_CURRENT_SOURCE_DIR}
+        ${MODULES_PATH}/${PLUGIN_PATH}/${INC_PATH}
 )
 
 set(CLIENT_FILES
@@ -75,6 +83,7 @@ set(CLIENT_FILES
         ${NETWORK_FILES}
         ${COMMAND_FILES}
         ${ERRORS_FILES}
+        ${PLUGIN_FILE}
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5_EXECUTABLE_COMPILE_FLAGS}")
@@ -96,4 +105,4 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 add_executable(babel_client ${CLIENT_FILES} ${CLIENT_PATH}/resources.qrc ${UIS_HDRS} ${CPP_HDRS})
 TARGET_LINK_LIBRARIES(babel_client ${Qt5Network_LIBRARIES} ${Qt5Widgets_LIBRARIES})
 set_target_properties(babel_client PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -D _CLIENT_")
-set_target_properties(babel_client PROPERTIES LINK_FLAGS "${CMAKE_LINK_FLAGS} -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread")
+set_target_properties(babel_client PROPERTIES LINK_FLAGS "${CMAKE_LINK_FLAGS} -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread -lrt -lasound -ljack -L./lib/ -lportaudio -L./lib/ -lopus")
