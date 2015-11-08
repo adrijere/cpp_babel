@@ -298,6 +298,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
         this->_callingTime->restart();
         this->_client->setCallingFriend(this->_client->getHangUpId(), this->_client->getHangUpAddr());
         this->_client->setHangUpId(-1);
+        this->_audioPlugin->stop();
         this->_audioPlugin->run(this->_client->getCallingFriend().second, this->_client->getNetworkMode());
         this->changeView();
     }
