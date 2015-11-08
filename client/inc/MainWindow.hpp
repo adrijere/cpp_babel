@@ -200,6 +200,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     void refresh(void) {
         std::string username = this->userLabel->text().toStdString();
 
+        // Contacts update
         MainMutex::mutex().lock();
         if (this->_client->getContactsUpdate()) {
             this->_client->setContactsUpdate(false);
@@ -210,6 +211,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             MainMutex::mutex().unlock();
         }
 
+        // Messages update
         MainMutex::mutex().lock();
         if (this->_client->getMessagesUpdate()) {
             this->_client->setMessagesUpdate(false);
@@ -220,6 +222,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             MainMutex::mutex().unlock();
         }
 
+        // Incomming call update
         MainMutex::mutex().lock();
         if (this->_client->getCallingUpdate()) {
             this->_client->setCallingUpdate(false);
@@ -239,6 +242,32 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             MainMutex::mutex().unlock();
         }
 
+        // Call cancelling update
+        MainMutex::mutex().lock();
+        if (this->_client->getCancellingUpdate()) {
+            this->_client->setCancellingUpdate(false);
+
+            unsigned short id = this->_client->getCancellingList().back();
+            if (this->_client->getCallingFriend().first == id)
+                this->_client->setCallingFriend(-1, "");
+
+            MainMutex::mutex().unlock();
+        } else {
+            MainMutex::mutex().unlock();
+        }
+
+        // Current call update
+        MainMutex::mutex().lock();
+        if (this->_client->getCurrentCallUpdate()) {
+            this->_client->setCurrentCallUpdate(false);
+            MainMutex::mutex().unlock();
+
+            this->changeView();
+        } else {
+            MainMutex::mutex().unlock();
+        }
+
+        // Current call display (useless, will be deleted)
         if (this->_client->getCallingFriend().first != -1) {
             std::cout << "Appel en cours vers Client " << this->_client->getCallingFriend().first << " (" << this->_client->getCallingFriend().second << ")." << std::endl;
         }
@@ -282,11 +311,12 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
     void hangOut(void) {
         std::string username = this->userLabel->text().toStdString();
 
-        // MainMutex::mutex().lock();
-        // unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
-        // MainMutex::mutex().unlock();
+        MainMutex::mutex().lock();
+        unsigned short id = this->getKeyOfMap(this->_client->getContactList(), username);
+        MainMutex::mutex().unlock();
 
-        // METTRE LA MÉTHODE POUR RACCROCHER ICI
+        if (this->_client->getCallingFriend().first == id)
+            this->_client->sendComCallCancel(id);
     }
 
     void sendMessage(void) {
