@@ -91,7 +91,7 @@ qt5_wrap_ui(UIS_HDRS
         ${CLIENT_PATH}/login.ui
         ${CLIENT_PATH}/mainwindow.ui
 )
-set(CMAKE_AUTORCC ON)#
+set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 add_executable(babel_client ${CLIENT_FILES} ${CLIENT_PATH}/resources.qrc ${UIS_HDRS} ${CPP_HDRS})
 TARGET_LINK_LIBRARIES(babel_client ${Qt5Network_LIBRARIES} ${Qt5Widgets_LIBRARIES})
