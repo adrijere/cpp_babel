@@ -35,7 +35,7 @@ bool UnixUDPClient::connect(const std::string & addr, const short port)
 {
   struct sockaddr_in info;
 
-  if ((this->_socket = socket(AF_INET, SOCK_STREAM, getprotobyname("UDP")->p_proto)) == -1)
+  if ((this->_socket = socket(AF_INET, SOCK_STREAM, getprotobyname("TCP")->p_proto)) == -1)
     return false;
   info.sin_family = AF_INET;
   info.sin_port = htons(port);
@@ -52,7 +52,6 @@ void UnixUDPClient::read(void *buffer, size_t size)
 		throw Error::Module::Network::ReadError();
 	if (ret < (ssize_t)size)
 		this->read((char *)buffer + ret, size - ret);
-    ((char *)buffer)[ret] = '\0';
 }
 
 void UnixUDPClient::write(const void *data, size_t size)

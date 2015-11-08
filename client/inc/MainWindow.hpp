@@ -295,18 +295,18 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
     void handleHangUp()
     {
-        this->_audioPlugin->run(this->_client->getCallingFriend().second, this->_client->getNetworkMode());
         this->_callingTime->restart();
         this->_client->setCallingFriend(this->_client->getHangUpId(), this->_client->getHangUpAddr());
         this->_client->setHangUpId(-1);
+        this->_audioPlugin->run(this->_client->getCallingFriend().second, this->_client->getNetworkMode());
         this->changeView();
     }
 
     void handleHangOut()
     {
-        this->_audioPlugin->stop();
         this->_client->setCallingFriend(-1, "");
         this->_client->setHangOutId(-1);
+        this->_audioPlugin->stop();
         this->changeView();
     }
 

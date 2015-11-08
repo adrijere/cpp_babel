@@ -6,6 +6,7 @@
 
 # define BLOCK_SIZE 50
 # define NB_TRY_CONNECT 10
+# define TRY_CONNECT_DELAY 2
 
 class APlugin {
 public:

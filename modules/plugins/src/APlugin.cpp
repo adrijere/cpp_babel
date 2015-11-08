@@ -1,6 +1,9 @@
 #include "APlugin.hh"
 #include "ImplementationFactory.hpp"
 
+#include <unistd.h>
+#include <iostream>
+
 INetwork * APlugin::initPeer(short port)
 {
 	INetwork * peer;
@@ -21,6 +24,7 @@ INetwork * APlugin::initPeer(short port)
 		{
 			if (client->connect(this->_address, port) == true)
 				break ;
+			sleep(TRY_CONNECT_DELAY);
 			try_connect++;
 		}
 		if (try_connect == NB_TRY_CONNECT)
@@ -33,12 +37,9 @@ INetwork * APlugin::initPeer(short port)
 	return peer;
 }
 
-#include <unistd.h>
-#include <iostream>
-
 bool APlugin::runThreadIn()
 {
-	INetwork * peer = this->initPeer(VOIP_PORT_IN);
+	INetwork * peer = this->initPeer(this->_networkMode == APlugin::SERVER ? VOIP_PORT_IN : VOIP_PORT_OUT);
 
 	if (peer == NULL)
 		return false;
@@ -54,7 +55,7 @@ bool APlugin::runThreadIn()
 
 bool APlugin::runThreadOut()
 {
-	INetwork * peer = this->initPeer(VOIP_PORT_OUT);
+	INetwork * peer = this->initPeer(this->_networkMode == APlugin::SERVER ? VOIP_PORT_OUT : VOIP_PORT_IN);
 
 	if (peer == NULL)
 		return false;
