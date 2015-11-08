@@ -29,4 +29,9 @@ IClient * ImplementationFactory::createUDPClient()
 	return new UnixUDPClient();
 }
 
+IServer * ImplementationFactory::createUDPServer()
+{
+	return new UnixUDPServer();
+}
+
 #endif
