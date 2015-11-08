@@ -2,7 +2,30 @@
 #include <cstdlib>
 #include "PlugAudio.hh"
 
-#include <unistd.h>
+/*
+bool PlugAudio::initThreadIn()
+{
+  this->_socketIn = this->_server->waitConnection();
+  return true;
+}
+
+bool PlugAudio::initThreadOut()
+{
+  IClient * clientOut = ImplementationFactory::createUDPClient();
+  clientOut->connect()
+  this->_socketOut = clientOut;
+  return true;
+}
+
+bool PlugAudio::destroyThreadIn()
+{
+  return true;
+}
+
+bool PlugAudio::destroyThreadOut()
+{
+  return true;
+}
 
 bool PlugAudio::runThreadIn()
 {
@@ -17,6 +40,7 @@ bool PlugAudio::runThreadOut()
   sleep(1);
   return true;
 }
+*/
 
 bool PlugAudio::playInput(void *data) {
   /*
@@ -40,7 +64,7 @@ void *PlugAudio::getOutput() {
   return NULL;
 }
 
-PlugAudio::PlugAudio() : APlugin(AUDIO_ID) {
+PlugAudio::PlugAudio() : APlugin(APlugin::AUDIO_ID) {
   /*
   // exception, think about it
 

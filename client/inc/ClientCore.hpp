@@ -19,6 +19,7 @@
 # include "Command.hpp"
 # include "CommandInterpreter.hpp"
 # include "Errors.hpp"
+# include "APlugin.hh"
 
 class ClientCore {
 private:
@@ -41,6 +42,8 @@ private:
     std::string _hangUpAddr;
     bool _currentCallUpdate;
     std::pair<short, std::string> _callingFriend;
+    APlugin::NetworkMode _networkMode;
+
 public:
     ClientCore(const std::string &, const std::string &);
     ~ClientCore() {}
@@ -64,6 +67,7 @@ public:
     short getHangOutId() { return this->_hangOutId; }
     bool getCurrentCallUpdate() { return this->_currentCallUpdate; }
     const std::pair<short, std::string> & getCallingFriend() { return this->_callingFriend; }
+    APlugin::NetworkMode getNetworkMode() { return this->_networkMode; }
     void setContactsUpdate(bool newValue) { this->_contactsUpdate = newValue; }
     void setCallingUpdate(bool newValue) { this->_callingUpdate = newValue; }
     void setCancellingUpdate(bool newValue) { this->_cancellingUpdate = newValue; }
@@ -73,6 +77,7 @@ public:
     void setHangUpAddr(const std::string & newValue) { this->_hangUpAddr = newValue; }
     void setHangOutId(short newValue) { this->_hangOutId = newValue; }
     void setCurrentCallUpdate(bool newValue) { this->_currentCallUpdate = newValue; }
+    void setNetworkMode(APlugin::NetworkMode newValue) { this->_networkMode = newValue; }
 
     void reader();
     void sendComListRequest();

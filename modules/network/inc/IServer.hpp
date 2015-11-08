@@ -16,7 +16,7 @@
 class IServer
 {
 public:
-	~IServer() {}
+	virtual ~IServer() {}
 	/*
 	** Asks the server to listen on the port sent as an argument.
 	*/

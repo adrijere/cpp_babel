@@ -2,34 +2,42 @@
 # define _APLUGIN_HH_
 
 #include <thread>
-
-enum eID {
-  AUDIO_ID,
-  VIDEO_ID
-};
+#include "INetwork.hpp"
 
 class APlugin {
+public:
+  enum eID {
+    AUDIO_ID,
+    VIDEO_ID
+  };
+
+  enum NetworkMode {
+    CLIENT,
+    SERVER
+  };
+
 private:
   std::thread *_threadIn;
   std::thread *_threadOut;
+  std::string _address;
+  APlugin::NetworkMode _networkMode;
   int _ID;
   bool _running;
 
 public:
-  bool run();
+  bool run(const std::string & address, APlugin::NetworkMode mode);
   bool stop();
-  APlugin(eID id) : _ID(id), _running(false) {};
+  APlugin(APlugin::eID id) : _ID(id), _running(false) {};
   virtual ~APlugin() {};
 
 protected:
-  virtual bool runThreadIn() = 0;
-  virtual bool runThreadOut() = 0;
   virtual bool playInput(void *) = 0;
   virtual void *getOutput() = 0;
 
 private:
-  bool runThreadIn_wrapper();
-  bool runThreadOut_wrapper();
+  bool runThreadIn();
+  bool runThreadOut();
+  INetwork * initPeer(short port);
 };
 
 #endif

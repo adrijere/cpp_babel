@@ -240,6 +240,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
             if (reply == QMessageBox::Yes) {
                 this->_client->sendComCallResponse(id, "Y");
                 this->stopCurrentCall();
+                this->_client->setNetworkMode(APlugin::SERVER);
                 this->_client->setHangUpId(id);
                 this->_client->setHangUpAddr(this->_client->getCallingList().back().second);
                 this->_client->setCurrentCallUpdate(true);
@@ -294,7 +295,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
     void handleHangUp()
     {
-        this->_audioPlugin->run();
+        this->_audioPlugin->run(this->_client->getCallingFriend().second, this->_client->getNetworkMode());
         this->_callingTime->restart();
         this->_client->setCallingFriend(this->_client->getHangUpId(), this->_client->getHangUpAddr());
         this->_client->setHangUpId(-1);
@@ -339,6 +340,7 @@ class MainWindow : public QMainWindow, public Ui_MainWindow {
 
         if (id != 0) {
             this->stopCurrentCall();
+            this->_client->setNetworkMode(APlugin::CLIENT);
             this->_client->sendComCallRequest(id);
         }
     }

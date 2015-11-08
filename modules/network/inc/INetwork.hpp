@@ -24,7 +24,7 @@
 class INetwork
 {
 public:
-	~INetwork() {}
+	virtual ~INetwork() {}
 	/*
 	** Reads on the socket and stores the message into the buffer passed as an argument.
 	*/

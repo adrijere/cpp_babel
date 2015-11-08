@@ -17,7 +17,7 @@
 class IClient : virtual public INetwork
 {
 public:
-	~IClient() {}
+	virtual ~IClient() {}
 	/*
 	** Connects the socket to the address and port sent as an argument.
 	*/

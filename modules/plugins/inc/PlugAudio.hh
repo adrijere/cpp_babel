@@ -14,8 +14,6 @@ private:
 	BabelAudio _audio;
 	*/
 protected:
-	bool runThreadIn();
-	bool runThreadOut();
 	bool playInput(void *);
 	void *getOutput();
 
