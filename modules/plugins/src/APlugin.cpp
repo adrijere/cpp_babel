@@ -45,16 +45,16 @@ bool APlugin::runThreadIn()
 	if (peer == NULL)
 		return false;
 	this->initInput();
-	try
+	while (this->_running)
 	{
-		while (this->_running)
+		try
 		{
 			BabelOpus::EncodePack data;
 			peer->read(&data, sizeof(data));
 			this->playInput(&data);
+		} catch (Error::Module::Network::ReadError & e) {
+			std::cout << "[ERROR] (" << e.where() << ") " << e.what() << "." << std::endl;
 		}
-	} catch (Error::Module::Network::ReadError & e) {
-		std::cout << "[ERROR] (" << e.where() << ") " << e.what() << "." << std::endl;
 	}
 	this->destroyInput();
 	delete peer;
@@ -68,17 +68,17 @@ bool APlugin::runThreadOut()
 	if (peer == NULL)
 		return false;
 	this->initOutput();
-	try
+	while (this->_running)
 	{
-		while (this->_running)
+		try
 		{
 			BabelOpus::EncodePack * data;
 			data = static_cast<BabelOpus::EncodePack *>(this->getOutput());
 			if (data != NULL)
 				peer->write(data, sizeof(*data));
+		} catch (Error::Module::Network::WriteError & e) {
+			std::cout << "[ERROR] (" << e.where() << ") " << e.what() << "." << std::endl;
 		}
-	} catch (Error::Module::Network::WriteError & e) {
-				std::cout << "[ERROR] (" << e.where() << ") " << e.what() << "." << std::endl;
 	}
 	this->destroyOutput();
 	delete peer;
